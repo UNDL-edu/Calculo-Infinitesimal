@@ -1,0 +1,102 @@
+%\setcounter{page}{900}
+
+\chapter{Applications of Definite Integrals I: General Arguments
+\label{AppsDefIntegrals}}
+
+Here we look at many further quantities which give rise to 
+antidifferentiation.  
+
+
+
+
+Most modern calculus textbooks contain numerous excellent examples
+of applications of definite integrals.  Indeed, most examples
+which are likely to be seen in further studies of the physical
+sciences can trace back to calculus textbook-type problems.
+
+Here we will make an attempt to accomplish the presentations
+of the usual topics, and others.  We will also 
+do the following:
+
+\begin{enumerate}
+\item Re-introduce the notion of infinitesimals into the
+physical analysis of these problems.  This was a traditional
+approach which has fallen out of favor.  While we will refer
+back to the Riemann sums for each case, that will be more
+for a ``spot-check'' of the reasoning behind the infinitesimals,
+and perhaps some proofs.  However, the first introduction to 
+most topics will be through infinitesimals.  Besides, they
+make for prettier pictures!
+
+Students are unlikely to be inspired by the Riemann sum proofs,
+which are often used to show that the quantity represented
+by the integral has the integrand as derivative.  The proofs
+are technical, and leave a student to believe he would never
+come up with it himself.  The differentials ``cut to the chase,''
+and can be proved later after guessed, rather than derived from 
+Riemann sums.
+
+\item Finite Riemann sums used for numerical approximations of
+the quantities involved.  This contains all the intuition
+(short of the proofs) contained in the most textbook developments
+of these integrals.
+
+\item Explanations of why some guesses for the infinitesimals
+will not work.
+
+\item Explanation of how to tell---by sight---if a particular
+differential is correct, and whether the Riemann sum form
+will actually converge to the desired quantity as the partition
+is refined.
+\end{enumerate}
+
+
+
+
+
+%Recall that we already gave one argument for two situations where
+%a given quantity can be represented by a definite integral:
+%\begin{align}
+%   s\left(t_f\right)-s\left(t_0\right)
+%        &=\int_{t_0}^{t_f}a(t)\,dt,\label{S(T_F)-S(T_O)ForDefIntI}\\
+%   v\left(t_0\right)-v\left(t_0\right)
+%        &=\int_{t_0}^{t_f}a(t)\,dt.\label{V(T_F)-V(T_O)ForDefIntI}
+%\end{align}
+%This was just the working definition
+%of the definite integral, 
+%\begin{equation}\int_a^bf(x)\,dx=F(b)-F(a),\label{FundTheoremAsWorkingDef}
+%\end{equation} 
+%assuming $f(x)$ is continuous on $[a,b]$ and $F'(x)=f(x)$ on $[a,b]$.
+%As a matter of fact, (\ref{FundTheoremAsWorkingDef}) is not the actual
+%definition of the definite integral $\int_a^bf(x)\,dx$.  Indeed,
+%the definition is more complicated.  However, it is quite useful.
+
+
+\section{Riemann Sums and Approximations of Cumulative Quantities}
+
+Suppose we had some data on the velocity of an object, and
+we wish to approximate its net displacement over a time interval.
+Suppose the data we have is the following:
+
+%\begin{tabular}{m{.4in}|m{.3in}|m{.3in}|m{.3in}|m{.3in}|m{.3in}|%
+%m{.3in}|m{.3in}|m{.3in}|m{.3in}|m{.3in}|}
+%\cg $t=$&\cg0&\cg1&\cg2&\cg2.5&\cg3&\cg4&\cg6&\cg7&\cg8.5&\cg10%\\
+%\cg $v=$&\cg10.9&\cg9.6&\cg8.9&\cg8.775&\cg8.8&\cg9.3&\cg12.1&\cg14.4
+%               &\cg18.975&\cg24.9
+%\end{tabular}
+
+
+\section{Other Complications}
+Consider cases where the function is only piecewise continuous,
+and try to recover a continuous antiderivative.
+Consider, perhaps, some cases from electricity and magenetism
+regarding fields or potentials across interfaces.
+
+Consider two ``antiderivatives'' of 
+$$f(x)=\left\{\begin{aligned}1,\qquad&x>0,\\
+                           -1,\qquad x<0.\end{aligned}\right.
+$$
+One is continuous, the other not.
+
+Can always recover a continuous antiderivative from a piecewise continuous
+function, so long as we don't have vertical asymptotes, for instance.

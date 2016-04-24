@@ -1,0 +1,2816 @@
+%\setcounter{page}{1200}
+\chapter{Taylor Series\label{TaylorSeriesChapter}}
+
+In this chapter we apply  our knowledge of series of constant terms 
+\begin{equation}\sum_{n=1}^\infty a_n
+=a_1+a_2+a_3+\cdots\end{equation}
+by generalizing to series   with terms which are  functions
+of a variable $x$.  In particular, much can be done with series
+of the following form:
+\begin{definition}
+A {\bf power series centered at} $x=a$ is a series of the form
+\begin{equation}\sum_{n=0}^\infty a_n(x-a)^n
+=a_0+a_1(x-a)+a_2(x-a)^2+a_3(x-a)^3+\cdots,\label{powerseries}\end{equation}
+where $a$, $a_0$, $a_1$, etc., are constants.
+\end{definition}
+Given such an expression,
+two  questions which  arise.
+\begin{enumerate}[(i)]
+\item for which values of $x$ (besides the obvious, $x=a$)
+does the series (\ref{powerseries}) converge, and to what?
+\item Why would we study such things?
+\end{enumerate}
+The first question (i) is really just a natural extension of 
+the convegence questions for constant series.  For convergence, the
+ratio test and (less frequently) the root test play prominent roles,
+since the series---at first glance---look vaguely geometric.\footnote{%
+%%% FOOTNOTE
+This is meant in the sense that, 
+if $a_0$, $a_1$, etc., were all the
+same number, the series would be geometric, with ratio $r=(x-a)$.%
+%%% END FOOTNOTE
+} 
+To what these converge to will sometimes be obvious from how
+they arise.
+
+To answer (ii), for now we just mention some questions for which power series 
+eventually provide  answers:
+\begin{enumerate}
+\item How does a calculator ``compute'' $\sin x$, $\cos x$, $\tan^{-1}x$,
+and other transcendental functions?
+\item Why can physicists claim, for instance, $\sin \theta\approx\theta$?  
+While this makes many computations easier, to what extent does it sacrifice
+precision?
+\item How does one come up with equations for the behaviors of 
+extremely complicated systems where  one cannot {\it a priori} derive the
+exact relationships among variables?   
+\end{enumerate}
+
+We will answer the first question thoroughly in what follows, 
+spending most of our time developing the theory and computation
+of Taylor Polynomials and Taylor Series. 
+The second question will be answered in the process of tackling
+the first.  One such example where physicists use
+$\sin \theta\approx \theta$ (for small $|\theta|$) is
+explored.  The third question will be addressed
+anectdotaly when opportunity arises.
+
+We begin the chapter with a derivation of the Taylor Polynomials,\footnote{%
+%%% FOOTNOTE
+Named for Brook Taylor (1685--1731), though it is not clear that he
+was the initial discoverer.  In fact Johann Bernoulli (1667--1748) 
+and others are often given equal or greater credit for the discovery of
+the polynomials or related series, but apparently after a paper by
+in 1786 by Simon Antoine Jean Lhuilier (1750--1840)
+referred to ``Taylor series,'' the terms became standard.
+Lhuilier was also responsible for the ``lim'' notation in limits,
+as well as left- and right-hand limits, and many other important 
+aspects of our modern notation.  
+%%% END FOOTNOTE
+}
+with examples.  We then look at the accuracy of Taylor Polynomials,
+and give a sufficient condition that the accuracy
+becomes perfect as the degree of the polynomials is allowed
+to approach infinity.  When that occurs, Taylor Polynomials
+give rise to Taylor Series, which are of the
+form (\ref{powerseries}).  We derive many such series, and
+examine where they converge.  We also apply the series
+to real-world applications, as well as derivative and
+integration problems.
+
+
+
+
+\newpage
+\section{Taylor Polynomials:
+ Motivation, Derivation and Definition}
+This section introduces Taylor Polynomials.
+The idea is to find  simple polynomial  approximations
+for a more complicated function given certain data regarding its behavior.
+In particular, if we know $f(a)$, $f'(a)$, $f''(a)$, and
+so on, then we should know something about how the
+function $f(x)$ behaves near $x=a$, and produce a polynomial 
+which mimics that behavior.
+
+Subsections~\ref{LemmaSubsectionForTaylorPolynomials}%
+---\ref{SubsectionForDerivP_N}
+contain the arguments and derivations of the forms of these
+polynomials.  These subsections can be skipped, or skimmed,
+in a first reading.\footnote{%%%
+%%% FOOTNOTE
+Indeed, most textbooks give a different derivation, or just
+verify  the properties of these polynomials, 
+in the same spirit as our 
+Subsection~\ref{DefAndExamplesOfTaylorPolynomials},
+beginning on page~\pageref{DefAndExamplesOfTaylorPolynomials}.}
+%%% END FOOTNOTE
+However the derivation provides some further insight into 
+the properties of the Taylor Polynomials, particularly regarding
+their underlying assumptions and accuracy.
+
+Before we make the derivations, we will need a simple lemma which
+we use repeatedly.  We derive that lemma next.
+\subsection{A Lemma\label{LemmaSubsectionForTaylorPolynomials}}
+We will make repeated use of the following lemma:
+
+\begin{lemma} Given any function $g$, with derivative $g'$ 
+existing and continuous on the closed interval with endpoints $x$ and
+$a$ (i.e., $[a,x]$ or $[x,a]$, depending upon whether 
+$x\le a$ or $a\le x$), the following equation holds:
+\begin{equation}g(x)=g(a)+\int_a^xg'(t)\,dt.\label{alttaylemmaeq}
+\end{equation} \label{alttaylemma}
+\end{lemma}
+
+\begin{proof}Since $g$ is clearly an antiderivative of $g'$,
+the Fundamental Theorem of Calculus gives
+\begin{align*}
+g(a)+\int_a^xg'(t)\,dt&=\left.\vphantom{\int}g(a)+g(t)\right|_a^x\\
+&=g(a)+g(x)-g(a)\\
+&=g(x),\end{align*}
+which is the equation (\ref{alttaylemmaeq}) in reverse, q.e.d. 
+\end{proof}
+
+
+It is interesting to note that when $x=a$, (\ref{alttaylemmaeq})
+becomes $g(a)=g(a)+\int_a^ag'(t)\,dt=g(a)+0=g(a)$. Of course
+the integral over any interval of length zero is necessarily zero.
+
+\subsection{Derivation of $P_0(x)$}
+\begin{figure}
+\begin{center}
+\begin{pspicture}(-1,-2)(6.5,6)
+\psaxes%
+[labels=none,Dx=10,Dy=10]
+{<->}(0,-1)(-1,-2)(6.5,6)
+\psplot[plotpoints=2000,linewidth=1pt]{-.3}{6.4}%
+{x 1 sub 2 mul 180 mul 3.1415926536 div sin x 3 sub dup mul .5 mul add 1 add}%%
+%
+%\psplot[linecolor=red]{3}{5}{1.220584502 x 4 sub 2.920340573 mul add}
+%\psplot[linecolor=blue]{3}{5}{1.220584502 x 4 sub 2.920340573 mul add %
+%       x 4 sub dup mul 2.117661993 mul add}
+\pscircle*(3.5,0.166075725){.06}
+\psline(3.5,-1.2)(3.5,-.8)
+\rput(3.5,-1.5){$a$}
+\psline(-1,0.166075725)(6.5,0.166075725)
+
+\rput(6,.5){$P_0(x)$}
+\rput[l](6,6){$f(x)$}
+
+\end{pspicture}
+
+
+\end{center}
+\caption{A function $f(x)$, and its zeroth-order (constant)
+approximation centered at $x=a$, namely $f(x)\approx P_0(x)=f(a)$.
+For $x$ very close to $a$, this is not an unreasonable approximation,
+but its accuracy quickly degenerates as $|x-a|$ gets larger.}
+\label{F(x)andP_0(x)}
+\end{figure} 
+
+
+For a function $f(x)$, if we would like to approximate the value
+of the function for $x$ near $a$, the simplest assumption
+is that the function is approximately constant near $x=a$.
+The obvious choice for that constant is $f(a)$ itself.
+Hence we might assume $f(x)\approx f(a)$.  (Note that $f(a)$
+is itself a constant.)  The approximation of $f(x)$ which
+assumes the function approximately constant is called $P_0(x)$:
+\begin{equation}
+P_0(x)=f(a).\label{DefinitionOfP0}
+\end{equation}
+This is also called the {\it zeroth-order approximation} of $f(x)$
+centered at $x=a$, and we can write $f(x)\approx P_0(x)$ for $x$
+near $a$, i.e., $|x-a|$ small.  A function $f$ and its
+zeroth-order approximation for a particular $a$ are graphed together
+if Figure~\ref{F(x)andP_0(x)}.
+Summarizing, for $x$ near $a$, 
+\begin{equation}
+f(x)\approx \underbrace{f(a)}_{P_0(x)}.\label{0thOrderApprox}\end{equation}
+A natural question then arises:  how good is the approximation
+(\ref{0thOrderApprox})? 
+Later we will have a sophisticated estimate on the error in assuming 
+$f(x)\approx P_0(x)=f(a)$.  For now we take the opportunity to forshadow
+that result by attacking the question intuitively.  
+The answer will depend upon the answers to
+two related questions, which can be paraphrased
+as the  following.
+\begin{enumerate}[(i)]
+\item How good is the assumption that $f$ is {\it constant} on the interval
+      from $a$ to $x$?
+
+      In other words, how fast is $f$ changing on that interval?
+      
+\item How far is $x$ from $a$?
+\end{enumerate}
+These factors both contribute to the error.  For instance if the interval
+from $a$ to $x$ is short, 
+then a relatively slow change in $f$ means small error
+$f(x)-P_0(x)=f(x)-f(a)$ over such an interval. Slow change can, however,
+accumulate to create a large error if the interval from $a$ to $x$ is long.
+On the other hand, a small interval can still 
+allow for large error if $f$ changes
+quickly on the interval.  The key to estimating how fast the function
+changes is, as always, the size of $f'$, assuming it exists.  
+Translating (i) and (ii)
+above into mathematical quantities, we say the bounds of the error
+will depend upon
+\begin{enumerate}[(a)]
+\item the size of $|f'(t)|$ as $t$ ranges from $a$ to $x$ (assuming
+      $f'(t)$ exists for all such $t$), and
+\item the distance $|x-a|$.
+\end{enumerate}
+
+We will see similar factors accounting for error 
+as we look at higher-order approximations
+$P_1(x)$, $P_2(x)$ and
+so on in this section, and the actual form of the
+general estimate for the error
+(also known as the {\it remainder}) in subsequent sections.
+
+
+
+
+\subsection{Derivation of $P_1(x)$}
+It was remarked in the last subsection that $P_0$ is not likely a good
+approximation for $x$ very far from $a$ if $f'$ is large.
+In computing $P_1(x)$, we will not assume $f$ is approximately
+constant (as we did 
+with $P_0$), but instead assume that $f'$ is approximately constant.
+To be clear, here are the assumptions from which $P_1$ is computed:
+\begin{itemize}
+\item We know $f(a)$ and $f'(a)$;
+\item $f'(t)$ is approximately constant for $t$ from $a$ to $x$.
+\end{itemize}
+For this derivation we will use the lemma from the beginning
+of this section (that is Lemma~\ref{alttaylemma}, page~\pageref{alttaylemma}).
+Note that the following derivation uses $f'(a)$ is a constant.
+\begin{align*}
+f(x)&=f(a)+\int_a^xf'(t)\,dt\\
+    &\approx f(a)+\int_a^xf'(a)\,dt\\
+    &=f(a)+\left.\vphantom{\int}f'(a)t\right|_a^x\\
+    &=f(a)+f'(a)x-f'(a)a
+    =\underbrace{f(a)+f'(a)(x-a)}_{P_1(x)}.\end{align*}
+Thus we define $P_1(x)$, the {\it first-order} approximation
+of $f(x)$ centered at $x=a$ by
+\begin{equation}P_1(x)=f(a)+f'(a)(x-a).\label{DefOfP_1(x)}
+\end{equation}
+This was also called the {\it linear approximation} of $f(x)$ at
+$a$ in Chapter~\ref{DerivativesToAnalyzeFunctions}
+((\ref{LinearApproxWithX/A}), page~\pageref{LinearApproxWithX/A}).
+
+Figure~\ref{F(x),P_0(x)andP_1(x)} shows the same function as before
+(that is, in the illustration for $P_0$ in Figure~\ref{F(x)andP_0(x)}),
+but this time with both $P_0(x)$ and $P_1(x)$ for the same $a$.
+Because assuming constant derivative is often less problematic
+than considering constant height, $P_1(x)$ is usually a better
+approximation for $f(x)$ near $x=a$, and indeed one can usually
+stray farther from $x=a$ and have a reasonable approximation
+for $f(x)$ if $P_1(x)$ is used instead of $P_0(x)$.\footnote{%%
+%%% FOOTNOTE
+Note that in an example of motion, this is like choosing
+between an assumption of constant position, and of constant velocity.
+Intuitively the constant velocity assumption should yield a better
+approximation of position, for a while,
+than would a constant position assumption.
+Further consideration of this point is left to the reader.%
+%%% END FOOTNOTE
+}
+
+Again we ask how good is this newer approximation $P_1(x)$, and
+again the intuitive response is that it depends upon answers two questions:
+\begin{enumerate}[(i)]
+\item How close is $f'(t)$ to constant in the interval between $a$ and $x$?
+\item How far are we from $x=a$?
+\end{enumerate}
+The first question can be translated into, ``how fast is $f'$ changing
+on the interval between $a$ and $x$?''  This can be measured by 
+the size of $f''$ in that interval, if it exists there.  Again
+translating (i) and (ii) into quantifiables, we get that
+the accuracy of $P_1(x)$ depends upon
+\begin{enumerate}[(a)]
+\item the size of $|f''(t)|$ as $t$ ranges from $a$ to $x$
+      (assuming $f''(t)$ exists for all such $t$), and
+\item the distance $|x-a|$.
+\end{enumerate}
+If $f''$ is relatively small, then $f'$ is relatively
+constant, and then the
+ computation we made giving $f(x)\approx f(a)+f'(a)(x-a)$,
+i.e., $f(x)\approx P_1(x)$, will be fairly accurate as long as
+$|x-a|$ is not too large.
+
+
+
+\begin{figure}
+\begin{center}
+\begin{pspicture}(-1,-2)(6.5,6)
+\psaxes%
+[labels=none,Dx=10,Dy=10]
+{<->}(0,-1)(-1,-2)(6.5,6)
+\psplot[plotpoints=2000,linewidth=1pt]{-.3}{6.4}%
+{x 1 sub 2 mul 180 mul 3.1415926536 div sin x 3 sub dup mul .5 mul add 1 add}%%
+%
+\psplot[linewidth=.75pt]{1.5}{5.5}{0.166075725 x 3.5 sub 1.067324371 mul add}
+\pscircle*(3.5,0.166075725){.05}
+\psline[linewidth=.5pt](3.5,-1.2)(3.5,-.8)
+\rput(3.5,-1.5){$a$}
+\psline(-1,0.166075725)(6.5,0.166075725)
+
+
+\rput(6,.5){$P_0(x)$}
+\rput(6,2.5){$P_1(x)$}
+
+
+
+\end{pspicture}
+
+
+\end{center}
+\caption{A function $f(x)$, with approximations $P_0(x)$ and
+$P_1(x)$ centered at $x=a$.  Note how $P_1(x)$ matches both
+the height and slope of $f(x)$ at $x=a$, and thus tends to
+be a more accurate approximation of $f(x)$ near $x=a$ than
+is $P_0(x)$. Indeed, we can stray a little further from 
+$x=a$ (particularly to the right for this function)
+and still have a reasonable approximation, then we could using
+the approximation $P_0$.
+\newline
+$\text{\qquad}$Now 
+for this particular function, coincidentally $P_0(x)$ turns out
+to be briefly a better approximation as $f$ turns back upwards to the left of
+$x=a$.  But closer to $x=a$, we see $P_1(x)$ is definitely the
+better approximation  since it better ``follows the curve.''}
+\label{F(x),P_0(x)andP_1(x)}
+\end{figure} 
+\subsection{Derivation of $P_2(x)$}
+To better accommodate the change in $f'$, we next replace the assumption
+that $f'$ is constant with the assumption that, rather than constant, it
+is changing at a constant rate.  In other words, we assume that $f''$ is 
+constant.  So our assumptions in deriving $P_2(x)$ are:
+\begin{itemize}
+\item $f(a)$, $f'(a)$ and $f''(a)$ are known;
+\item $f''(t)$ is approximately constant from $t=a$ to $t=x$.
+\end{itemize}
+Again we use the lemma at the beginning of the section, except
+this time we use it twice: first, in approximating $f'$; and then 
+integrating that approximation to approximate $f$.
+\begin{align*}
+f'(x)&=f'(a)+(f'(x)-f'(a))\\
+     &=f'(a)+\int_a^x f''(t)\,dt\\
+     &\approx f'(a)+\int_a^xf''(a)\,dt\\
+     &=f'(a)+f''(a)(x-a).
+\end{align*}
+Note that the computation above was the same as from the previous
+section, except that the part of $f'$ there is played by $f''$ here,
+and the part of $f$ there is played by $f'$ here.  We integrate
+again to approximate $f$.  The second line below uses the approximation
+for $f'$ derived above.
+\begin{alignat*}{2}
+f(x)&=f(a)+\int_a^xf'(t)\,dt&&\text{(Lemma~\ref{alttaylemma})}\\
+    &\approx f(a)+\int_a^x\left[f'(a)+f''(a)(t-a)\right]\,dt
+               &&\text{(Approximation for }f'\text{ above)}\\
+    &=f(a)+f'(a)(x-a)+\left.\left[\frac{f''(a)}2(t-a)^2\right]\right|_a^x\\
+    &=f(a)+f'(a)(x-a)+\frac12f''(a)(x-a)^2-\frac12f''(a)(a-a)^2\\
+    &=\underbrace{f(a)+f'(a)(x-a)+\frac12f''(a)(x-a)^2}_{P_2(x)}.
+\end{alignat*}
+Thus we define the {\it second-order} (or {\it quadratic}) 
+approximation of $f(x)$ centered at $x=a$ by
+\begin{equation}
+P_2(x)=f(a)+f'(a)(x-a)+\frac12f''(a)(x-a)^2.\label{DefOfP_2(x)}
+\end{equation}
+
+Again, the accuracy depends upon (i) how close $f''(t)$ is to 
+constant from $t=a$ to $t=x$, and (ii) how far we are from $x=a$.
+These can be quantified by the sizes of (a)~$|f'''(t)|$ on the
+interval from $t=a$ to $t=x$, and (b) how large is $|x-a|$.
+
+It is reasonable to take into account how fast $f'$ changes
+on the interval from $a$ to $x$.  For $P_2$ we assume,
+not that $f'$ is approximately constant as we did with $P_1(x)$,
+but that the rate of change of $f'$ is constant on the interval,
+i.e., that $f''$ is constant (and equal to $f''(a)$) on the
+interval.  In fact this tends to make $P_2(x)$ ``hug'' the
+graph of $f(x)$ better, since it accounts for the concavity. 
+Figure~\ref{F(x),P_0(x),P_1(x)andP_2(x)} shows how $P_0(x)$, 
+$P_1(x)$ and $P_2(x)$ approximate $f(x)$ near $x=a$.
+The extent to which we err in that assumption is the extent
+to which $f''$ (related to concavity) is non-constant, but at least
+near $x=a$, $P_2(x)$ accommodates concavity, as well as slope
+and height of the function $f(x)$.
+\begin{figure}
+\begin{center}
+\begin{pspicture}(-1,-2)(6.5,6)
+\psaxes%
+[labels=none,Dx=10,Dy=10]
+{<->}(0,-1)(-1,-2)(6.5,6)
+\psplot[plotpoints=2000,linewidth=1pt]{-.3}{6.4}%
+{x 1 sub 2 mul 180 mul 3.1415926536 div sin x 3 sub dup mul .5 mul add 1 add}%%
+%
+\psplot[linewidth=.7pt]{1.5}{5.5}{0.166075725 x 3.5 sub 1.067324371 mul add}
+
+\psplot[plotpoints=2000,%
+linewidth=.8pt]{1.8}{4.75}{0.166075725 x 3.5 sub 1.067324371 mul add %
+x 3.5 sub dup mul .5 mul 4.835697099 mul add}
+
+\pscircle*(3.5,0.166075725){.05}
+\psline[linewidth=.5pt](3.5,-1.2)(3.5,-.8)
+\rput(3.5,-1.5){$a$}
+\psline(-1,0.166075725)(6.5,0.166075725)
+
+\rput(6,.4){$P_0(x)$}
+\rput(6,2.5){$P_1(x)$}
+\rput(4.7,5.5){$P_2(x)$}
+
+\end{pspicture}
+\end{center}
+\caption{A function $f(x)$, with approximations $P_0(x)$,
+$P_1(x)$ and
+$P_2(x)$ centered at $x=a$.}
+\label{F(x),P_0(x),P_1(x)andP_2(x)}
+\end{figure} 
+
+\subsection{Derivation of $P_3(x)$}
+For the next order of approximation, we assume not that $f''$ is constant,
+but that its change is constant, i.e., that $f'''$ is constant
+on the interval from $a$ to $x$.  Our assumptions are then
+\begin{itemize}
+\item $f(a)$, $f'(a)$, $f''(a)$ and $f'''(a)$ are known;
+\item $f'''(t)$ is approximately constant from $t=a$ to $t=x$.
+\end{itemize}
+We start with the approximation $f'''(t)=f(a)$, and use the
+lemma three times to get an approximation of $f$.  First we
+use $f'''(t)\approx f'''(a)$ to approximate $f''(x)$:
+\begin{align*}
+         f'''(t)&\approx f'''(a)\\
+\implies f''(x)&=f''(a)+(f''(x)-f''(a))\\
+              &= f''(a)+\int_a^xf'''(t)\,dt\\
+              &\approx f''(a)+\int_a^xf'''(a)\,dt\\
+              &=f''(a)+f'''(a)(x-a).\end{align*}
+From this we approximate $f'(x)$:
+\begin{align*}
+f'(x)&=f'(a)+(f'(x)-f'(a))\\
+     &= f'(a)+\int_a^xf''(t)\,dt\\
+     &\approx f'(a)+\int_a^x\left(f''(a)+f'''(a)(t-a)\right)\,dt\\
+     &=f'(a)+f''(a)(x-a)+\left.\left[\frac12f''(a)(t-a)^2\right]
+                   \right|_a^x\\
+     &=f'(a)+f''(a)(x-a)+\frac12f''(a)(x-a)^2.
+\end{align*}
+Finally we use this to approximate $f(x)$:
+\begin{align*}
+f(x)&=f(a)+(f(x)-f(a))\\
+    &=f(a)+\int_a^xf'(t)\,dt\\
+    &\approx f(a)+\int_a^x\left[f'(a)+f''(a)(t-a)+\frac12f''(a)(t-a)^2
+                \right]\,dt\\
+    &=f(a)+\left.\left[f'(a)(t-a)+\frac12f''(a)(t-a)^2+\frac1{2\cdot3}
+                        (t-a)^3\right]\right|_a^x\\
+    &=f(a)+f'(a)(x-a)+\frac12f''(a)(x-a)^2+\frac1{2\cdot3}(x-a)^3.
+\end{align*}
+\begin{figure}
+\begin{center}
+\begin{pspicture}(-1,-2)(6.5,6)
+\psaxes%
+[labels=none,Dx=10,Dy=10]
+{<->}(0,-1)(-1,-2)(6.5,6)
+\psplot[plotpoints=2000,linewidth=1pt]{-.3}{6.4}%
+{x 1 sub 2 mul 180 mul 3.1415926536 div sin x 3 sub dup mul .5 mul add 1 add}%%
+%
+\psplot[linewidth=.5pt]{1.5}{6.3}{0.166075725 x 3.5 sub 1.067324371 mul add}
+
+\psplot[plotpoints=2000,%
+linewidth=.6pt]{1.8}{4.75}{0.166075725 x 3.5 sub 1.067324371 mul add %
+x 3.5 sub dup mul .5 mul 4.835697099 mul add}
+
+\psplot[plotpoints=2000,%
+linewidth=.8pt]{1.9}{5}{0.166075725 x 3.5 sub 1.067324371 mul add %
+x 3.5 sub dup mul .5 mul 4.835697099 mul add
+x 3.5 sub dup dup mul mul 6 div -2.269297484 mul add}
+
+\pscircle*(3.5,0.166075725){.05}
+\psline[linewidth=.5pt](3.5,-1.2)(3.5,-.8)
+\rput(3.5,-1.5){$a$}
+\psline(-1,0.166075725)(6.5,0.166075725)
+
+\rput(-.8,.5){$P_0(x)$}
+\rput(6.5,3.4){$P_1(x)$}
+\rput(4.1,5){$P_2(x)$}
+\rput(1.3,5){$P_2(x)$}
+\rput(2.4,6){$P_3(x)$}
+\rput(5.5,5.7){$P_3(x)$}
+
+
+\end{pspicture}
+\end{center}
+\caption{A function $f(x)$, with approximations $P_0(x)$,
+$P_1(x)$, $P_2(x)$ and
+$P_3(x)$ centered at $x=a$. $P_3(x)$ accommodates the way
+$f''$ is changing very close to $x=a$, and this is reflected
+in the way $P_3(x)$ better approximates $f(x)$ for longer
+as we move right from $x=a$.  However, as we move further
+left of $x=a$, coincidentally
+$P_2(x)$ for this particular $f(x)$ and particular $a$
+it happens that $P_2(x)$ shortly becomes a slightly better 
+approximation.  This occurs occasionally, as
+we saw (and see here) that $P_0(x)$ is briefly a better
+approximation somewhat left of $x=a$.  In fact $f^{(4)}$
+is rather large near $x=a$, especially left of $x=a$, which
+explains  why $P_2$ becomes a better approximation just left of $x=a$.
+Still, both are respectable approximations a distance from 
+$x=a$, and quite excellent
+improvements over $P_0$ and $P_1$.
+}
+\label{F(x),P_0(x),P_1(x),P_2(x)andP_3(x)}
+\end{figure} 
+
+Now we are ready to notice a pattern, and state the general form
+of $P_N(x)$, the $N$th-order approximation of a function $f(x)$,
+centered at some $x=a$, assuming we know 
+$f(a)$, $f'(a)$, $\cdots$, $f^{(N)}(a)$.
+
+
+
+\newpage\subsection{Derivation of $P_N(x)$\label{SubsectionForDerivP_N}}
+We will find the general $P_N(x)$ by an induction proof.
+First we look at the forms of $P_N(x)$ for $N=0,1,2,3$ and
+try to deduce a pattern:
+\begin{align*}
+P_0(x)&=f(a),\\
+P_1(x)&=f(a)+f'(a)(x-a),\\
+P_2(x)&=f(a)+f'(a)(x-a)+\frac12f''(a)(x-a)^2,\\
+P_3(x)&=f(a)+f'(a)(x-a)+\frac12f''(a)(x-a)^2+\frac1{2\cdot3}f'''(a)(x-a)^3.
+\end{align*}
+Recalling that $0!=1$, $1!=1$, $2!=2$ and $3!=6=2\cdot3$, we
+will conjecture that 
+\begin{itemize}
+\item assuming we know $f(a)$, $f'(a)$, $f''(a)$, $\cdots$, $f^{(N)}(a)$, and
+\item assuming $f^{(N)}(x)$ is approximately constant,
+\end{itemize}
+then $P_N(x)$, constructed as before, is in general of the form
+\begin{align}
+P_N(x)&=\frac{f(a)}{0!}+\frac{f'(a)}{1!}(x-a)^1+\frac{f''(a)}{2!}(x-a)^2
+       +\cdots+\frac{f^{(N)}(a)}{N!}(x-a)^N\notag\\
+      &=\sum_{k=0}^N\frac{f^{(k)}(a)}{k!}(x-a)^k.\label{DefOfP_N(x)}\end{align}
+Here we use the convention that $(x-a)^0=1$ and $f^{(0)}(x)=f(x)$
+(that is, we have taken zero derivatives).
+For the induction proof we proceed as follows:
+\begin{enumerate}
+\item (\ref{DefOfP_N(x)}) is true for $N=0,1,2,3$.  This was proved
+in the previous subsections.  (Actually for this step 
+knowing the case $N=0$ is true is sufficient.)
+\item Prove  (\ref{DefOfP_N(x)}) holds for $N=n$ 
+      $\implies$ (\ref{DefOfP_N(x)}) holds for $N=n+1$. 
+This will prove the theorem, since $P_3$ ``bootstraps'' $P_4$,
+which ``bootstraps'' $P_5$, and so on.
+So for our proof, we assume (\ref{DefOfP_N(x)}) holds for $N=n$,
+and show that it follows that (\ref{DefOfP_N(x)}) holds for $N=n+1$.
+
+A key observation is that if we make the assumption that
+we know $f(a)$, $f'(a)$, $\cdots$, $f^{(n+1)}(a)$ and
+assume $f^{(n+1)}(t)$ is approximately constant for $t$ between $a$ and
+$x$, then when we integrate
+$n$ times from $t=a$ to $t=x$, we get
+\begin{equation}
+f'(x)\approx f'(a)+f''(a)(x-a)+\frac{1}{2!}f'''(a)(x-a)^2
+         +\cdots+\frac1{n!}f^{(n+1)}(a)(x-a)^{n},
+\end{equation}
+To see this note the following.
+\begin{enumerate}
+\item Assuming $f(a)$, $f'(a)$, $\cdots$, $f^{(n+1)}(a)$
+are known and $f^{(n+1)}(x)$ is approximately constant contains the
+assumptions $f'(a)$, $(f')'(a)$, $(f')''(a)$, $\cdots$,
+$(f')^{(n)}(a)$ are known and $(f')^{(n)}(x)$ is approximately
+constant.  In other words, the assumptions needed to 
+construct the $n$th-order approximation for $f'(x)$ are present.
+\item Construction the $n$th-order approximation for $f'(x)$
+would be accomplished by $n$ applications of Lemma~\ref{alttaylemma},
+yielding (since we assume the conjecture true for $N=n$)
+$$f'(x)\approx\sum_{k=0}^n\frac{(f')^{(k)}(a)}{k!}(x-a)^k.$$
+\item Integrating again would give us
+\begin{align*}
+f(x)&=f(a)+\int_a^xf'(t)\,dt\\
+    &\approx f(a)+\int_a^x\sum_{k=0}^n\frac{f^{(k+1)}}{k!}(t-a)^k\,dt\\
+    &=f(a)+\left.\left[\sum_{k=0}^n\frac{f^{(k+1)}}{k!\cdot(k+1)}(t-a)^{k+1}
+                    \right]\right|_a^x\\
+    &=f(a)+\sum_{k=0}^n\frac{f^{(k+1)}}{(k+1)!}(x-a)^{k+1}\\
+    &=f(a)+\frac{f'(a)}{1!}(x-a)^1+\frac{f''(a)}{2!}(x-a)^2
+          +\cdots+\frac{f^{(n+1)}(a)}{(n+1)!}(x-a)^{n+1}\\
+    &=\sum_{k=0}^{n+1}\frac{f^{(k)}(a)}{k!}(x-a)^k,\text{ q.e.d.}
+\end{align*}
+\end{enumerate}
+
+
+\end{enumerate}
+
+
+
+
+There is a simple real-world motivation for this kind of approach.
+Suppose a passenger on a train wishes to know  
+approximately where the train is.  At some time $t_0$, 
+he passes the engineer's compartment and sees the 
+mile marker  $s_0$ out the front window.  He
+also sees the speedometer reading $v_0$.
+If the train is not accelerating or decelerating 
+noticeably, he can follow his watch and 
+expect the train to move approximately $v_0(t-t_0)$
+in the time $[t_0,t]$.  In other words,
+\begin{equation}s\approx s_0+v_0(t-t_0).\end{equation}
+On the other hand, perhaps he feels some acceleration,
+as the train leaves an urban area, for instance.
+If the engineer has an acceleration indicator,
+and it reads $a_0$ at time $t_0$, then the passenger
+could assume that the acceleration will be constant
+for a while, and use
+\begin{equation}s\approx s_0+v_0(t-t_0)+\frac12a_0(t-t_0)^2.
+\label{2nd-OrderApproxOfPosition}\end{equation}
+If our passenger can even compute 
+how $s''$ is changing, then assuming that change is at a constant rate,
+i.e., that $s'''(t)\approx s'''(t_0)$, we can go another 
+order higher and claim\footnotemark
+\begin{equation}
+s\approx s_0+v_0(t-t_0)+\frac12a_0(t-t_0)^2+\frac13s'''(t_0)(t-t_0)^3.
+\label{3rd-OrderApproxOfPosition}\end{equation}
+\footnotetext{% 
+%%% FOOTNOTE
+Notice that if $f''$ were truly constant, then 
+(\ref{2nd-OrderApproxOfPosition}) would be exact and not an 
+approximation.  Similarly, if $f'''$ were
+truly constant, then
+(\ref{3rd-OrderApproxOfPosition}) would be exact.
+%%% END FOOTNOTE
+} 
+Indeed this will likely be the best estimate thus far when $|t-t_0|$ is 
+small (and $s'''$ is still relatively constant).
+However, we have to be aware that this latest approximation
+is a degree-three polynomial,
+and will therefore act like one as $|t|$ (and therefore $|t-t_0|$)
+gets large, so we have
+to always be aware of the range of $t$ for which the approximation
+is accurate.
+
+
+
+
+\newpage
+\subsection{Taylor Polynomials:  Definition, Properties and Examples
+\label{DefAndExamplesOfTaylorPolynomials}}
+The approximations $P_0(x)$, $P_1(x)$, $P_2(x)$ and so on are also
+known as {\it Taylor Polynomials} of order 0, 1, 2 and so on.
+We now record this renaming with the following  definition.
+
+\begin{definition} 
+The {\bf $N$th order Taylor Polynomial}
+for the function $f(x)$ centered at the point $a$, where
+$f(a)$, $f'(a)$,
+$\cdots$, $f^{(N)}(a)$ all exist, is given by\,\footnotemark 
+\footnotetext{We normally do not bother to write the factors
+$\frac1{0!}$ and $\frac1{1!}$ in the first two terms, since
+$0!=1!=1$.  We also use the convention that $f^{(0)}=f$,
+$f^{(1)}=f'$, $f^{(2)}=f''$, etc.}
+\begin{align}P_N(x)=\sum_{n=0}^N\frac{f^{(n)}(a)(x-a)^n}{n!}  
+\notag
+=&f(a)+f'(a)(x-a)+\frac{f''(a)(x-a)^2}{2!}+\frac{f'''(a)(x-a)^3}{3!}\\
+&+\cdots+
+\underbrace{\frac{f^{(n)}(a)(x-a)^n}{n!}}_{\text{``$n${th'' term\footnotemark}}}+\cdots+
+\frac{f^{(N)}(a)(x-a)^N}{N!}.\label{TaylorPolynomial}
+\end{align} 
+\end{definition}
+\bigskip
+\footnotetext{To be pedantic, if we count the $n=0$ term as the ``first term''
+then this is the $(n+1)$\,st term.}
+The above formula (\ref{TaylorPolynomial}) should be committed
+to memory.  Before we continue to explicit examples,
+we should note some important---indeed defining---properties 
+of the Taylor Polynomials $P_N(x)$, centered at $x=a$.
+\begin{theorem}
+If $f(x)$ is $N$-times differentiable at $x=a$, then
+$P_N(x)$, as defined by {\rm (\ref{TaylorPolynomial}),} satisfies:
+\begin{alignat*}{2}
+      P_N(a)&=f(a)\\
+      P_N'(a)&=f'(a)\\
+      P_N''(a)&=f''(a)\\
+         &\ \vdots\\
+      P_N^{(N-1)}(a)&=f^{(N-1)}(a)\\
+      P_N^{(N)}(x)&=f^{(N)}(a)&\qquad&
+              \text{(i.e., } P_N^{(N)}(x)\text{ is constant)}\\
+      P_N^{(m)}(x)&=0 &&\text{ for all }m\in\left\{N+1,N+2,N+3,\cdots\right\}
+\end{alignat*}
+\label{TheoremOnP_N^(K)(a)}
+\end{theorem}
+
+
+\begin{proof}
+First we note the how derivative of the $n$th term in our polynomial 
+(\ref{TaylorPolynomial})
+simplifies, assuming $n\ge1$:
+\begin{align*}
+\frac{d}{dx}\left[\frac{f^{(n)}(a)(x-a)^n}{n!}\right]
+          &=\frac{f^{(n)}(a)}{n!}\cdot n(x-a)^{n-1}\cdot\frac{d(x-a)}{dx}
+          =\frac{f^{(n)}(a)}{(n-1)!\cdot n}\cdot n(x-a)^{n-1}\cdot1\\
+          &=\frac{f^{(n)}(a)}{(n-1)!}\cdot(x-a)^{n-1}.
+\end{align*}
+We made use of the fact that $a$, $f^{(n)}(a)$ and $n!$ are
+all constants in the computation above. In what follows, it is important
+to also note that any term ``$(x-a)^0$,'' i.e., additive
+{\it constant} term, in what follows will have derivative
+zero. Now we demonstrate the
+computations in Theorem~\ref{TheoremOnP_N^(K)(a)}.  To make the
+pattern clear, we assume here that $N>3$.  In each of what follows,
+we take derivatives at each line, and evaluate at $x=a$.
+\begin{alignat*}{4}
+P_N(x)&=\sum_{n=0}^N\frac{f^{(n)}(a)}{n!}(x-a)^n
+        &&\implies&P_N(a)&=\frac{f^{(0)}(a)}{0!}&&=f(a)\\
+P_N'(x)&=\sum_{n=1}^N\frac{f^{(n)}(a)}{(n-1)!}(x-a)^{n-1}
+        &&\implies&P_N'(a)&=\frac{f^{(1)}(a)}{0!}&&=f'(a)\\
+P_N''(x)&=\sum_{n=2}^N\frac{f^{(n)}(a)}{(n-2)!}(x-a)^{n-2}
+        &&\implies&P_N''(a)&=\frac{f^{(2)}(a)}{0!}&&=f''(a)\\
+P_N'''(x)&=\sum_{n=3}^N\frac{f^{(n)}(a)}{(n-3)!}(x-a)^{n-3}
+        &&\implies&P_N'''(a)&=\frac{f^{(3)}(a)}{0!}&&=f'''(a)\\
+&\ \ \vdots&&\ \ \ \ \vdots&&\ \ \vdots&&\ \ \vdots\\
+P_N^{(N-1)}(x)&=\sum_{n=N-1}^N\frac{f^{(n)}(a)}{(n-(N-1))!}(x-a)^{n-(N-1)}\\
+              &=\frac{f^{(N-1)}(a)}{0!}+\frac{f^{(N)}(a)}{1!}(x-a)
+              &&\implies &P_N^{(N-a)}(a)&=f^{(N-1)}(a)\\
+P_N^{(N)}(x)&=f^{(N)}(a)&&\implies&P_N^{(N)}(a)&=f^{(N)}(a)\\
+P_N^{(m)}(x)&=0,\quad m\in\{N+1,N+2,N+3,\cdots\},&&&\text{q.e.d.}
+\end{alignat*}
+\end{proof}
+
+The significance of the theorem is that  $P_N(x)$---which was
+constructed by assuming  we
+know $f(a)$, $f'(a)$, $\cdots$, $f^{(N)}(a)$ and
+that $f^{(N)}(x)\approx f^{(N)}(a)$---is a polynomial that agrees
+in height, slope, second derivative, and so on up to the $N$th 
+derviative at $x=a$.  Being an $N$th-degree polynomial, 
+the $(N+1)$st and higher derivatives of $P_N(x)$ are all zero.
+
+
+Next we look at some examples.
+
+\bex
+ Find $P_5(x)$ at $x=0$ for the
+function $f(x)=e^x$.
+\medskip
+
+\underline{\bf Solution:} We first construct the following chart, with
+$a=0$.
+\begin{alignat*}{3}
+f(x)&=e^x&&\implies&f(0)&=1\\
+f'(x)&=e^x&&\implies&f'(0)&=1\\
+f''(x)&=e^x&&\implies&f''(0)&=1\\
+f'''(x)&=e^x&&\implies&f'''(0)&=1\\
+f^{(4)}(x)&=e^x&&\implies&f^{(4)}(0)&=1\\
+f^{(5)}(x)&=e^x&&\implies&f^{(5)}(0)&=1\end{alignat*}
+Now, according to our definition {\rm (\ref{TaylorPolynomial}), } 
+$$P_5(x)=f(0)+f'(0)(x-0)+\frac{f''(0)(x-0)^2}{2!}+\frac{f'''(0)(x-0)^3}{3!}
++\frac{f^{(4)}(0)(x-0)^4}{4!}+\frac{f^{(5)}(0)(x-0)^5}{5!}$$
+$$=1+1x+\frac1{2!}x^2+\frac1{3!}x^3+\frac1{4!}x^4+\frac1{5!}x^5.$$
+\begin{figure}
+\begin{multicols}{2}\begin{center}
+
+\begin{pspicture}(-3,-1.5)(3,5)
+\psset{xunit=.75cm,yunit=.125cm}
+\psaxes[Dy=10]{<->}(0,0)(-4,-8)(4,40)
+\psplot[linewidth=2pt,plotpoints=1000]%
+{-4}{3.6888794}{2.718281828 x exp}
+\psplot[plotpoints=1000]{-4}{4}%
+  {1}
+\rput(3.5,3){$P_0(x)$}
+\end{pspicture}
+
+\begin{pspicture}(-3,-1.5)(3,5)
+\psset{xunit=.75cm,yunit=.125cm}
+\psaxes[Dy=10]{<->}(0,0)(-4,-8)(4,40)
+\psplot[linewidth=2pt,plotpoints=1000]%
+{-4}{3.6888794}{2.718281828 x exp}
+\psplot[plotpoints=1000]{-4}{4}%
+  {1    x    add}
+\rput(4,8){$P_1(x)$}
+\end{pspicture}
+
+\begin{pspicture}(-3,-1.5)(3,5)
+\psset{xunit=.75cm,yunit=.125cm}
+\psaxes[Dy=10]{<->}(0,0)(-4,-8)(4,40)
+\psplot[linewidth=2pt,plotpoints=1000]%
+{-4}{3.6888794}{2.718281828 x exp}
+\psplot[plotpoints=1000]{-4}{4}%
+  {1    x    add x dup mul 2 div add}
+\rput(4,15){$P_2(x)$}
+\end{pspicture}
+
+\begin{pspicture}(-3,-1.5)(3,5)
+\psset{xunit=.75cm,yunit=.125cm}
+\psaxes[Dy=10]{<->}(0,0)(-4,-8)(4,40)
+\psplot[linewidth=2pt,plotpoints=1000]%
+{-4}{3.6888794}{2.718281828 x exp}
+\psplot[plotpoints=1000]{-4}{4}%
+  {1    x    add x dup mul 2 div add %
+     x 3 exp 6 div add}
+\rput(4,26){$P_3(x)$}
+\end{pspicture}
+
+\begin{pspicture}(-3,-1.5)(3,5)
+\psset{xunit=.75cm,yunit=.125cm}
+\psaxes[Dy=10]{<->}(0,0)(-4,-8)(4,40)
+\psplot[linewidth=2pt,plotpoints=1000]%
+{-4}{3.6888794}{2.718281828 x exp}
+\psplot[plotpoints=1000]{-4}{4}%
+  {1    x    add x dup mul 2 div add %
+     x 3 exp 6 div add   x 4 exp 24 div add}
+\rput(4.3,36){$P_4(x)$}
+\end{pspicture}
+
+\begin{pspicture}(-3,-1.5)(3,5)
+\psset{xunit=.75cm,yunit=.125cm}
+\psaxes[Dy=10]{<->}(0,0)(-4,-8)(4,40)
+\psplot[linewidth=2pt,plotpoints=1000]%
+{-4}{3.6888794}{2.718281828 x exp}
+\psplot[plotpoints=1000]{-4}{3.8}%
+  {1    x    add x dup mul 2 div add %
+   x 3 exp 6 div add   x 4 exp 24 div add x 5 exp 120 div add}
+\rput(4.5,37){$P_5(x)$}
+\end{pspicture}
+
+\vfill
+\end{center}
+\end{multicols}
+\caption{Graphs of $y=e^x$ and the Taylor Polynomial 
+approximations $P_0(x)$--$P_5(x)$.}
+\label{GraphsOfTaylorsForE^X}\end{figure}
+
+This is the simplest polynomial which matches the height, slope,
+``concavity,'' third derivative, fourth derivative and fifth
+derivative of $e^x$ at $x=0$.  Thus we expect $P_5(x)$ to 
+approximate the behavior of $e^x$ as long as $x$ is reasonably
+close to $a=0$.   
+The pattern for finding $P_N(x)$, where $x=0$ and $f(x)=e^x$
+seems clear.  If we desired $P_6(x)$, we would simply add
+$\frac1{6!}x^6$.  In fact, assuming $f^{(N+1)}(a)$ exists,
+we always have the following recursion relationship:
+\begin{equation}P_{N+1}(x)=P_N(x)+\frac{f^{(N+1)}(a)(x-a)^{N+1}}{(N+1)!}. 
+\label{RecursionForTaylorPolys}\end{equation} 
+It is interesting to
+compare how the graphs of $P_0(x), P_1(x),\cdots, P_5(x)$ 
+approximate the graph of $f(x)=e^x$, as shown in 
+Figure~\ref{GraphsOfTaylorsForE^X}, 
+page~\pageref{GraphsOfTaylorsForE^X}
+(with  $f(x)=e^x$ and $a=0$).  
+\eex
+
+
+
+
+
+
+\bex Find $P_3(x)$ at $a=1$
+if $f(x)=2x^3-9x^2+5x+11.$
+\medskip
+
+\underline{\bf Solution:} Again we construct a chart.
+$$\begin{array}{rclrcl}
+f(x)&=&2x^3-9x^2+5x+11\qquad&f(1)&=&9\\
+f'(x)&=&6x^2-18x+5&f'(1)&=&-7\\
+f''(x)&=&12x-18&f''(1)&=&-6\\
+f'''(x)&=&12&f'''(1)&=&12 \end{array}$$ 
+Now
+$$P_4(x)=f(1)+f'(1)(x-1)+\frac{f''(1)(x-1)^2}{2!}
++\frac{f'''(1)(x-1)^3}{3!}+\frac{f^{(4)}(1)(x-1)^4}{4!}$$
+$$=9-7(x-1)+\frac{-6(x-1)^2}{2!}+\frac{12(x-1)^3}{3!}$$ 
+$$=9-7(x-1)-3(x-1)^2+2(x-1)^3.$$ 
+\eex
+This is a trivial, yet important kind of example,
+for if we expanded out the last line above in powers of $x$
+we would get back the original
+polynomial, which shows that the simplest polynomial
+matching this function and its first three derivatives at
+$x=1$ is the polynomial itself.  Furthermore, we can see
+from our chart, that $f^{(4)}(x)=0, f^{(5)}(x)=0,$ etc.,
+and so $P_4, P_5, \cdots=P_3$.   We will enshrine this result 
+in the following theorem:
+\begin{theorem}
+Suppose $f(x)$ is an $N$th-degree polynomial, i.e.,
+\begin{equation}f(x)=A_Nx^N+A_{N-1}x^{N-1}+\cdots+A_1x+A_0.\end{equation}
+Then regardless of $a\in\Re$, we have
+\begin{equation}
+(\forall m\ge N)\left[P_m(x)=f(x)\right].\label{PolyForATaylorTheorem}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+We will prove this in stages.
+\begin{enumerate}[(1)]
+%`
+\item An important general observation we will use repeatedly 
+is the following:
+\begin{equation}
+(\forall x\in\Re)[g'(x)=h'(x)]\iff (\exists C)[g(x)-h(x)=C].
+\label{ObservationForTaylorTheoremProofForG'=H'}\end{equation}
+In other words, if two functions have the same derivative functions,
+then the original two functions differ by a constant.  
+%2
+\item Since $f$ and $P_N$ are both $N$th-degree polynomials,
+we have $f^{(N)}(x)$ and $P^{(N)}(x)$ are constants.
+%3
+\item By Theorem~\ref{TheoremOnP_N^(K)(a)}, $f^{(N)}(a)=P^{(N)}(a)$.
+%4
+\item From (2) and (3), we have  
+\begin{equation}P^{(N)}(x)=P^{(N)}(a)=f^{(N)}(a)=f^{(N)}(x).
+\end{equation}
+Thus $P^{(N)}(x)=f^{(N)}(x).$
+%5
+\item By (1), we can thus conclude that $P^{(N-1)}(x)$ and
+     $f^{(N-1)}(x)$ differ by a constant.
+%6
+\item Since $P^{(N-1)}(a)=f^{(N-1)}(a)$, and (5), we
+       must have $P^{(N-1)}(x)=f^{(N-1)}(x)$.  In other
+       words, since  $P^{(N-1)}(x)$ and
+     $f^{(N-1)}(x)$ differ by a constant, and since
+      $P^{(N-1)}(a)-f^{(N-1)}(a)=0$,
+     the constant referred to in (5) must be zero.
+%7
+\item The argument above can be repeated to get $P^{(N-2)}(x)=f^{(N-2)}(x)$,
+      and so on, until finally we indeed get $P'(x)=f'(x)$.
+%8
+\item The last step is the same. From (1), $P$ and $f$ 
+      differ by a constant, but since $P(a)=f(a)$, that constant
+      must be zero, so $P(x)-f(x)=0$, i.e., $P(x)=f(x)$.
+\end{enumerate}
+
+\end{proof}
+
+It is important that the original function above was a polynomial,
+or else the conclusion is false.
+
+The theorem is useful for both analytical and algebraic reasons.
+If we want to expand a polynomial (\ref{PolyForATaylorTheorem})
+in powers of $x-a$ (instead of $x$), then we can just 
+compute $P_N(x)$ centered at $x=a$.  On the other hand, 
+we can in principle also use the theorem to simply re-center
+any polynomial.
+
+
+
+\bex Write the following polynomial in powers of $x$:
+$f(x)=(x+5)^4$.
+
+\underline{Solution}: We can use the binomial expansion (with 
+Pascal's Triangle, for instance) for this, but we can also use
+the Taylor Polynomial centered at $a=0$:
+$$\begin{array}{rclrcl}
+f(x)&=&(x+5)^4\qquad&f(0)&=&625\\
+f'(x)&=&4(x+5)^3& f'(0)&=&4\cdot5^3\\
+f''(x)&=&4\cdot3(x+5)^2&f''(0)&=&4\cdot3\cdot5^2\\
+f'''(x)&=&4\cdot3\cdot2(x+5)&f'''(0)&=&4\cdot3\cdot2\cdot5\\
+f^{(4)}(x)&=&4\cdot3\cdot2\cdot1&f^{(4)}(0)&=&4\cdot3\cdot2\cdot1\\
+f^{(m)}(x)&=&0&&&\text{ any }m>4 \end{array}$$ 
+\begin{align*}
+P_4(x)&=f(0)+f'(0)x+\frac{f''(0)x^2}{2!}+\frac{f'''(0)x^3}{3!}
+           +\frac{f^{(4)}(0)x^4}{4!}\\
+&=5^4+4\cdot5^3x+\frac{4\cdot3\cdot5^2x^2}{2!}
+ +\frac{4\cdot3\cdot2\cdot5x^3}{3!}+\frac{4\cdot3\cdot2\cdot1x^4}{4!}\\
+&=625+500x+150x^2+20x^3+x^4.\end{align*}
+Because this is $P_4(x)$ for a fourth-degree polynomial function, 
+it equals that polynomial function, i.e.,
+$$(x+5)^4=625+500x+150x^2+20x^3+x^4.$$
+\eex
+
+
+\newpage
+\bex
+Consider the function $f(x)=\sqrt[3]{x}$, with $a=27$.
+\begin{description}
+\item a. Calculate $P_1(x)$, $P_2(x)$, $P_3(x)$.
+\item b. Use these to approximate $\sqrt[3]{26}$.
+\item c. Compare these to the actual value of $\sqrt[3]{26}$,
+	as determined by calculator.
+\end{description}
+
+\underline{Solution:}  
+
+a. First we will construct a chart.
+\begin{alignat*}{2}
+f(x)&=x^{1/3}\qquad&f(27)&=3\\
+f'(x)&=\frac13x^{-2/3}\qquad&f'(27)&=\frac13\cdot\frac1{9}=\frac1{27}\\
+f''(x)&=-\,\frac29x^{-5/3}\qquad&f''(27)&= -\,\frac29\cdot\frac1{243}=
+	-\,\frac2{2187}\\
+f'''(x)&=\frac{10}{27}x^{-8/3}\qquad
+	&f'''(27)&=\frac{10}{27}\cdot\frac1{6561}
+	=\frac{10}{177,147}\end{alignat*} 
+Thus,
+\begin{align*}
+P_1(x)&=3+\frac1{27}(x-27)\\
+P_2(x)&=3+\frac1{27}(x-27)+\frac{-\,\frac2{2187}}2(x-27)^2\\
+	&=3+\frac1{27}(x-27)-\frac1{4374}(x-27)^2\\
+P_3(x)&=3+\frac1{27}(x-27)-\frac1{4374}(x-27)^2
+	+\frac{\left(\frac{10}{177,147}\right)}{3!}(x-27)^3\\
+	&=3+\frac1{27}(x-27)-\frac1{4374}(x-27)^2+\frac{10}{1,062,882}(x-27)^3
+	.\end{align*}
+b.  From these we get
+\begin{align*}
+P_1(26)&=3+\frac1{27}(26-27)=3+\frac1{27}(-1)=3-\frac1{27}=\frac{80}{27}
+\approx2.962963\\
+P_2(26)&=3+\frac1{27}(-1)+\frac1{4374}(-1)^2=\frac{12,961}{4374}
+\approx2.9627343 \\
+P_3(26)&=P_2(26)+
+\frac{10}{1,062,882}(-1)^3=\frac{3149513}{1062882} 
+\approx2.9627249.\end{align*} 
+
+c.  The actual value (to 8 digits) is
+	$\sqrt[3]{26}\approx 2.9624961.$ 
+The errors $R_1(26), R_2(26)$ and $R_3(26)$,
+in each of the above approximations are respectively 
+\begin{align*}
+R_1(26)&=\sqrt[3]{26}-P_1(26)\approx2.9624961-2.962963=-0.0004669\\
+R_2(26)&=\sqrt[3]{26}-P_2(26)\approx2.9624961-2.9627343=-0.0002382\\
+R_3(26)&=\sqrt[3]{26}-P_3(26)\approx2.9624961-2.9627249=-0.0002288.
+\end{align*} 
+Thus we see some improvement in these estimates.  For other functions
+it can be more or less dramatic.  In Section \ref{AccuracyOfPN} we
+will state the form of the error, or {\it remainder} $R_N(x)$, and
+thus be able to explore the accuracy of $P_N(x)$. 
+
+
+\eex 
+\bex
+Find $P_5(x)$ at $a=0$
+for $f(x)=\sin x$.
+\medskip
+
+\underline{\bf Solution:} Again we construct the chart.
+\begin{alignat*}{3}
+f(x)&=\sin x &\quad&\implies& f(0)&=0\\
+f'(x)&=\cos x &&\implies& f'(0)&=1\\
+f''(x)&=-\sin x&&\implies& f''(0)&=0\\
+f'''(x)&=-\cos x&&\implies& f'''(0)&=-1\\
+f^{(4)}(x)&=\sin x&&\implies& f^{(4)}(0)&=0\\
+f^{(5)}(x)&=\cos x&&\implies& \quad f^{(5)}(0)&=1,
+\end{alignat*}
+from which we get
+\begin{eqnarray*}
+P_5(x)&=&\ds{0+1x+\frac{0x^2}{2!}+\frac{-1x^3}{3!}+\frac{0x^4}{4!}
++\frac{1x^5}{5!}}\\
+&=&\ds{x-\frac{x^3}{3!}+\frac{x^5}{5!}}.\end{eqnarray*}
+From this chart we can see an obvious  pattern where
+$$P_6(x)=P_5(x)+0=P_5(x),$$
+$$P_8(x)=x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}+0=P_7(x),$$
+and so on.  
+\eex
+This answers the question of how the calculators
+compute $\sin x$: by means of just such a Taylor Polynomial.
+It also hints at an answer for why physicists often simplify
+a problem by replacing $\sin x$ with $x$: That is the 
+simplest polynomial which matches the height,  slope  and
+concavity of  $\sin x$ at $x=0$
+is a very simple function indeed, namely $P_2(x)=x$. 
+
+See Figures \ref{sin13}--\ref{sinall} 
+to compare $\sin x$ to $P_1(x)$, $P_3(x)$, $\cdots$,
+$P_{15}(x)$.  Clearly the polynomials do increasingly better
+at approximating $\sin x$ as we add more terms. On the other hand,
+as $|x|$ gets large these approximations eventually
+behave like the polynomials they 
+are in the 
+sense that $|P_n(x)|\to\infty$ as $|x|\to\infty$. 
+This is not alarming, since it is the {\it local} behavior, in
+this case near $x=0$, that we exploit when we use polynomials
+to approximate functions. It is worth remembering, however, so
+that we do not attempt to use a Taylor Polynomial to approximate
+a function too far from the center, $x=a$, of the Taylor Polynomial.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%        Figures for \sin x      %%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{figure}
+\begin{center}
+\begin{pspicture}(-7,-3.7)(7,3.7)
+\psset{xunit=.7cm,yunit=.7cm}
+\psaxes[Dx=10]{<->}(0,0)(-10,-4.8)(10,4.8)
+
+\psline(-9.424777961,-.15)(-9.424777961,.15)
+  \rput(-9.424777961,-.35){$-3\pi$}
+\psline(-6.283185307,-.15)(-6.283185307,.15)
+  \rput(-6.283185307,-.35){$-2\pi$}
+\psline(-3.141592654,-.15)(-3.141592654,.15)
+  \rput(-3.141592654,-.35){$-\pi$}
+
+\psline(3.141592654,-.15)(3.141592654,.15)
+  \rput(3.141592654,-.35){$\pi$}
+\psline(6.283185307,-.15)(6.283185307,.15)
+  \rput(6.283185307,-.35){$2\pi$}
+
+\psplot[plotpoints=2000]{-10}{10}{x 3.1415926535 div 180 mul sin}
+\psplot[plotpoints=2000,linewidth=.5pt]{-4.8}{4.8}{x}
+\psplot[plotpoints=2000,linewidth=.5pt]%
+{-3.7}{3.7}{x x dup dup mul mul 6 div sub}
+
+\rput(-5.3,4){$P_3(x),P_4(x)$}
+\rput(6,4){$P_1(x),P_2(x)$}
+
+
+
+\end{pspicture}
+\end{center}
+\caption{$\sin x$, $P_1(x),P_2(x)=x$, and 
+$P_3(x),P_4(x)=x-\frac{x^3}{3!}$.} 
+\label{sin13}\end{figure}
+
+\begin{figure}
+\begin{center}
+\begin{pspicture}(-7,-3.7)(7,3.7)
+\psset{xunit=.7cm,yunit=.7cm}
+\psaxes[Dx=10]{<->}(0,0)(-10,-4.8)(10,4.8)
+
+\psline(-9.424777961,-.15)(-9.424777961,.15)
+  \rput(-9.424777961,-.35){$-3\pi$}
+\psline(-6.283185307,-.15)(-6.283185307,.15)
+  \rput(-6.283185307,-.35){$-2\pi$}
+\psline(-3.141592654,-.15)(-3.141592654,.15)
+  \rput(-3.141592654,-.35){$-\pi$}
+
+\psline(3.141592654,-.15)(3.141592654,.15)
+  \rput(3.141592654,-.35){$\pi$}
+\psline(6.283185307,-.15)(6.283185307,.15)
+  \rput(6.283185307,-.35){$2\pi$}
+
+\psplot[plotpoints=2000]{-10}{10}{x 3.1415926535 div 180 mul sin}
+\psplot[plotpoints=2000,linewidth=.5pt]%
+{-4.515}{4.515}%
+{x x dup dup mul mul 6 div sub x dup mul dup mul x mul 120 div add}
+
+\rput(6,4){$P_5(x),P_6(x)$}
+
+
+\end{pspicture}
+\end{center}
+\caption{$\sin x$ and  $P_5(x),P_6(x)=x-\frac{x^3}{3!}+\frac{x^5}{5!}$.} 
+\label{sin5}\end{figure}
+
+\begin{figure}
+\begin{center}
+\begin{pspicture}(-7,-3.7)(7,3.7)
+\psset{xunit=.7cm,yunit=.7cm}
+\psaxes[Dx=10]{<->}(0,0)(-10,-4.8)(10,4.8)
+
+\psline(-9.424777961,-.15)(-9.424777961,.15)
+  \rput(-9.424777961,-.35){$-3\pi$}
+\psline(-6.283185307,-.15)(-6.283185307,.15)
+  \rput(-6.283185307,-.35){$-2\pi$}
+\psline(-3.141592654,-.15)(-3.141592654,.15)
+  \rput(-3.141592654,-.35){$-\pi$}
+
+\psline(3.141592654,-.15)(3.141592654,.15)
+  \rput(3.141592654,-.35){$\pi$}
+\psline(6.283185307,-.15)(6.283185307,.15)
+  \rput(6.283185307,-.35){$2\pi$}
+
+\psplot[plotpoints=2000]{-10}{10}{x 3.1415926535 div 180 mul sin}
+\psplot[plotpoints=2000,linewidth=.5pt]%
+{-4.9}{4.9}%
+{x x dup dup mul mul 6 div sub x dup mul dup mul x mul 120 div add %
+x x 2 div mul x 3 div mul x 4 div mul x 5 div mul x 6 div mul x 7 div mul sub}
+
+\rput(6.5,-4){$P_7(x),P_8(x)$}
+
+
+\end{pspicture}
+\end{center}
+\caption{$\sin x$ and  $P_7(x),P_8(x)=x-\frac{x^3}{3!}+\frac{x^5}{5!}
+-\frac{x^7}{7!}$.}
+\label{sin7}\end{figure}
+
+
+
+\begin{figure}
+\begin{center}
+\begin{pspicture}(-7,-3.7)(7,3.7)
+\psset{xunit=.7cm,yunit=.7cm}
+\psaxes[Dx=10]{<->}(0,0)(-10,-4.8)(10,4.8)
+
+\psline(-9.424777961,-.15)(-9.424777961,.15)
+  \rput(-9.424777961,-.35){$-3\pi$}
+\psline(-6.283185307,-.15)(-6.283185307,.15)
+  \rput(-6.283185307,-.35){$-2\pi$}
+\psline(-3.141592654,-.15)(-3.141592654,.15)
+  \rput(-3.141592654,-.35){$-\pi$}
+
+\psline(3.141592654,-.15)(3.141592654,.15)
+  \rput(3.141592654,-.35){$\pi$}
+\psline(6.283185307,-.15)(6.283185307,.15)
+  \rput(6.283185307,-.35){$2\pi$}
+
+\psplot[plotpoints=2000]{-10}{10}{x 3.1415926535 div 180 mul sin}
+
+\psplot[plotpoints=2000,linewidth=.5pt]{-4.8}{4.8}{x}
+
+\psplot[plotpoints=2000,linewidth=.5pt]%
+{-3.7}{3.7}{x x dup dup mul mul 6 div sub}
+
+\psplot[plotpoints=2000,linewidth=.5pt]%
+{-4.515}{4.515}%
+{x x dup dup mul mul 6 div sub x dup mul dup mul x mul 120 div add}
+
+\psplot[plotpoints=2000,linewidth=.5pt]%
+{-4.9}{4.9}%
+{x x dup dup mul mul 6 div sub x dup mul dup mul x mul 120 div add %
+x x 2 div mul x 3 div mul x 4 div mul x 5 div mul x 6 div mul x 7 div mul sub}
+
+
+\psplot[plotpoints=2000,linewidth=.5pt]%
+{-5.84}{5.84}%
+{x x dup dup mul mul 6 div sub x dup mul dup mul x mul 120 div add %
+x x 2 div mul x 3 div mul x 4 div mul x 5 div mul x 6 div mul x 7 div mul sub
+x 9 exp 362880 div add}
+
+
+\psplot[plotpoints=2000,linewidth=.5pt]%
+{-6.5}{6.5}%
+{x x dup dup mul mul 6 div sub x dup mul dup mul x mul 120 div add %
+x x 2 div mul x 3 div mul x 4 div mul x 5 div mul x 6 div mul x 7 div mul sub
+x 9 exp 362880 div add x 11 exp 39916800 div sub}
+
+\psplot[plotpoints=2000,linewidth=.5pt]%
+{-7.16}{7.16}%
+{x x dup dup mul mul 6 div sub x dup mul dup mul x mul 120 div add %
+x x 2 div mul x 3 div mul x 4 div mul x 5 div mul x 6 div mul x 7 div mul sub
+x 9 exp 362880 div add x 11 exp 39916800 div sub x 13 exp 6227020800 div add}
+
+\rput(3.55,-2){$P_3$}
+\rput(4.75,-2){$P_7$}
+\rput(6.5,-2){$P_{11}$}
+\rput(2.6,2){$P_1$}
+\rput(4.35,2){$P_5$}
+\rput(5.84,2){$P_9$}
+\rput(7.2,2){$P_{13}$}
+
+
+
+\end{pspicture}
+\end{center}
+\caption{$\sin x$ and $P_1(x)$, $P_3(x)$, $\cdots$, $P_{15}(x)$
+(same as $P_2(x)$, $P_4(x)$, $\cdots$, $P_{16}(x)$, respectively)}  
+\label{sinall}\end{figure}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%    End  Figures for \sin x      %%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+\bigskip 
+\bex
+{\bf (Application)} As already mentioned,
+physicists often take advantage of the second order approximation
+$\sin x\approx P_2(x)=0+x+0x^2,$
+that is,
+\begin{equation}\sin x\approx x\qquad\mathrm{for\ }|x|\mathrm{\ small.}
+\label{SinXApproxXForXSmallForPendulum}\end{equation}
+The classic example is the modeling of the simple pendulum.
+See Figure \ref{Simple Pendulum}.
+ 
+Suppose a pendulum of mass $m$
+is hanging from an always taut and straight string of negligible weight.
+Let $\theta$ be the angle the string makes with the downward 
+vertical direction. 
+We will take $\theta>0$ if $\theta$ represents a counterclockwise
+rotation, as is standard.
+
+\begin{figure}
+\begin{center}
+\begin{pspicture}(-3,-2.5)(3,3)
+%\psline(-3,-3)(3,-3)(3,3)(-3,3)(-3,-3)
+\psline{->}(-1,3)(-1,-.46227766)
+\psline{->}(-1,3)(0.637323862,-1.819181489)%(1,-3)
+\psarc{->}(-1,3){1}{270}{288.43494882}
+\rput(-.8,1.8){$\theta$}
+\pscircle[fillstyle=solid,fillcolor=white,linecolor=black](0,0){.3}
+\rput(0,0){$m$}
+\psline{->}(0.09486833,-.284604989)(0.09486833,-2)
+   \rput{90}(-.15,-1.3){$\vec{F}=m\vec{g}$}
+\psline{<-}(0.09486833,-2)(0.637323862,-1.819181489)
+   \rput{18.435}(.5,-2.1){$F_{\text{tan}}$}
+   \rput{-71.56505118}(.6,-1){$F_{\text{norm}}$}
+\psarc{->}(0.09486833,-.284604989){1}{270}{288.43494882}
+\psarc[linestyle=dashed](-1,3){3.46227766}{240}{300}
+
+\rput(0.3,-1.5){$\theta$}
+
+\rput(-1.3,1.){$l$}
+\rput(-.6,-.25){$s$}
+
+
+
+\end{pspicture}
+\end{center}
+\caption{Simple pendulum with a free body diagram.
+From trigonometry, recall $s=r\theta$.}\label{Simple Pendulum}
+
+%\end{picture}
+\end{figure}
+The component of velocity which is in the direction of motion of the
+pendulum is given by 
+$\frac{ds}{dt}=\frac{d(l\theta)}{dt}=l\frac{d\theta}{dt}$, and the 
+acceleration by its derivative,
+$\frac{d^2s}{dt^2}\frac{d\,^2(l\theta)}{dt^2}=l\frac{d^2\theta}{dt^2}$.  
+Now the force in the direction of the motion has
+magnitude $mg\sin\theta$, but is a restorative force, and
+is thus in the opposite direction of the angular displacement.
+It is not too difficult to see that this force is given by
+$-mg\sin\theta$, for $\theta\in\left[-\frac{\pi}2,\frac{\pi}2\right]$.
+Thus, by equating the force and the acceleration in the angular
+direction, we get\footnotemark
+\footnotetext{For those familiar with moments of inertia,
+the analog of $F=ma$ 
+is $$N=I\alpha,$$
+where $N$ is torque, $I$ is the moment of inertia, and
+$\alpha$ is the angular acceleration, in 
+$\mathrm{rad/sec}^2$.
+Using the fact that, for this example, torque is also
+defined by $N=F_{\mathrm{tan}}l=-mgl\sin\theta$,
+we get the equations  
+$$N=-mgl\sin\theta=ml^2\frac{d\,^2\theta}{dt^2},$$
+giving  equation (\ref{pendeqtn0})  after dividing by $l$.} 
+\begin{equation}
+ml\frac{d\,^2\theta}{dt^2}=-mg\sin\theta\label{pendeqtn0}\end{equation}
+which simplifies to 
+\begin{equation}
+\frac{d\,^2\theta}{dt^2}=-\frac{g}l\sin\theta.\label{pendeqtn}
+\end{equation}
+This is a relatively difficult differential equation to solve.
+However, if we assume $|\theta|$ is small, we can use
+$\sin\theta\approx\theta$
+and instead solve the following equation which holds approximately true
+\footnotemark
+\footnotetext{We should point out here that (\ref{*}) is
+an example of a {\it simple harmonic oscillator}, which is
+any physical system governed by an equation of the form
+$$Q''(t)=-\kappa Q(t),\qquad\kappa>0$$
+($\kappa$ being a constant) which has solution
+$$Q(t)=A\sin\sqrt{\kappa }\,t+B\cos\sqrt{\kappa}\, t,$$
+and period $2\pi/\sqrt{\kappa}$.  Examples include springs which
+are governed by Hooke's Law ${F}(s)=-ks$, where $k>0$ and
+$s=s(t)$.
+(Recall $F=m\frac{d^2s}{dt^2}$.)}:
+\begin{equation}\frac{d\,^2\theta}{dt^2}
+=-\frac{g}l\theta\label{*}\end{equation}
+The solution to (\ref{*}) is 
+\begin{equation}\theta=A\sin\left(\sqrt{\frac{g}l}\cdot t\right)
++B\cos\left(\sqrt{\frac{g}l}\cdot t\right).\label{**}\end{equation}
+Here $A$ and $B$ are arbitrary constants depending on the initial
+($t=0$) position and velocity of the pendulum.  Notice that
+(\ref{**}) is periodic, with a period $\tau$ where 
+$\tau=2\pi/\sqrt{g/l}$, i.e.,
+\begin{equation}\tau=2\pi\sqrt{\frac{l}g}.\label{period}\end{equation} 
+That is the formula found in most physics texts for the period of a 
+pendulum.  However, it is based upon an approximation, albeit quite
+a good one for $|\theta|$ small.
+\eex
+
+ 
+\bigskip
+
+
+
+
+
+
+\bigskip
+\bex Let us find $P_6(x)$ where
+$f(x)=\cos x$ and $a=0$.
+\medskip
+
+\underline{\bf Solution:} We construct the table again:
+\begin{alignat*}{3}
+f(x)&=\cos x&\quad&\implies& f(0)&=1\\
+f'(x)&=-\sin x&&\implies&f'(0)&=0\\
+f''(x)&=-\cos x&&\implies&f''(0)&=-1\\
+f'''(x)&=\sin x&&\implies&f'''(0)&=0\\
+f^{(4)}(x)&=\cos x&&\implies&f^{(4)}(0)&=1\\
+f^{(5)}(x)&=-\sin x&&\implies&f^{(5)}(0)&=0\\
+f^{(6)}(x)&=-\cos x&&\implies&\quad f^{(6)}(0)&=-1\end{alignat*}
+Since the odd derivatives are zero at $x=0$, only  the
+even-order terms appear, and we have
+\begin{eqnarray*}
+P_6(x)&=&\ds{1+\frac{-1(x-0)^2}{2!}+\frac{1(x-0)^4}{4!}+\frac{-1(x-0)^6}{6!}}\\
+&=&\ds{1-\frac{x^2}{2!}+\frac{x^4}{4!}-\frac{x^6}{6!}.}\end{eqnarray*} 
+From this a pattern clearly emerges, and we could easily
+calculate
+$$P_{14}(x)=1-\frac{x^2}{2!}+\frac{x^4}{4!}-\frac{x^6}{6!} 
++\frac{x^8}{8!}-\frac{x^{10}}{10!}+\frac{x^{12}}{12!}-\frac{x^{14}}{14!}.$$
+We might also point out that $P_{15}$ would be the same, since the odd terms
+were all zero.
+\eex
+\bex
+Find $P_5$ for $f(x)=\ln x$ with center  $a=1$.
+\medskip
+
+\underline{\bf Solution:}
+First, the table is constructed as usual.
+\begin{alignat*}{3}
+f(x)&=\ln x&&\implies&f(1)&=0\\
+f'(x)&=x^{-1}&&\implies&f'(1)&=1\\
+f''(x)&=-1x^{-2}&&\implies&f''(1)&=-1\\
+f'''(x)&=2x^{-3}&&\implies& f'''(1)&=2\\
+f^{(4)}(x)&=-3\cdot2x^{-4}&&\implies&f^{(4)}(1)&=-3\cdot2\\
+f^{(5)}(x)&=4\cdot3\cdot2x^{-5}&&\implies&\quad f^{(5)}(1)&=4\cdot3\cdot2
+\end{alignat*}
+Now we construct $P_5$ from (\ref{TaylorPolynomial}). 
+$$P_5(x)=0+1(x-1)+\frac{-1(x-1)^2}{2!}
++\frac{2(x-1)^3}{3!}+\frac{-3\cdot2(x-1)^4}{4!}
++\frac{4\cdot3\cdot2(x-1)^5}{5!}.$$
+Recalling the definition of factorials, in which
+$2!=2\cdot1$, $3!=3\cdot2\cdot1$, $4!=4\cdot3\cdot2\cdot1$,
+and $5!=5\cdot4\cdot3\cdot2\cdot1$,
+we see that the above simplifies to
+$$P_5(x)=1(x-1)-\frac12(x-1)^2+\frac13(x-1)^3-\frac14(x-1)^4+\frac15
+(x-1)^5.$$
+It is not hard to see that $f^{(n)}(x)=(-1)^{n+1}(n-1)!x^{-n}$,
+and so $f^{(n)}(1)=(-1)^{n+1}(n-1)!.$  The obvious pattern
+which appears in $P_5$ should continue for $P_6$, $P_7$, etc.
+Thus we can calculate
+any $P_N(x)$ for this example:
+$$P_N(x)=\sum_{n=1}^N\frac{(-1)^{n+1}(x-1)^n}n.$$ 
+\label{ln example}\eex
+
+
+\begin{center}
+\underline{\Large{\bf Exercises}}
+\end{center}
+\begin{multicols}{2}
+\begin{enumerate}
+\item If $f(x)=\ds{\frac1{1-x}}$, and $a=0$,
+show (remembering the chain rule where appropriate) that 
+$$P_5(x)=1+x+x^2+x^3+x^4+x^5=\sum_{n=0}^5x^n.$$ 
+What do you suppose is the formula for $P_N(x)$?
+\item Find $P_5(x)$ where $a=\pi$ and $f(x)=\sin x.$
+\item   Find $P_3(x)$ where $a=\ds{\frac\pi4}$
+and $f(x)=\tan x$. \label{geompartsums} 
+\item Show that (\ref{**})
+is indeed a solution to (\ref{*}) by taking two time
+derivatives of each side of (\ref{*}), remembering to employ the chain rule
+where appropriate. 
+
+
+
+\end{enumerate}
+\end{multicols}
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Accuracy of $P_N(x)$\label{AccuracyOfPN}}
+\bigskip
+
+All of this makes for lovely pictures, but one usually needs
+some certainty regarding just how accurate $P_N(x)$ can be
+expected to be.  Fortunately, there is an estimate on the
+{\it error} arising from  replacing $f(x)$ with $P_N(x)$.
+This difference $f(x)-P_N(x)$ is also referred to as the 
+{\it remainder} $R_N(x)$:
+\begin{equation} R_N(x)=f(x)-P_N(x).\label{Remainder}\end{equation} 
+Perhaps the name ``remainder'' makes more sense if we rewrite
+(\ref{Remainder}) in the form
+\begin{equation}f(x)=P_N(x)+R_N(x).\label{Remainder'}\end{equation} 
+Of course if we knew the {\it exact} value of $R_N(x)$, then
+by (\ref{Remainder'})
+we know $f(x)$ since we can always calculate $P_N(x)$
+exactly with pencil and paper
+(after all, it is just a polynomial).
+So the best we can expect is to possibly have some estimate on the size
+of $R_N(x)$.  This can often be accomplished by knowing the rough
+form of $R_N$, as is given in the following theorem.
+
+\begin{theorem} 
+{\bf(Taylor's Remainder Theorem)} Suppose
+that $f$, $f'$, $f''$, $\cdots$, $f^{(N)}$ and $f^{(N+1)}$ all
+exist and are continuous on the closed interval with endpoints
+both $x$ and $a$.  Then
+\begin{equation}R_N(x)=\frac{f^{(N+1)}(z)(x-a)^{N+1}}{(N+1)!}
+\label{RemainderTheorem}\end{equation} 
+where $z$ is some (unknown) number between $a$ and $x$.
+\end{theorem}
+This could be rewritten
+$$f(x)=P_N(x)+\frac{f^{(N+1)}(z)(x-a)^{N+1}}{(N+1)!}.$$
+Thus, the remainder looks just like the next term to be added
+to construct $P_{N+1}(x)$, except that the term
+$f^{(N+1)}(a)$ is replaced by the unknown quantity
+$f^{(N+1)}(z)$.
+
+A general proof of Taylor's Remainder Theorem is beyond the scope of
+this textbook.  However, in the exercises we can explore 
+the first two cases and give some explanation for how it can
+be generalized.
+
+
+
+There are several cases where this is useful. 
+
+\bex Suppose that $|x|<.75$.
+In other words, $-.75<x<.75.$  Then what is the possible error
+if we use the approximation 
+$\ds{\sin x\approx x-\frac{x^3}{3!}+\frac{x^5}{5!}}$?
+\medskip
+
+\underline{\bf Solution:} Notice that we are asking what
+is the remainder for the Taylor Polynomial $P_6(x)$ (see
+Figure \ref{sin5}) where
+$f(x)=\sin x$ and $a=0$, if $|x|<.75.$
+(Recall that, for $\sin x$, we have $P_5=P_6$ when $a=0$.) 
+We will use the fact that $|\sin z|\le1$ and
+$|\cos z|\le 1$ no matter what value $z$.  Thus
+$$\left|R_6(x)\right|=\left|\frac{f^{(7)}(z)(x-0)^7}{7!}\right|
+=\left|\frac{-\cos z\cdot x^7}{7!}\right|
+=\frac1{7!}|\cos z|\cdot|x|^7 $$ 
+$$\le \frac1{7!}\cdot1\cdot.75^7=0.00002648489. $$
+This should be encouraging, since we have nearly five digits of
+accuracy from a polynomial with only three terms, when our angle
+is in the range $\pm.75\approx\pm43^\circ$.
+\eex
+
+\bex Suppose we want to use the approximation 
+$$e^x\approx1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+
+\frac{x^4}{4!}.$$ 
+\begin{description}
+\item a.  How accurate is this if $|x|<5$?
+\item b.  How accurate is this if $|x|<2$?
+\item c.  What if $|x|<1$? 
+\end{description}
+
+\medskip
+\underline{Solution:} Since the approximating polynomial
+is $P_4(x)$ with $a=0$, we are looking for a bound for
+$$|R_4(x)|=\left|\frac{f^{(5)}(z)x^5}{5!}\right|
+=\left|\frac{e^zx^5}{5!}\right|=\frac1{120}e^z|x|^5.$$
+
+a. $|x|<5$: Now $z$ is between $0$ and $x$, and since
+the exponential function is increasing, the worst possible
+case scenario is to have the greatest possible value for 
+$z$ (which will be $x$ or $0$, which ever is greater).
+Since the greatest $x$ can be is 5, it is safe to
+use $e^z<e^5$.  Thus,
+$$|R_4(x)|=\frac1{120}e^z|x|^5<\frac1{120}e^5\cdot5^5
+\approx 3865.$$ 
+Thus we see the exponential is not necessarily approximated 
+by $P_4(x)$ for the whole range $|x|<5$.
+
+b. $|x|<2$: Now we have $z$ between $0$ and $x$, and 
+$x$ between $-2$ and $2$, so the the it is only safe to
+assume $z<2$.  Similar to the  above, this gives
+$$|R_4(x)|=\frac1{120}e^z|x|^5<\frac1{120}e^2\cdot2^5
+\approx 1.97.$$
+We see we have a much better approximation if $|x|<2$.
+
+c. $|x|<1$: Here we can only assume $z<1$: 
+$$|R_4(x)|=\frac1{120}e^z|x|^5<\frac1{120}e^1\cdot1^5
+\approx 0.02265.$$ 
+
+There are several remarks which should be made about this example.
+\begin{enumerate}
+\item Notice that we ``begged the question,'' since we used
+calculations of $e^5$, $e^2$ and $e^1$ to approximate the error.
+This is all correct, but perhaps a strange thing to do since
+such quantities are exactly what we are trying to approximate
+with the Taylor Polynomial.  But even with this problem,
+the polynomial is useful because it can be quickly calculated
+for the whole range $|x|<5,2$ or $1$ for some
+application,  and the accuracy estimated
+using only $e^5$, $e^2$ or $e^1$, which are finitely many
+values.
+ 
+One way to avoid this philosophical problem entirely is to use
+$e^x<3^x$ for $x>0$, since $3^x$ is easier to calculate
+for the integers we used.  For example, $e^5<3^5$.
+  (However, we need to be careful,
+since $3^x<e^x$ if $x<0$.  Here it would be fine to use $3^x$,
+since we were interested in a larger range of $x$ which included
+positive numbers.  If only interested in $x\in(-5,0)$, for 
+example, we might use $e^x<2^x$ there.)
+\item Note that the error shrinks in a-c 
+for two reasons:
+\begin{enumerate}
+\item $\left|f^{(5)}(z)\right|=e^z$ shrinks, since $z$ is more constrained.
+\item $|x|^5$ shrinks, since the maximum $|x|$ is smaller.
+\end{enumerate}
+We benefit from both these factors when we shrink $|x|$.
+\item If we truly needed more accuracy for $|x|<5$, we could
+take a higher-order Taylor Polynomial, such as $P_{15}(x)$, 
+giving
+$$|R_{15}(x)|=\frac1{15!}e^z|x|^{15}
+<\frac1{15!}e^55^{15}\approx 3.5$$
+This might still seem like a large error, but it is relatively small
+considering $e^5\approx148$.  If the error is still too large, 
+consider $P_{20}(x)$, with
+$$|R_{20}(x)|=\frac1{21!}e^z|x|^{21}<\frac1{20!}e^55^{20}
+\approx0.000277. 
+$$ 
+When we increase the order of the Taylor Polynomial, we always
+have the benefit of a growing factorial term $N!$ in the 
+remainder.  As long as the term $\left|f^{N+1}(z)\right|$
+does not grow significantly, the factorial will dominate 
+the exponential $|x-a|^{N+1}$.
+\item Finally, the exponential will always increase faster 
+as $x\to\infty$ than
+any polynomial (be it $P_N(x)$ for a fixed $N$ or any other
+polynomial), and ``flatten out'' like no polynomial
+(except the zero polynomial) as $x\to\,-\infty$, so
+it is really not a good candidate for approximation very
+far from zero.  For this reason, most calculating devices have
+exponential tables (and hence log tables) built into their
+memories.  This makes the ``calculation'' very fast and
+accurate, since it is not really a calculation but simply a
+look-up of the values.  Calculating devices also use 
+these ``log tables'' to compute products, quotients and powers
+the way earlier generations of students used slide rules
+and log tables. 
+
+\end{enumerate}
+\eex 
+\newpage
+\begin{center}{\Large\bf\underline{Exercises}}\end{center}
+\begin{multicols}{2}
+
+\begin{enumerate}
+\item Find $P_N(x)$ and $R_N(x)$ for the following:
+\begin{enumerate}
+\item $f(x)=\sin x$, $a=\pi$, $N=5$
+\item $f(x)=\sqrt x$, $a=1$, $N=3$
+\item $f(x)=\frac1x$, $a=10$, $N=4$
+\item $f(x)=e^x$, $a=0$, $N=9$.
+\item $f(x)=\sec x$, $a=\pi$, $N=2$.
+\item $f(x)=\ln x$, $a=e$, $N=3$.
+\end{enumerate}
+
+\item Explain why the series below converges, and to
+the limit claimed below:
+$$e=1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\frac{x^4}{4!}+\cdots.$$
+
+\item Many physics problems take advantage of 
+the approximation $\tan x\approx x$ for $|x|$ small.
+\begin{enumerate}
+\item Conjecture on where this approximation comes from.
+\item Estimate the error when $|x|<1,.1,.01$.
+\end{enumerate}
+
+\item Suppose we wanted to find a Taylor Polynomial for $f(x)=\sin x$,
+centered at $a=0$, with accuracy 
+$\left|R_N(x)\right|\le10^{-10}$
+valid for $-2\pi\le x\le2\pi$. Find the lowest-order 
+Taylor Polynomial which guarantees that accuracy
+for that interval.  (This may require some numerical experimentation
+with the extimates.)
+
+\item Repeat the previous problem, but for $f(x)=e^x$ and the interval
+$|x|\le10$.
+\end{enumerate}
+\end{multicols}
+
+
+
+
+\newpage
+\section{Taylor/MacLaurin Series}
+\bigskip
+Now we come to the heart of the matter.
+Basically, the {\it Taylor Series} of a function $f$ which
+has all derivatives $f'$, $f''$, $\cdots$ existing at $a$, is
+the series we get when we let $N\to\infty$ in the expression
+for $P_N(x)$.  The Taylor Series equals the function if and
+only if the remainder terms shrink to zero as $N\to\infty$: 
+
+\subsection{Validity of Taylor Series}
+
+\begin{theorem}$\ds{\lim_{N\to\infty}R_N(x)=0\iff}$ 
+\begin{equation}f(x)=\lim_{N\to\infty}P_N(x)
+= \sum_{n=0}^\infty\frac{f^{(n)}(a)(x-a)^n}{n!}
+\label{TaylorSeries}\end{equation} 
+\end{theorem}
+
+\underline{Proof:} First we prove ($\Longleftarrow$).  
+Assume $\ds{f(x)=\sum_{n=0}^\infty
+\frac{f^{(n)}(a)(x-a)^n}{n!}}$.  Then
+$$R_N(x)=f(x)-P_N(x)
+=\sum_{n=N+1}^\infty \frac{f^{(n)}(a)(x-a)^n}{n!}
+\longrightarrow 0 \qquad\text{as }N\to\infty.\footnotemark$$  
+\footnotetext{
+Recall that the ``tail end''
+$\ds{\sum_{n=N+1}^\infty b_n}$ 
+of a convergent series $\ds{\sum_{n=0}^\infty b_n}$
+shrinks to zero as $N\to\infty$.  See (???).} 
+
+Next we prove ($\Longrightarrow$).
+Assume $R_N(x)\longrightarrow0$ as $N\to\infty$.
+Then
+$$\begin{array}{rrl}
+&\ds{f(x)-R_N(x)}&\ds{=\quad\sum_{n=0}^N\frac{f^{(n)}(a)(x-a)^n}{n!}}\\
+\\ \implies&\ds{\lim_{N\to\infty}\left(f(x)-R_N(x)\right)}&
+	\ds{=\quad\lim_{N\to\infty}\sum_{n=0}^N\frac{f^{(n)}(a)(x-a)^n}{n!}}\\
+\\ \implies&\ds{f(x)+0}&
+	\ds{=\quad\sum_{n=0}^\infty\frac{f^{(n)}(a)(x-a)^n}{n!}},
+\text{ q.e.d.}\end{array}  
+$$
+The series we get from Theorem~\ref{TaylorSeries} has the following
+name:
+\begin{definition}Given all derivatives of $f$ exist at $x=a$,
+the series
+\begin{equation} \sum_{n=0}^\infty\frac{f^{(n)}(a)(x-a)^n}{n!}
+\label{TaylorSeriesDefined}\end{equation}
+is call the {\bf Taylor Series} of $f(x)$ centered at
+$x=a$.\end{definition}
+Just to be clear, Theorem~\ref{TaylorSeries} gives the criterion
+that the Taylor Series be equal to the function: 
+\begin{equation}
+f(x)=\sum_{n=0}^\infty\frac{f^{(n)}(a)(x-a)^n}{n!}
+\iff \lim_{N\to\infty}R_N(x)=0.\label{Taylor<>Remainder}
+\end{equation} 
+A special case of the Taylor Series is the case $a=0$. 
+This occurs often enough it is given its own name:
+\begin{comment}
+
+Let us look at a few remainders to see if we can derive series.
+
+\begin{center}
+\begin{tabular}{|c|c|c|l|}
+\hline
+{\bf Function} &{\bf $a$}& {\bf Remainder} &{\bf Conclusion}\\
+\hline
+$e^x$ & $0$&$\ds{\frac{{e^z}x^{n+1}}{(n+1)!}}$ &\parbox{2.0in}
+{Since $e^z$ is between $e^0$
+and $e^x$, it is bounded.  As $n\to\infty$,
+the numerator grows at most exponentially, while the
+denominator grows like a factorial.
+Therefore $R_n(x)\to0$ as $n\to\infty$ for
+every $x\in\Re$.}
+\\ \hline
+$\sin x$
+&$0$&$\ds{\frac{\pm\left(\begin{array}{c}\sin z\\ \cos z\end{array}
+\right)x^{n+1}}{(n+1)!}}$&\parbox{2.0in}{
+The derivatives of $\sin x$ and $\cos x$ all being 
+ $\pm\sin x$ or $\pm\cos x$, the $z$-term of the remainder
+is always bounded between $-1$ and $1$.  Just as in the
+case for $e^x$, the numerator grows exponentially and the
+denominator as a factorial.  The denominator dominates, and
+ $R_n(x)\to0$ as $n\to\infty$ for
+every $x\in\Re$.} \\
+\hline 
+$\cos x$&same&same\vphantom{$\ds{\frac12}$} form
+&Same as for $\sin x$. $x\in\Re$.\\
+\hline
+$\ln x$&$1$&$\ds{\frac{(-1)^{n+2}(x-1)^{n+1}}{z^{(n+1)}(n+1)}}$&
+\parbox{2.0in}{Here we need $|x-1|<1$, or else we have
+exponential growth in $n$ 
+which the denominator cannot counter.  An exponential growth
+will make $R_n$ blow up.  We also need to stay on the right hand 
+side of $x=0$, or else we no longer have $f$ and all its
+derivatives continuous. Thus $R_n(x)\to0$ as $n\to\infty$ so
+long as $|x-1|<1$, i.e., $x\in(0,2)$.\footnotemark} 
+\\
+\hline
+$\ds{\frac1{1-x}}$&0&$\ds{\frac{(n+1)!x^{n+2}}{z^{(n+2)}(n+1)!}}$
+&\parbox{2.0in}{Notice here the factorials cancel.
+Here we must have $|x|<1$ or we get exponential growth.
+This already keeps us away from $x=1$, which is where
+the function and derivatives blow up.  Conclude $R_n(x)\to0$
+as $n\to\infty$ so long as $|x|<1$, i.e., $x\in(-1,1)$.}\\ \hline 
+\end{tabular} 
+\end{center}
+
+\footnotetext{\label{four} Actually this series is also valid at $x=2$, where
+we have an alternating series with shrinking terms.  It is not
+so trivial to prove, but the series will in fact converge to $\ln 2$
+for $x=2$, so the interval of validity of the series is $(0,2]$.}
+
+\bigskip
+
+For each of the above functions, we get a range of $x$-values
+for which the remainders of the Taylor Polynomials shrink to
+zero, and hence the Taylor Polynomials converge to the function
+in that range of $x$'s.  We can therefore equate the function
+with the relevant Taylor Series (\ref{TaylorSeries}).  
+We point out here a note of terminology for a  special case of 
+the Taylor Series is the
+case where $a=0$ in (\ref{TaylorSeries}).  In this case the
+series is called the {\it MacLaurin Series} for $f(x)$. 
+\end{comment}
+\begin{definition} If a Taylor Series is centered at $a=0$, it is called
+a \linebreak
+{\bf MacLaurin Series}.  In other words, if 
+all derivatives of $f(x)$ exist at $x=0$,
+the function's MacLaurin Series is given by
+\begin{equation}\sum_{n=0}^\infty \frac{f^{(n)}(0)x^n}{n!}.\end{equation}
+\end{definition}
+The partial sums are sometimes called {\it MacLaurin Polynomials}.
+In the following propositions, we will consider several Taylor
+and MacLaurin Series, 
+and show where they converge based on Theorem \ref{TaylorSeries}
+(which we restated in (\ref{Taylor<>Remainder})) and
+other observations.
+\bprop
+\begin{equation}
+e^x=\ds{1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots
+        =\sum_{n=0}^\infty\frac{x^n}{n!}}
+	\qquad\text{for all }x\in\Re.\label{e^x}\end{equation} 
+\eprop 
+
+\underline{Proof:} Recall that $f^{(n)}(x)=e^x$ for all $n\in\{0,1,2,\dots\}$.
+Thus, for any fixed $x\in\Re$, we have 
+$$R_N(x)=\frac{f^{(N+1)}(z)x^{N+1}}{(N+1)!}
+=e^z\frac{x^{N+1}}{(N+1)!}.$$
+Now $z$ is between $x$ and $0$, and so $e^z<\max\{e^0,e^x\}$, and
+is thus bounded by $M=\max\{e^0,e^x\}$. Thus
+$$|R_N(x)|=e^z\frac{|x|^{N+1}}{(N+1)!}\le M\cdot\frac{|x|^{N+1}}{(N+1)!}
+\longrightarrow M\cdot 0=0\qquad\text{as }N\to\infty,$$   
+since the numerator grows geometrically (or shrinks geometrically),
+while the denominator grows as a factorial.  Recall that the
+factorial will dominate the exponential regardless of the base
+as $N\to\infty$.  
+Since we showed $R_N(x)\to 0$ for any $x$, by Theorem~\ref{TaylorSeries}, 
+(\ref{e^x}) follows, q.e.d.
+
+It was important to notice that $e^z$ was bounded 
+{\it once $x$ was chosen, }and that the bound is going to change
+with each $x$.  Also, absolute values were not needed around
+the $e^z$-term, since it will always be positive.  Finally, 
+to accommodate the case $x=0$, we substituted the weaker
+``$\le$'' for the ``$<$''.  For the case $x=0$, a careful look at
+the $P_N$ show $R_N(0)\equiv0$.  This is because $0$ is where
+the series is centered. (Recall $P_N(a)=f(a)$.) 
+\bprop
+\begin{equation}
+\sin x=\ds{x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}+\cdots
+        =\sum_{n=0}^\infty\frac{(-1)^{n}x^{n+1}}{(2n+1)!}}
+\qquad\text{for all }x\in\Re.
+\label{sin x}
+\end{equation}
+\eprop 
+
+\underline{Proof:}
+Now $f^{(n)}(x)$ is of the form $\pm\sin x$ or $\pm\cos x$, which
+means it is bounded absolutely by 1, i.e.,
+$\ds{\left|f^{(n)}\right|\le1}$.
+Thus
+$$|R_N(x)|=\left|\frac{f^{(N+1)}(z)x^{N+1}}{(N+1)!}\right|
+\le 1\cdot\frac{|x|^{N+1}}{(N+1)!}\to1\cdot0=0
+\text{ as }N\to\infty.$$
+Again this is because the geometric term $|x|^{N+1}$ is
+a lower order of growth (and may even decay if $x\in(-1,1)$)
+than the factorial $(N+1)!$. 
+Thus, according to Theorem~\ref{TaylorSeries}, (\ref{sin x})
+follows, q.e.d.
+
+A nearly identical argument shows that
+\bprop \begin{equation}
+\cos x=\ds{1-\frac{x^2}{2!}+\frac{x^4}{4!}-\frac{x^6}{6!}+\cdots
+        =\sum_{n=0}^\infty\frac{(-1)^{n}x^{2n}}{(2n)!}}
+\qquad\text{for all }x\in\Re.\label{cos x}
+\end{equation}
+\eprop
+Not all Taylor series converge to the function
+for all of $x\in\Re$.  Furthermore,
+it is often difficult to prove $R_N(x)\to0$ when other techniques
+can give us that the Taylor Series in fact converges.  For example,
+consider the following:
+\bprop
+\begin{equation}
+\ds{\frac1{1-x}}=\ds{1+x+x^2+x^3+x^4+\cdots
+	=\sum_{n=0}^\infty x^n}.
+\qquad\text{for all }x\in(-1,1).\label{Geometric}\end{equation} 
+\label{GeometricProp}\eprop
+Though we can calculate the series directly
+(see  Exercise~\ref{geompartsums}), 
+(\ref{Geometric}) is obvious if we read it backwards,
+realizing that the series is geometric with
+first term $a=0$ and ratio $x$.
+Moreover, the series converges when $|x|<1$ and diverges
+otherwise, from what we know of geometric series.
+>From these observations, Proposition~\ref{GeometricProp}
+is proved.
+We will see in Sections \ref{D&I} and \ref{OtherManipulations}
+that many of the connections and manipulations we would like
+to make with Taylor/MacLaurin Series are legitimate.
+In fact, these methods are often much easier than the
+more basic approaches.  Consider Proposition~\ref{Geometric}. 
+The actual remainder is of the form
+\begin{equation}
+R_N(x)=\frac{(N+1)!\,(1-z)^{-(N+2)}\,x^{N+1}}{(N+1)!}
+=\frac{x^{N+1}}{(1-z)^{N+2}}.\label{GeometricRemainder}\end{equation} 
+We know $z$ is between $0$ and $x$, but without knowing 
+more about where,
+it is not obvious that the numerator in our simplified
+$R_N$ will decrease in absolute size faster than the denominator.
+We will not belabor the point here, but just conclude that
+resorting to using facts about geometric series is a
+much simpler approach than attempting to prove $R_N(x)\to0$
+when $|x|<1$.
+
+Another interesting Taylor Series is the following:
+\bprop The following is the Taylor Series for $\ln x$
+centered at $x=1$: 
+\begin{align}
+\ln x&=1(x-1)-\frac12(x-1)^2+\frac13(x-1)^3-\frac14(x-1)^4+\cdots
+\label{ln x}\\
+&=\sum_{n=1}^\infty\frac{(-1)^{n+1}(x-1)^n}{n}
+\qquad\text{for } |x-1|<1.\notag 
+\end{align}
+\label{ln series prop}\eprop
+We found $P_N$ in Example \ref{ln example}.  
+A proof that (\ref{ln x}) is valid for $(1/2,2)$ in which one shows
+$R_N(x)\to0$ in that interval is left as Exercise~\ref{partiallnintervalproof}.
+The proof that the series is valid for all of $(0,2)$
+is left as an exercise in  Section~\ref{OtherManipulations},
+after other methods are available.
+Finally, in Exercise~\ref{basic int of conv exercises} we show
+the series in fact converges for $(0,2]$, so that by Abel's Theorem
+(Theorem~\ref{Abel's}) the series converges to $\ln x$ in
+all of $(0,2]$. 
+
+
+\subsection{Techniques for Writing Series
+using $\mathbf{\Sigma}$-Notation}
+Notice some of the tricks for getting the correct terms in the
+summation.  For instance, inserting a factor $(-1)^n$ or 
+$(-1)^{n+1}$ to achieve the alternation of sign, depending
+upon whether the first term carries a ``$+$" or ``$-$." 
+We also pick up only the odd terms in the $\sin x$ expansion
+by using the $2n+1$ factors, and get the evens in the $\cos x$
+using the $2n$.  The way to get comfortable with these manipulations
+is to write out a few terms of the summations on the
+right of (\ref{sin x}), (\ref{cos x}) and (\ref{ln x}).  For example,
+we can check the summation notation is consistent
+ in (\ref{sin x}) as follows: 
+$$\sum_{n=0}^\infty\frac{(-1)^{n}x^{2n+1}}{(2n+1)!}
+=\underbrace{\frac{(-1)^0x}{1!}}_{n=0\ \mathrm{term}}
++\underbrace{\frac{(-1)x^3}{3!}}_{n=1\ \mathrm{term}}
++\underbrace{\frac{(-1)^2x^5}{5!}}_{n=2\ \mathrm{term}}
++\underbrace{\frac{(-1)^3x^7}{7!}}_{n=3\ \mathrm{term}}+\cdots     $$ 
+$$=x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}+\cdots
+$$
+We see that we get the correct alternation of sign and 
+the correct powers and factorials from our sigma ($\sum$)
+notation.
+\bex Write the following in a compact $\sum$-notation.
+\begin{description}  
+\item a. $\ds{\frac{x}2+\frac{x^2}{4}+\frac{x^3}{6}+\frac{x^4}{8}+\cdots}$
+\item b. $\ds{x-\frac{x^3}{2}+\frac{x^5}{4}-\frac{x^7}{8}+\cdots}$
+\item c. $\ds{-\,\frac{x^2}{1}+\frac{x^4}{1\cdot3}-\frac{x^6}{1\cdot3\cdot5}
+	+\frac{x^8}{1\cdot3\cdot5\cdot7}+\cdots}$
+\end{description}
+
+\underline{Solution:} \begin{description}
+\item a. We see the powers of $x$ are increasing by 1, while the
+denominators are increasing by 2 with each new term added. 
+The summations will appear different
+depending upon where the indices begin.  Here are two 
+possibilities, though the first is more obvious.
+\begin{align*}
+\frac{x}2+\frac{x^2}{4}+\frac{x^3}{6}+\frac{x^4}{8}+\cdots
+&=\sum_{n=1}^\infty\frac{x^n}{2n}.\\
+\frac{x}2+\frac{x^2}{4}+\frac{x^3}{6}+\frac{x^4}{8}+\cdots
+&=\sum_{n=0}^\infty\frac{x^{n+1}}{2(n+1)}.\end{align*} 
+\item b. Here we have only odd powers of $x$.  It is worth noting
+that therefore the powers of $x$ are increasing by 2.
+We have alternating factors of $\pm 1$.
+In the denominator we have powers of $2$.  This
+can be written 
+\begin{align*}
+x-\frac{x^3}{2}+\frac{x^5}{4}-\frac{x^7}{8}+\cdots
+	&=\sum_{n=1}^\infty\frac{(-1)^{n+1}\,x^{2n-1}}{2^{n-1}}\\
+x-\frac{x^3}{2}+\frac{x^5}{4}-\frac{x^7}{8}+\cdots
+	&=\sum_{n=0}^\infty\frac{(-1)^n\,x^{2n+1}}{2^n}.
+\end{align*} 
+\item c. The powers of $x$ here are all even, hence increasing by
+2 with each step.  There is also alternation of signs.  Finally
+the denominators are products of odd numbers, similar to a 
+factorial but skipping the even factors.  In a case like this,
+we allow for a more expanded writing of the pattern in the
+$\sum$-notation.  We write the following:
+\begin{align*}
+-\,\frac{x^2}{1}+\frac{x^4}{1\cdot3}-\frac{x^6}{1\cdot3\cdot5}
+        +\frac{x^8}{1\cdot3\cdot5\cdot7}+\cdots
+&=\sum_{n=1}^\infty\frac{(-1)^n\,x^{2n}}{1\cdot3\cdot5
+\cdots(2n-1)}\\
+-\,\frac{x^2}{1}+\frac{x^4}{1\cdot3}-\frac{x^6}{1\cdot3\cdot5}
+        +\frac{x^8}{1\cdot3\cdot5\cdot7}+\cdots
+&=\sum_{n=0}^\infty\frac{(-1)^{n+1}\,x^{2n+2}}{
+	1\cdot3\cdot5\cdots(2n+1)}.\end{align*} 
+If we had some compelling reason, we might even begin at $n=3$,
+for instance:
+$$-\,\frac{x^2}{1}+\frac{x^4}{1\cdot3}-\frac{x^6}{1\cdot3\cdot5}
+        +\frac{x^8}{1\cdot3\cdot5\cdot7}+\cdots
+=\sum_{n=3}^\infty\frac{(-1)^{n+1}\,x^{2n-5}}{1
+\cdot3\cdot5\cdot(2n-5)}.$$
+It is understood that the denominator contains all the odd
+factors up to $(2n-1)$ or $(2n+1)$, depending on the form chosen.
+Though the first two terms do not contain all of $1\cdot3\cdot5$,
+we put in those three numbers to establish the pattern, which
+is understood to terminate at $(2n-1)$ or $(2n+1)$ even if that
+means stopping before 3 and/or 5.
+
+Whenever there is alternation, expect $(-1)^n$ or $(-1)^{n+1}$
+or similar factors to be present.  An increase by 2 at each step
+is achieved by $(2n+k)$, where $k$ is chosen to get the first 
+term correct.  An increase by 3 would require a $(3n+k)$.
+With some practice it is not difficult to translate a series
+written longhand, but with a clear pattern, into $\sum$-notation.
+\end{description}
+\eex
+\newpage
+\bigskip\begin{center}{\Large \underline{Exercises}}\end{center}
+\bhw As we did just above, begin with the right hand sides of
+(\ref{e^x}), (\ref{cos x}), (\ref{Geometric}), and (\ref{ln x})
+to show that the  $\sum$-notation used does indeed return the
+desired series for these functions.
+\ehw
+\bhw Write the following series using $\sum$-notation.
+Begin each series with both $n=1$ and $n=0$ for the first term.
+\begin{description}
+\item a. $\ds{1-\frac{x^2}{2}+\frac{x^4}{3}-\frac{x^6}{4}+\cdots}$ 
+\item b. $\ds{x^2+\frac{x^4}{4}+\frac{x^6}{9}+\frac{x^8}{16}
++\frac{x^{10}}{25}+\cdots}$
+\item c. $\ds{\frac{x}{2}-\frac{x^2}{2\cdot4}+\frac{x^3}{2\cdot4\cdot6}
+-\frac{x^4}{2\cdot4\cdot6\cdot8}+\cdots}$
+\item d. $\ds{\frac{x}{1\cdot1}+\frac{x^3}{3\cdot1\cdot2}
++\frac{x^5}{5\cdot1\cdot2\cdot3}+\frac{x^7}{7\cdot1\cdot2\cdot3\cdot4}
++\cdots}$ 
+\item e. $\ds{\frac2{4}-\frac{4x}{7}+\frac{6x^2}{10}-\frac{8x^3}{13}
++\cdots}$ 
+\end{description}
+\ehw
+\bhw Prove Proposition~\ref{cos x}.
+\ehw
+
+\bhw Prove that the remainder 
+$\ds{R_N(x)=\frac{x^{N+1}}{(1-z)^{N+2}}}$
+from (\ref{GeometricRemainder}) 
+does approach zero as $N\to\infty$ 
+for the case $x\in(-1,0)$. Note that it is enough
+to show $|R_N(x)|\to0$.
+(Hint:  What can you say about $1-z$
+in this case?) 
+\ehw 
+\bhw Prove that the remainder term
+$\ds{R_N(x)=\frac{(-1)^N(x-1)^{N+1}}{(N+1)\,z^{N+1}}}$
+from  Proposition \ref{ln series prop} converges to zero as $N\to\infty$
+for the following two cases:
+\begin{description}
+\item a. $x\in[1,2)$; 
+\item b. $x\in(1/2,1)$.  
+\end{description}
+Thus Proposition \ref{ln series prop} is proved in part. (Hint: A number
+line showing the various quantities may be helpful.) 
+\label{partiallnintervalproof} 
+\ehw 
+
+
+\newpage 
+\section{Derivatives and Integrals
+ With Taylor Series \label{D&I}}
+\bigskip
+
+As has already been mentioned, many of the manipulations
+we would hope we can do with Taylor Series are in fact
+possible.  For instance, we can take derivatives and integrals
+as expected:
+\bigskip
+
+\begin{theorem} Suppose that $f(x)$ is given
+by some Taylor Series
+\begin{equation}
+f(x)=a_0+a_1(x-a)+a_2(x-a)^2+a_3(x-a)^3+\cdots=\sum_{n=0}^\infty
+a_n(x-a)^n.\label{SeriesAgain}\end{equation}
+\begin{enumerate}
+\item If the series converges in an open interval containing $x$,
+then
+\begin{equation}
+f'(x)=a_1+2a_2(x-a)+3a_3(x-a)^2+\cdots=\sum_{n=1}^\infty na_n(x-a)^{n-1}.
+\end{equation}
+\item 
+Furthermore, integrating (\ref{SeriesAgain}) term by term we get\footnotemark 
+\begin{align}\int f(x)\,dx&=
+a_0(x-a)+a_1\frac{(x-a)^2}{2\cdot1!}+a_3\frac{(x-a)^3}{3\cdot2!}
++\cdots+C\notag\\
+&=\sum_{n=0}^\infty a_n\frac{(x-a)^{n+1}}{(n+1)!}+C,
+\label{SeriesIntegral}\end{align}
+with the special case that, if the series converges on the interval
+containing both $a$ and $x$, we have 
+\begin{equation}\int_a^xf(t)\,dt=\left.\sum_{n=0}^\infty a_n\frac{(t-a)^{n+1}}
+ {(n+1)!}\right|_a^x
+=\sum_{n=0}^\infty a_n\frac{(x-a)^{n+1}}{(n+1)!}.  
+\label{SeriesDefiniteIntegral}\end{equation} 
+\end{enumerate}\end{theorem}\footnotetext{
+We should notice that in (\ref{SeriesIntegral}) we have an extra $a_0(-a)$
+in the first term, but that is not a problem since we have an arbitrary
+constant $+C$ at the end which can account for any discrepancies.}  
+Let us see how the derivative part of the theorem plays out first.
+\bigskip
+
+\bex We do the following calculations using
+known formulas first, and using series to show the reasonableness of it all.
+$$\frac{d}{dx}e^x=e^x.$$
+\begin{eqnarray*}\ds{\frac{d}{dx}\left(1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\frac{x^4}{4!}+\cdots
+\right)}&=&\ds{0+1+\frac{2x}{2\cdot1}+\frac{3x^2}{3\cdot2\cdot1}+
+\frac{4x^3}{4\cdot3\cdot2\cdot1}+\cdots }\\
+&=&\ds{1+\frac{x}{1!}+\frac{x^2}{2!}+\frac{x^3}{3!}+\cdots}\end{eqnarray*}
+Using $\sum$-notation, keeping in mind that the first ($k=0$) term
+differentiates to zero, we get
+$$\frac{d}{dx}\left(\sum_{k=0}^\infty\frac1{k!}x^k\right)
+=\sum_{k=0}^\infty k\frac1{k!}x^{k-1}
+=\sum_{k=1}^\infty\frac1{(k-1)!}x^{k-1}.$$
+Writing out the first few terms of the new summation we see
+that it is the same as 
+$$=\sum_{k=0}^\infty\frac1{k!}x^k.$$
+\eex
+
+The following are very useful exercises for students to
+attempt themselves.  One should first attempt these
+using the written out expansion
+$$a_0+a_1x+a_2x^2+a_3x^3+\cdots,$$
+and then using the $\sum$-notation if possible, comparing the
+results.  
+
+\begin{center}\underline{\bf\Large Exercises}\end{center}
+ 
+\bhw Use the method above to show that we can derive the
+two derivative formulas from the MacLaurin Series representations
+(as we showed above $\frac{d}{dx}e^x=e^x$ is verified with series):
+\begin{description}
+\item a. $\ds{\frac{d}{dx}\sin x=\cos x}$.
+\item b. $\ds{\frac{d}{dx}\cos x=-\sin x}$.
+\end{description}
+\ehw
+\bhw
+ Use the fact that $\ds{\frac{d}{dx}\left(\frac1{1-x}\right)
+=\frac1{(1-x)^2}}$ 
+to find the MacLaurin Series expansion for
+$$f(x)=\frac1{(1-x)^2}.$$
+\ehw
+\bhw Use the facts that $\tan^{-1}x=\int_0^x\frac{1}{1+t^2}\,dt$,
+and that $\frac1{1+t^2}=\frac1{1-[-t^2]}$ to compute the MacLauring
+Series for $\tan^{-1}x$.
+\ehw
+\bhw Find a series expansion for the general antiderivative
+     of $\ds{e^{x^2}}$.
+
+\ehw
+
+\newpage
+\section{Other Manipulations With Taylor Series\label{OtherManipulations}}
+\bigskip
+
+One very nice property of the Taylor Series is the following fact:
+
+\begin{theorem}If there are two power series
+representations which are valid at a given point $x$:
+$$f(x)=\sum_{k=0}^\infty a_k x^k =\sum_{k=0}^\infty b_kx^k,$$
+then $a_0=b_0$, $a_1=b_1$, and so on. 
+\end{theorem}
+
+The theorem is stating that any two such representations must
+really be the same.  In math-speak, we would say that the
+Taylor/MacLaurin Series representation for a function
+is unique at each point where it is valid.
+
+One main usefulness of the theorem lies in the fact that
+it is often easier to calculate the series {\it algebraically}
+or from simple calculus, from a known series, than to 
+calculate directly the Taylor Coefficients $a_0=f(a)$, $a_1=f'(a)$,
+$a_2=\frac12f''(a)$, etc.  For instance, rather than calculating
+the MacLaurin Series for $\sin x$ and $\cos x$ separately,
+we could have calculated the series for $\sin x$ first, and
+then taken its derivative to get the $\cos x$ series.
+But there are more compelling examples to be sure.
+
+\bex\label{e^x^2}Use the MacLaurin Series
+for $e^x$ to calculate the MacLaurin Series for $e^{x^2}$.
+\medskip
+
+\underline{\bf Solution:} We simply replace $x$ with $x^2$
+in the series for $e^x$.
+\begin{eqnarray*}
+e^x&=&\ds{1+x+\frac{x^2}{2!}+\frac{x^3}{3!}+\frac{x^4}{4!}+\cdots
+=\sum_{k=0}^\infty\frac{x^k}{k!}}\\
+e^{x^2}&=&\ds{1+(x^2)+\frac{(x^2)^2}{2!}+\frac{(x^2)^3}{3!}
++\frac{(x^2)^4}{4!}=\sum_{k=0}^\infty\frac{(x^2)^k}{k!}}\\
+&=&\ds{1+x^2+\frac{x^4}{2!}+\frac{x^6}{3!}+\frac{x^8}{4!}+\cdots
+=\sum_{k=0}^\infty\frac{x^{2k}}{k!}}.\end{eqnarray*}     
+\eex
+We will now dispell any doubt that this is not superior to 
+calculating this series from scratch.  Remember that we would
+need a formula for $f^{(n)}(x)$ to fill out our chart.
+The first two are easy enough: $f(x)=e^{x^2}$; $f'(x)=2xe^{x^2}$.
+For $f''$, we need a product rule and another chain rule:
+$f''(x)=2e^{x^2}+2x(2xe^{x^2})=2e^{x^2}(1+4x)$.  Next we
+would need another product rule and a couple chain rules to
+find $f'''$.  By then, we would certainly conclude the method above
+is superior.
+
+Essentially we used an algebraic method in Example \ref{e^x^2}.
+  We simply replaced $x$ by $x^2$, just as we learn in algebra, except
+this time we did it with series:
+$$f(x)=e^x \qquad\Longrightarrow\qquad f(x^2)=e^{x^2}.$$
+
+\bex \label{ArctanxSeries}Use the series for
+$\ds{\frac1{1-x}}$ to derive a series for $\ds{\frac1{1+x^2}}$.
+Then use that series to find a series for $\tan^{-1}x$.
+\medskip
+
+\underline{\bf Solution:} The series for $\ds{\frac1{1-x}}$ was
+given in (\ref{Geometric}), but is not difficult to memorize
+due to its relationship with geometric series.  We first 
+replace $x$ with $-x^2$ in that series, since
+$\ds{\frac1{1+x^2}=\frac1{1-(-x^2)}}$:
+\begin{eqnarray*}
+\frac1{1-x}&=&1+x+x^2+x^3+x^4+\cdots=\sum_{n=0}^\infty x^n\\
+\frac1{1+x^2}&=&1+(-x^2)+(-x^2)^2+(-x^2)^3+(-x^2)^4+\cdots
+=\sum_{n=0}^\infty(-x^2)^n\\
+&=&1-x^2+x^4-x^6+x^8+\cdots=\sum_{n=0}^\infty(-1)^nx^{2n}.\end{eqnarray*}
+This is valid wherever $|x^2|<1$, which it is not too difficult
+to see is again wherever $|x|<1$.\footnotemark
+\footnotetext{Recall that $|x^2|=|x|^2$.  Also recall that
+the sqare root function is increasing on $[0,\infty)$, and
+so (by definition) preserves inequalities.  Thus
+$$|x|^2<1\iff \sqrt{|x^2|}<\sqrt1 \iff |x|<1.$$}
+  Next we use the fact that
+$$\tan^{-1}x=\tan^{-1}x-\tan^{-1}0=\int_0^x\frac1{1+t^2}\,dt$$
+$$=\int_0^x\sum_{n=0}^\infty(-1)^nt^{2n}\,dx 
+=\left.\sum_{n=0}^\infty(-1)^n\frac{t^{2n+1}}{2n+1}\right|_0^x
+=\sum_{n=0}^\infty(-1)^n\frac{x^{2n+1}}{2n+1}-0.$$
+Thus
+\begin{equation}
+\tan^{-1}x=\sum_{n=0}^\infty(-1)^n\frac{x^{2n+1}}{2n+1}
+=x-\frac{x^3}{3}+\frac{x^5}5-\frac{x^7}7+\cdots.\end{equation}
+Once again, this is valid where $|x^2|<1$, i.e., where $|x|<1$. 
+\eex
+\bex
+Find the MacLaurin Series
+for $f(x)=x^3\sin2x$.
+\medskip
+
+\underline{\bf Solution:} This will follow quickly from the 
+series for $\sin x.$
+\begin{eqnarray*}
+\sin x&=&x-\frac{x^3}{3!}+\frac{x^5}{5!}-\frac{x^7}{7!}+\cdots 
+=\sum_{n=0}^\infty\frac{(-1)^nx^{2n+1}}{(2n+1)!}\\
+\sin 2x&=&(2x)-\frac{(2x)^3}{3!}+\frac{(2x)^5}{5!}-\frac{(2x)^7}{7!}+\cdots
+=\sum_{n=0}^\infty\frac{(-1)^n(2x)^{2n+1}}{(2n+1)!}\\ 
+&=&2x-\frac{8x^3}{3!}+\frac{32x^5}{5!}-\frac{128x^7}{7!}+\cdots
+=\sum_{n=0}^\infty\frac{(-1)^n2^{2n+1}x^{2n+1}}{(2n+1)!}\\
+x^3\sin2x&=&x^3\left(2x-\frac{8x^3}{3!}+\frac{32x^5}{5!}-
+	\frac{128x^7}{7!}+\cdots\right)
+=x^3\left(\sum_{n=0}^\infty
+\frac{(-1)^n2^{2n+1}x^{2n+1}}{(2n+1)!}
+\right)
+\\
+&=&2x^4-\frac{8x^6}{3!}+\frac{32x^8}{5!}-\frac{128x^{10}}{7!}+\cdots
+=\sum_{n=0}^\infty\frac{(-1)^n2^{2n+1}x^{2n+4}}{(2n+1)!}.\end{eqnarray*} 
+>From this example, perhaps on can see an advantage in using the 
+$\sum$-notation instead of writing out several terms to find the
+pattern.
+\eex
+\bex
+\label{Inte^x^2}Find $\ds{\int_0^x e^{t^2}\,dt.}$
+\medskip
+
+\underline{\bf Solution:} It is an interesting but futile exercise to try to
+find the antiderivatives of $e^{x^2}$ using the usual tricks:
+substitution, integration by parts, etc.  It is well-known that
+there is no ``closed form" for this antiderivative, i.e., using
+the usual functions in the usual manners.  It is also true that,
+since $e^{x^2}$ is continuous on $\Re$, there must exist continuous
+antiderivatives.\footnotemark
+\footnotetext{This comes from one of the statements of the
+Fundamental Theorem of Calculus.}
+Our discussion here presents a strategy for calculating this
+integral:  write the integrand as a series, and integrate term by term.
+As before, we will write the steps and the solution in two ways:
+one method is to  write out several terms of the series;
+the other, done simultaneously, is to use the
+$\sum$-notation.  Hopefully by now they are equally
+simple to deal with.
+\begin{eqnarray*}
+e^t&=&1+\frac{t}{1!}+\frac{t^2}{2!}+\frac{t^3}{3!}+\cdots
+=\sum_{n=0}^\infty\frac{t^n}{n!}\\
+e^{t^2}&=&1+\frac{t^2}{1!}+\frac{(t^2)^2}{2!}+\frac{(t^2)^3}{3!}+\cdots
+=\sum_{n=0}^\infty\frac{(t^2)^n}{n!}\\
+e^{t^2}&=&1+\frac{t^2}{1!}+\frac{t^4}{2!}+\frac{t^6}{3!}+\cdots
+=\sum_{n=0}^\infty\frac{t^{2n}}{n!}\end{eqnarray*} 
+$$\int_0^xe^{t^2}\,dt=\int_0^x\left(1+\frac{t^2}{1!}+
+	\frac{t^4}{2!}+\frac{t^6}{3!}+\cdots\right)\,dt
+=\int_0^x\left(\sum_{n=0}^\infty\frac{t^{2n}}{n!}\right)\,dt$$
+$$=\left.\left(t+\frac{t^3}{3\cdot1!}+\frac{t^5}{5\cdot2!}
++\frac{t^7}{7\cdot3!}+\cdots\right)\right|_0^x
+=\left.\sum_{n=0}^\infty\frac{t^{2n+1}}{(2n+1)n!}\right|_0^x$$
+$$=\left(x+\frac{x^3}{3\cdot1!}+\frac{x^5}{5\cdot2!}
++\frac{x^7}{7\cdot3!}+\cdots\right)-0
+=\sum_{n=0}^\infty\frac{x^{2n+1}}{(2n+1)n!}-0.$$
+Thus
+$$\int_0^xe^{t^2}\,dt=\sum_{n=0}^\infty\frac{x^{2n+1}}{(2n+1)n!}.$$
+We could also write the general antiderivative
+$$\int e^{x^2}\,dx=\sum_{n=0}^\infty\frac{x^{2n+1}}{(2n+1)n!}+C.$$
+\eex
+Other antiderivatives which must be found this way are
+$\int\sin x^2\,dx$, $\int\cos x^2\,dx$.
+\newpage
+\begin{center}\underline{\bf\Large Exercises}\end{center} 
+
+\noindent In each of the following, unless otherwise stated, leave
+your final answers in $\sum$-notation.
+\bhw Find the MacLaurin series for $f(x)=\ln(x+1)$ using
+(\ref{ln x}).  Where is this series valid?  
+i%(See Footnote \ref{four}.) 
+\ehw
+\bhw Write the MacLaurin series for $\ds{f(x)=\frac12\sin2x}$
+by\begin{description}
+\item a.  Using the series for $\sin x$.
+\item b. Using the series for $\sin x$ and $\cos x$ and the fact
+(from the double angle formula) that
+$$f(x)=\sin x\cos x.$$
+(Just write out the first several terms of the product, being
+careful to distribute correctly, to verify the answer is the
+same as in part a.) 
+\end{description}\ehw
+\bhw Approximate $\ds{\int_0^{\sqrt\pi}\cos x^2\,dx}$ \ by computing
+the first five nonzero terms of the MacLaurin series for $\int\cos x^2\,dx$.
+\ehw
+\bhw
+ The Hyperbolic Functions:  The three most important hyperbolic
+functions are
+\begin{eqnarray}
+\sinh x&=&\ds{\frac{e^x-e^{-x}}2}\\
+\cosh x&=&\ds{\frac{e^x+e^{-x}}2}\\
+\tanh x&=&\ds{\frac{e^x-e^{-x}}{e^x+e^{-x}}}.\end{eqnarray} 
+Though not immediately obvious, it is true that $\tanh x$ is
+invertible, and that its inverse has the property that
+\begin{equation}\frac{d}{dx}\tanh^{-1}x=\frac1{1-x^2}.\end{equation}
+Find the MacLaurin series for $f(x)=\tanh^{-1}x$ given that
+\begin{equation}\tanh^{-1}x=\int_0^x\frac1{1-t^2}\,dt.\label{tanh2}
+\end{equation}
+(See Example~\ref{ArctanxSeries}, page~\pageref{ArctanxSeries}.)  
+Where is this series valid? (Actually the integral
+in (\ref{tanh2}) can also be computed with partial fractions, and
+the final answer  written without resorting to series.)
+\label{HyperbolicFunctsMaclaurinSeries}\ehw
+\bhw (Proof of  Proposition~\ref{ln series prop})
+Derive the Taylor Series for $\ln x$ with $a=1$ using the fact that
+$$\ln x=\int_1^x\frac1t\,dt$$
+for $x>0$, and 
+$$\frac1t=\frac1{1-(1-t)}.$$
+Where is this series guaranteed valid?
+\ehw
+
+\section{The Binomial Series and an Application}
+
+The following series comes up in enough applications that it is
+worth some focus.  It is the following:
+\begin{equation}
+(1+x)^\alpha=1+\alpha x+\frac{\alpha(\alpha-1)x^2}{2!}
++\frac{\alpha(\alpha-1)(\alpha-2)x^3}{3!}+\cdots
+%=\sum_{n=0}^\infty\frac{\alpha(\alpha-1)\cdots(\alpha-n+1)x^n}{n!}. 
+\label{Binomial}\end{equation}
+This can also be written
+$$(1+x)^\alpha=\sum_{n=0}^\infty
+	\frac{\alpha(\alpha-1)\cdots(\alpha-n+1)x^n}{n!}.$$
+This series is valid for $|x|<1$, and sometimes also valid
+at one or both endpoints $x=\pm1$.  It is not difficult to
+prove, and is a worthwhile exercise.  In fact, for 
+$\alpha\in\{0,1,2,3,\cdots\}$, the function is a polynomial and
+the series terminates (in the sense that all but finitely many
+terms are zero),  simply 
+giving an expansion of the polynomial,  valid for all $x$. 
+
+The derivation of (\ref{Binomial}) is straightforward.  See
+Exercise \ref{BinomialDerivation}. 
+Here are some quick examples:
+$$\begin{array}{rcll}
+\ds{\frac1{\sqrt{1+x}}}&=&1-\frac12x+\frac{\left(-\frac12\right)
+\left(-\frac32\right)x^2}{2!}
++\frac{\left(-\frac12\right)\left(-\frac32\right)\left(-\frac52\right)
+x^3}{3!}+\cdots\qquad & \left(\alpha=-\frac12\right)\\
+\ds{\frac1{1+x^2}}&=&
+1-(x^2)+\frac{(-1)(-2)(x^2)^2}{2!}+\frac{(-1)(-2)(-3)(x^2)^3}{3!}
++\cdots\vphantom{\ds{\int}}&(\alpha=-1)\\
+&=&1-x^2+x^4-x^6+\cdots& (``x''=x^2)\\ 
+(1+x)^3&=&1+3x+\frac{3\cdot2x^2}{2!}+\frac{3\cdot2\cdot1x^3}{3!}
++\frac{3\cdot2\cdot1\cdot0x^4}{4!}+\frac{3\cdot2\cdot1\cdot0\cdot(-1)x^5}{5!}
++\cdots\\
+&=&1+3x+3x^2+x^3& \vphantom{\ds{\int}}(\alpha=3)\\
+\end{array}$$ 
+Actually, the last one is valid for all $x$, and the one above it 
+was done in Example 9.
+\bigskip
+
+There is a beautiful application of binomial series which
+relates Einstein's Special Relativity to Newtonian Mechanics.
+This application is given in the following example. 
+\bex{\bf (Application)}
+According to Einstein, kinetic energy is that energy which is
+due to the motion of an object, and can  be defined as the
+following function of velocity (for a given rest mass $m$): 
+\begin{eqnarray*}E_k&=&E_{\mathrm{total}}-E_{\mathrm{rest}}\\
+E_k(v)&=&\frac{mc^2}{\sqrt{1-\frac{v^2}{c^2}}} 
+-mc^2\\
+&=&mc^2\left(\frac1{\sqrt{1-\frac{v^2}{c^2}}}\right)-mc^2.
+\end{eqnarray*} 
+Contained in the above is the very famous equation $E_{\mathrm{rest}}
+=mc^2$.
+Also notice that the total energy $E_{\mathrm{total}}$ blows up
+as $v\to c^-$ or $v\to-c^+$, i.e., as velocity approaches the speed
+of light.  At $v=\pm c$, we are dividing by zero in the total energy,
+and thus the theory that ordinary objects cannot achieve the
+speed of light (for it would take infinite energy to achieve it).
+
+Now let us expand this expression of $E_k(v)$ by expanding
+the fraction $\ds{\frac1{\sqrt{1-\frac{v^2}{c^2}}}}$ using
+the binomial series, with $\alpha=-1/2$ and replacing
+$x$ with $-v^2/c^2$.
+\begin{align}E_k(v)&=mc^2\left(1-\frac12\left(-\frac{v^2}{c^2}\right) 
++\frac{\left(-\frac12\right)\left(-\frac32\right)
+\left(-\frac{v^2}{c^2}\right)^2}{2!}+\cdots \right)-mc^2\label{einexpand}\\ 
+&\approx mc^2\left(1+\frac12\frac{v^2}{c^2}\right)-mc^2
+\qquad \mathrm{when\ } \frac{v^2}{c^2}\ \mathrm{is\ small.}\end{align} 
+Multiplying this out, we see that 
+\begin{equation}E_k\approx mc^2+mc^2\cdot\frac12\frac{v^2}{c^2}-mc^2
+=\frac12mv^2.\end{equation}
+Summarizing, 
+\begin{equation}E_k(v)\approx\frac12mv^2\qquad\qquad\mathrm{when\ }
+|v|<<c.\label{einsumm}\end{equation} 
+Here the notation $|v|<<c$ means that $|v|$ is much smaller than $c$,
+giving us that $v^2/c^2$ is very small.
+So we see that Newton's kinetic energy formula is just an
+approximation of Einstein's, which is to be expected since
+Newton was not considering objects at such high speeds.  
+\eex
+
+\bigskip
+\newpage
+\begin{center}{\Large\underline{Exercises}}\end{center}
+\bigskip
+\bhw
+Derive the series
+(\ref{Binomial}) using the formula for Taylor/MacLaurin
+Series where $f(x)=(1+x)^\alpha$ and $a=0$.
+\label{BinomialDerivation}\ehw
+\bhw Find a series representation for the following functions
+using the binomial series (\ref{Binomial}).  Do not attempt
+to use $\sum$-notation, but rather write out the first five
+terms of the series to establish the pattern. 
+ 
+\begin{description}
+\item a. $\ds{f(x)=(1+x)^{3/2}}$
+\item b. $\ds{f(x)=(1-x)^{3/2}}$
+\item c. $\ds{f(x)=\frac{1}{\sqrt[3]{1+x}}}$
+\item d. $\ds{f(x)=\frac{1}{\sqrt[3]{1+x^3}}}$
+\item e. $\ds{f(x)=\frac{x^3}{\sqrt{1+x}}}$
+\item f. $\ds{f(x)=\frac1{\sqrt{1-x^2}}}$.
+\end{description}
+\ehw
+\bhw Use the fact that $\ds{\ln\left(x^2+1\right)=\int_0^x\frac{2t}
+{1+t^2}\,dt}$
+to find the series expansion for $\ds{f(x)=\ln\left(1+x^2\right)}$.
+\ehw
+\bhw Find a more general form of the binomial series
+by using (\ref{Binomial}) to derive a series for
+\begin{equation}
+f(x)=(b+x)^\alpha
+\end{equation}
+and determine for what values of $x$ is it valid.
+(Hint: Use (\ref{Binomial}) after factoring out $\ds{b^\alpha}$ from
+$f$.)
+\ehw
+\bhw Complete the square and use the binomial series to write
+a series expansion for the following.  Also determine 
+an interval $|x-a|<R$ where the series is guaranteed to be valid. 
+\begin{description} 
+\item  a. $\ds{f(x)=\frac1{\sqrt{x^2-6x+10}}}$
+\item  b. $\ds{f(x)=\sqrt{4x^2+12x+13}}$
+\item  c. $\ds{f(x)=(-2x^2+3x+5)^{-2/3}}$
+\end{description}
+\ehw
+\bhw Using (\ref{einexpand}), show that 
+$\ds{E_k(v)\ge\frac12mv^2}$ for $|v|<c$, with equality only occuring
+when $v=0$.  Thus (\ref{einsumm}) is always an underestimation 
+unless $v=0$. (Hint:  Look at the signs of all the terms we ignore in
+the approximation.) 
+\ehw
+
+
+\newpage
+\section[Power Series, Interval of Convergence]{General Power Series and
+Interval of Convergence}
+\subsection{Definition of General Power Series}
+While most of our favorite functions can be written as 
+power series
+\begin{equation}f(x)=\sum_{n=0}^\infty a_n(x-a)^n,\label{Power Series}
+\end{equation}
+there are many functions which must be written as series
+(for instance, $\int e^{x^2}\,dx$). 
+In some sense, there are more power series than ``nice" functions
+(usual combinations of powers, trig, log, and exponential functions)
+which also have power series.
+It is therefore interesting to study power series without
+reference to functions they may or may not have been
+derived from.   
+
+In fact, from what we learned before, we can easily construct a
+generalized power series centered at $x=a$ if we know
+$f(a)$, $f'(a)$, $f''(a)$, $f'''(a)$, and so on, using
+(\ref{asubn}), which states 
+$$a_n=\frac{f^{(n)}(a)}{n!}.$$
+It seems that we should be able to determine a power series
+representation (\ref{Power Series}) for such a function
+by simply plugging in the prescribed $a_n$ values.  
+It is almost that simple.  For the resulting series to 
+have the requisite properties, it must converge in an open
+interval around $a$, since derivatives are defined by limits
+in which $a$ must be approachable from both sides.
+For instance, 
+$$f'(a)=\lim_{x\to a}\frac{f(x)-f(a)}{x-a}.$$
+Thus $f$ must be defined in an open interval containing $a$
+or this limit cannot exist.  Fortunately, given any power
+series (\ref{Power Series}), we are guaranteed to have 
+only certain cases for the domain of a function defined
+in such a way.  We rely on the following very nice result. 
+
+\subsection{Abel's Theorem} 
+\begin{theorem}
+{\bf (Abel's Theorem):}
+A power series of form (\ref{Power Series}) will converge 
+at $a$ only and diverge elsewhere, or converge absolutely in an open 
+interval $x\in(a-R,a+R)$, and diverge outside the closed
+interval with the same endpoints, i.e., diverge for 
+$x\in(-\infty,a-R)\cup(a+R,\infty)$.  If the power series also converges 
+at an endpoint $a-R$ or $a+R$, it will be continuous to the endpoint
+from the side interior to the interval. 
+\label{Abel's}\end{theorem}
+
+
+
+\begin{definition}
+The number $R$ is called the {\bf radius of convergence} of 
+(\ref{Power Series}).  We say $R=0$ if the power series converges
+at $a$ only. It is quite possible that $R=\infty$.
+in which case the power series  converges on all of $\Re$.
+Otherwise, $R>0$ is finite and the  power series 
+\begin{description}
+\item a. converges for $|x-a|<R$, and
+\item b. diverges for $|x-a|>R$.\end{description}
+\end{definition}
+
+A nice example we have already considered is the series for 
+$\ln x$.  
+In most cases, the Ratio and Root Tests are the tools used to find the 
+\underline{\it interval of convergence} for a given power series.  Below we
+use the Ratio Test. 
+
+\bex
+Find the interval of
+convergence for the series $\ds{\sum_{n=0}^\infty \frac{x^n}{n!}}$.
+\medskip
+
+\underline{\bf Solution:} Actually we know this series, and that
+it converges to $e^x$ for all $x\in\Re$.  But how would we determine
+where it converges without knowing the form of the remainder?
+The key here is to use the Ratio Test for an arbitrary $x$. 
+First write
+$$f(x)=\sum_{n=0}^\infty a_n(x-a)^n\equiv\sum_{n=0}^\infty u_n.$$
+This is just for convenience in organizing the application of the
+Ratio Test. Next calculate 
+$$\rho=\lim_{n\to\infty}\left|\frac{u_{n+1}}{u_n}\right|
+=\lim_{n\to\infty}\left|\frac{\ds{\frac{x^{n+1}}{(n+1)!}}}
+{\ds{\frac{x^n}{n!}}}\right|
+=\lim_{n\to\infty}\left|\frac{x^{n+1}}{x^n}\right|\cdot\frac{n!}{(n+1)!}$$ 
+$$=\lim_{n\to\infty}|x|\cdot\frac{n!}{n!(n+1)}=\lim_{n\to\infty}|x|
+\cdot\frac1n=0\qquad\mathrm{for\ every\ }x\in\Re.$$ 
+Recall that the series will converge absolutely if $\rho<1$, and
+we in fact have $\rho=0$ for every real $x$.  Thus the series converges
+absolutely on $\Re=(-\infty,\infty)$, which gives the interval of
+convergence.  (Here we take the radius to be $R=\infty$.) 
+\eex
+\bex
+Do the same for the
+series $\ds{\sum_{n=0}^\infty\frac{2^n(x-5)^n}{2n-1}}$.
+
+\medskip\underline{\bf Solution:} Just as above,
+\begin{align*}
+\rho&=\lim_{n\to\infty}\left|\frac{u_{n+1}}{u_n}\right|
+=\lim_{n\to\infty}\left|\frac{\left( 
+\ds{\frac{2^{n+1}(x-5)^{n+1}}{2(n+1)-1}}
+\right)}{\left( 
+\ds{\frac{2^n(x-5)^n}{2n-1}}\right)}\right|
+\\
+&=\lim_{n\to\infty}\frac{2^{n+1}}{2^n}\cdot\frac{2n-1}{2(n+1)-1} 
+\cdot
+\left|\frac{(x-5)^{n+1}}{(x-5)^n}\right| \\
+&=\lim_{n\to\infty}2\cdot\frac{2n-1}{2n+1}\cdot|x-5|=2\cdot1\cdot|x-5|.
+\end{align*} 
+Remember that the $x$ in the line above is constant as far as the
+limit goes (since the limit is in $n$).
+To find the region where $\rho<1$ we simply solve
+$$2|x-5|<1 \iff |x-5|<\frac12
+\iff -1/2< x-5< 1/2$$
+$$\iff 9/2<x<11/2.$$
+Thus we know for a fact that the series converges absolutely for
+$x\in(9/2,11/2).$
+A similar calculation gives us divergence in $(-\infty,9/2)\cup
+(11/2,\infty)$, and we usually do not bother repeating the calculations
+to see this.  The only question left is what happens at the two 
+boundary points.
+
+\begin{description}\item\underline{$x=9/2$}:
+$$\sum_{n=0}^\infty\frac{2^n(9/2-5)^n}{2n-1}
+=\sum_{n=0}^\infty\frac{2^n(-1/2)^n}{2n-1}
+=\sum_{n=0}^\infty\frac{2^n\left(\frac12\right)^n(-1)^n}{2n-1}
+=\sum_{n=0}^\infty\frac{(-1)^n}{2n-1}.$$
+The resultant series converges by the Alternating Series Test
+(alternates, terms shrink in absolute size monotonically to zero).
+Thus the series does converge at the left endpoint $x=9/2$.
+\item\underline{$x=11/2$}:
+$$\sum_{n=0}^\infty\frac{2^n(11/2-5)^n}{2n-1}
+=\sum_{n=0}^\infty\frac{2^n(1/2)^n}{2n-1}
+=\sum_{n=0}^\infty\frac{2^n\left(\frac12\right)^n}{2n-1}
+=\sum_{n=0}^\infty\frac{1}{2n-1}.$$
+This series diverges (limit-comparable to the harmonic series $\sum\frac1n$).
+Thus the power series diverges at this endpoint.
+\end{description}
+The conclusion is that the interval of convergence is 
+$x\in[9/2,11/2)$.
+\eex
+
+
+
+\newpage
+\subsection{Taylor/Power Series Connection}
+There is a nice connection between Taylor and Power Series
+centered at a given point $a$.  To see this connection
+we first need the following theorem:
+\begin{theorem}{\rm Manipulations with Power Series: } 
+Suppose we are given a function defined by a power series 
+\begin{equation}
+\sum_{n=0}^\infty a_n(x-a)^n\end{equation}
+which converges in some open interval $|x-a|<R$, where
+$R>0$. Then inside that same interval,
+\begin{enumerate}
+\item all derivatives of $f$ exist and are continuous;
+\item $\ds{f^{(n)}(x)=\sum_{n=0}^\infty
+\frac{d^n}{dx^n}\left[a_n(x-a)^n\right]}$;
+\item $\ds{f^{(n)}(a)=n!\,a_n}$;
+\item $\ds{\int_a^xf(x)=\sum_{n=0}^\infty
+\frac{a_n(x-a)^{n+1}}{(n+1)!}}$\end{enumerate}
+\label{PowerSeriesManipulations}
+\end{theorem}
+
+
+In other words, the manipulations we could do with 
+Taylor Series are all valid for power series.
+We will use Theorem \ref{PowerSeriesManipulations} to
+show the relationship between Taylor and Power Series
+which converge in an interval $|x-a|<R$.  Put simply: 
+they are the same.  
+We can best illustrate  this in the form of a proof.
+First we fix a point $a$.  Then we define
+\begin{align*}T(a)&=\{\text{all Taylor Series centered at $a$,
+converging in some }|x-a|<R\},\\
+	P(a)&=\{\text{all power series centered at $a$,
+converging in some }|x-a|<R\}.
+\end{align*}
+Thus these are sets of series which converge in an open interval
+centered at $a$, but the interval (and thus $R$)
+ will likely be different for different
+series.  Now clearly $T(a)\subset P(a)$, since for any $\ds{\sum_{n=0}^\infty
+\frac{f^{(n)}(a)(x-a)^n}{n!}\in T(a)}$ is a power series
+with 
+\begin{equation}a_n=\frac{f^{(n)}}{n!}\label{a_n2}\end{equation}
+ for its coefficients.
+This shows $T(a)\subset P(a)$.  
+
+Next we claim that any power series which converges in
+an open interval centered at $a$ is also a Taylor Series
+for some function $f(x)$. This seems almost trivial, for
+if we are given a power series defining a function 
+\begin{equation}f(x)=\sum_{n=0}^\infty a_n(x-a)^n,\label{Power2} \end{equation} 
+in fact the power series (\ref{Power2}) is also the Taylor Series 
+of $f$ since, according to Theorem \ref{PowerSeriesManipulations},  
+\begin{equation}a_n=\frac{f^{(n)}(a)}{n!}\end{equation} 
+which is equivalent to the definition of the Taylor Series
+coefficients (\ref{a_n2}).  
+Thus $P(a)\subset T(a)$.  Since we had the
+reverse set inclusion before, we can conclude 
+$P(a)=T(a)$. 
+
+In advanced calculus, functions which can be represented in
+$|x-a|<R$  by a  convergent
+power series are given a special name:
+\begin{definition} A function $f(x)$ which has a
+power series representation {\rm(\ref{Power2})} converging in
+some open interval $|x-a|<R$ is called 
+{\bf real-analytic} in that interval.
+\end{definition}
+Equivalently, a function is real-analytic  on an open interval
+$|x-a|<R$ if and only if its Taylor Series
+converges to the function in the same interval. 
+ 
+There is a very rich and beautiful theory of real-analytic functions
+which is beyond the scope of this text.  It is a theory which 
+has a remarkably simple extension to functions 
+of a complex variable
+$$z\in\mathbb{C}=\{x+iy: x,y\in\Re\},\qquad i=\sqrt{-1}.$$
+This may seem a complication, but the theory is often simplified
+by this generality, after which the real-analytic results follow
+from the complex theory.  In fact the term {\it radius of convergence}
+comes from the complex-analytic theory, where the values 
+for which $\sum a_n(z-a)^n$ converge lie in a disk of
+radius $R$ inside the complex plane $\mathbb{C}$.
+Such are topics for advanced calculus
+or complex analysis courses, usually at the senior or graduate 
+levels.
+
+\newpage
+\begin{center}{\Large\underline{Exercises}}\end{center}
+\bigskip
+\bhw Find the interval of convergence for each of the 
+following.  Check the endpoints unless otherwise instructed. 
+\begin{description}
+\item a. $\ds{f(x)=\sum_{n=1}^\infty\frac{x^n}{2^n\sqrt{n}}}$.   
+\item b. $\ds{f(x)=x-\frac{x^3}3+\frac{x^5}5-\frac{x^7}7+\cdots}$.
+ See Example~\ref{ArctanxSeries}.
+\item c. $\ds{\ln x=\sum_{n=1}^\infty\frac{(-1)^{n+1}(x-1)^n}{n}}$.
+See Proposition~\ref{ln series prop}. 
+\item d. $\ds{f(x)=\sum_{n=0}^\infty nx^n}$.
+\item e. $\ds{f(x)=\sum_{n=0}^\infty n!\,x^n}$.
+\item f. $\ds{e^{x^2}=\sum_{n=0}^\infty\frac{x^{2n}}{n!}}$.
+	See Proposition~\ref{e^x}.
+\item g. $\ds{f(x)=\sum_{n=2}^\infty\frac{(x+1)^n}{(\ln n)^n}}$. 
+\item h. $\ds{f(x)=\sum_{n=0}^\infty \frac{x^n}{n^n}}$.
+\item i. $\ds{f(x)=\sum_{n=0}^\infty \frac{(n!)^2(x-5)^n}{(2n)!}}$. 
+\item j. $\ds{f(x)=\sum_{n=0}^\infty\frac{x^{2n}}{n^2\cdot10^n}}$.
+\item k. $\ds{\sin x=\sum_{n=0}^\infty\frac{(-1)^nx^{2n+1}}{(2n+1)!}}$. 
+\item l. $\ds{f(x)=\sum_{n=1}^\infty\frac{(-1)^nn!\,(x-3)^n}{n^n}}$.
+\item m. $\ds{f(x)=\sum_{n=2}^\infty\frac{3^n(x+2)^n}{\ln n}}$.
+\end{description}
+\label{basic int of conv exercises}\ehw
+
+
+
+
+
+\bhw Assume for a moment that all our work with Taylor Series
+can be generalized to the complex plane $\mathbb{C}$.
+Note that $i=i$, $i^2=-1$, $i^3=-i$, $i^4=1$, $i^5=i$, etc.
+Use all this and known MacLaurin Series to prove {\it Euler's Identity:}
+\begin{equation}e^{i\theta}=\cos\theta+i\sin\theta.
+\label{Euler'sIdentity}\end{equation}
+\label{Euler'sDerived}
+Note that this implies that  $\ds{e^{i\pi}=-1}$, an often-cited,
+beautifully compact equation relating four of the most important
+numbers in mathematics. 
+ \ehw 
+
+\bhw Use (\ref{Euler'sIdentity}) and the facts
+that $\sin(-\theta)=-\sin\theta$ and  $\cos(-\theta)=\cos\theta$, 
+to show the following relationship between trigonometric and 
+hyperbolic functions (see Exercise~\ref{HyperbolicFunctsMaclaurinSeries}):
+\begin{description}
+\item a. $\ds{\cos x=\cosh(ix)}$; 
+\item b. $\ds{\sin x=\frac1i\sinh(ix)}$.
+\end{description}\label{TrigToHyperbolic}\ehw
+\bhw Use Exercises \ref{Euler'sDerived} and \ref{TrigToHyperbolic}
+to prove the following trigonometric identities: 
+\begin{description}
+\item a. $\ds{\sin^2x+\cos^2x=1}$;
+\item b. $\ds{\sin2x=2\sin x\cos x}$;
+\item c. $\ds{\cos2x=\cos^2x-\sin^2x}$;
+\item d. $\ds{\sin(x+y)=\sin x\cos y+\cos x\sin y}$.
+\end{description}
+\ehw
+\newpage
+
+\section{Complications}
+Most of our familiar functions are analytic where they are defined, and
+so can be represented by Taylor Series for usefully large intervals.  These 
+functions include all polynomials, rational functions, 
+exponentials, roots, logarithms and trigonometric functions, as well as
+combinations of these through addition, subtraction, multiplication,
+division and composition.  We already mentioned that there are
+power series which are perfectly respectable functions, but which
+cannot be written as combinations of familiar functions.
+This may leave the student with the incorrect
+impression that we can always find and manipulate Taylor Series 
+for all functions with 
+impunity.  However, there are many functions we encountered in 
+Chapter~\ref{LimitsAndContinuityChapter} which had
+more pathological behaviors and will not be analytic
+where defined. Therefore Taylor Series are useless and
+inappropriate in dealing with such functions.
+The purpose of this section is to alert
+the student when to be aware when not to turn to Taylor Series---or even 
+Taylor Polynomials---except possibly with careful modifications.
+\begin{example}Consider $f(x)=|x|$, which we graph below
+
+\end{example}. 
+

@@ -1,0 +1,1088 @@
+%\setcounter{page}{600}
+\chapter{Using Derivatives to Analyze Functions
+\label{DerivativesToAnalyzeFunctions}}
+In this chapter we develop methods for analyzing functions
+extensively by exploiting the information contained in
+their derivatives.  To some extent this was done in the 
+previous two sections (Sections \ref{Differentials/LinearApproxs}
+and \ref{Newton'sMethodSection}), though there we used
+derivatives to give us approximations (good guesses, really)
+for a couple of different types of computational problems.
+However, in this chapter we will be more interested in
+precise, qualitative as well as quantitative properties
+of functions which we can decipher from their derivatives.
+%For instance, if we know the slope (derivative) of a function,
+%then we know how it is changing.  With the help of some 
+%results and methods of this chapter, we thus know when the 
+%function is rising, and when it is falling.
+
+We will also be more interested in so-called higher-order
+derivatives---particularly second derivatives---and their 
+import. 
+
+Of course a very natural and general approach for 
+analyzing functions is to consider their graphs in the Cartesian
+Plane.  In fact, much of this chapter is devoted to
+describing the graphs by analyzing the derivatives.
+This will give the results a somewhat abstract setting,
+but they will also be very general and quite easily put
+to work in applied problems.  
+
+Most textbooks set aside sections specifically for applied
+derivative problems, but here we will include applications
+as the theory is developed.
+
+Fortunately we will be able to prove all of the results 
+presented in this chapter, referring only to previously
+proved results and already mentioned facts we borrow from
+more advanced studies.  Unfortunately the order in which
+we prove the results sometimes differs from the path one's
+intuition would likely take in conjecturing these results.
+For instance, the fact that a positive derivative implies
+an increasing function seems intuitive, but it is most
+easily proved using the Mean Value Theorem which, though
+ultimately also intuitive, would be a more sophisticated guess
+to make from merely observing the behavior of functions.
+
+As for the Mean Value Theorem, we will put it to much more
+extensive use than most other calculus textbooks.
+In particular, we will use it to derive many {\it inequalities}
+as well as for the usual uses, i.e., as a tool to prove the other results.
+In fact the Mean Value Theorem is not so immediately useful
+in its statement, but it is astonishingly useful as a
+cornerstone in proving many more obvious (though not necessarily
+trivial to prove!) results.
+\section{The Mean Value Theorem}
+\newpage
+\section{Extrema on Closed Intervals\label{ExtremaOnClosedIntervals}}
+In this section we wish to find those points in $[a,b]$ at which
+a continuous function $f:[a,b]\mapsto\Re$ achieves its maximum
+and minimum values for $x\in[a,b]$.  Recall from 
+Section~\ref{ContinuityOnIntervalsSection} that $f([a,b])$ will be a
+finite, closed interval, and 
+thus will have a maximum and minimum value, i.e., there will
+indeed exist some $\ds{x_{\text{min}}}$, $\ds{x_{\text{max}}}$ 
+so that
+\begin{itemize}
+\item $\ds{x_{\text{min}},x_{\text{max}}\in[a,b]}$, and
+\item $\ds{f([a,b])=\left[f\left(x_{\text{min}}\right),f\left(x_{\text{max}}
+ \right)\right]}$, and so
+\begin{equation}
+\left(\exists x_{\text{min}},x_{\text{max}}\in[a,b]\right)
+ (\forall x\in[a,b])\left[f\left(x_{\text{min}}\right)
+   \le f(x)\le f\left(x_{\text{max}}\right)\right].
+\end{equation}
+\end{itemize}
+This was the essence of the Extreme Value Theorem (EVT),
+which was Corollary~\ref{ExtremeValueTheorem},
+page~\pageref{ExtremeValueTheorem}.\footnote{%%
+%%%%%%%%%  FOOTNOTE
+It is very strongly suggested that the reader at least briefly review
+Section~\ref{ContinuityOnIntervalsSection} at some point during the
+reading of this current section.  It would likely be particularly helpful
+to reconsider the figures in that section to recall why it is necessary
+to have a continuous function {\it and} a closed interval for the
+conclusion of the Extreme Value Theorem to be guaranteed.}
+%%%%%%%%%  END FOOTNOTE 
+
+The next theorem is stated in a manner reflective of its proof.  
+However, its equivalent forms given in the corollaries are more
+useful in applications.  
+\begin{theorem}
+Suppose $f:[a,b]\longrightarrow\Re$ is continuous, and
+that $f(x)$ achieves its maximum or minimum value for the interval 
+$[a,b]$ at an interior point $x_0\in(a,b)$.  
+Under these assumptions, if $f'(x_0)$ exists then $f'(x_0)=0$, i.e.,
+$$f'(x_0) \text{ exists }\implies f'(x_0)=0.$$
+\label{FirstTheoremOnInteriorExtrema}\end{theorem}
+
+\begin{proof}
+First we look at the case $f:[a,b]\longrightarrow\Re$ 
+continuous, $x_0\in(a,b)$,
+and $f(x_0)$ is the maximum value of $f(x)$
+on $[a,b]$.  We need to show that
+$f'(x_0)$ exists implies $f'(x_0)=0$.  So we (further) 
+suppose $f'(x_0)$ exists.  This implies
+$$\lim_{\Delta x\to0}\frac{f(x_0+\Delta x)-f(x_0)}{\Delta x}=f'(x_0)
+\text{ exists.}$$
+Thus the left and right side limits exist and must agree with this
+two-sided limit:
+\begin{align}
+f'(x_0)&=\lim_{\Delta x\to0^-}\frac{f(x_0+\Delta x)-f(x_0)}{\Delta x},
+            \label{LeftLimitForF'(a)ForATheoremOnExtrema}\\
+f'(x_0)&=\lim_{\Delta x\to0^+}\frac{f(x_0+\Delta x)-f(x_0)}{\Delta x}.
+            \label{RightLimitForF'(a)ForATheoremOnExtrema}
+\end{align}
+Now we carefully consider each of these two limits,
+(\ref{LeftLimitForF'(a)ForATheoremOnExtrema}) and 
+(\ref{RightLimitForF'(a)ForATheoremOnExtrema}).  In particular 
+we look at the signs of these.  
+
+In both cases,  since
+$f(x_0)$ is a maximum, we have $f(x_0+\Delta x)\le f(x_0)$,
+implying $f(x_0+\Delta x)-f(x_0)\le0$.  Thus the numerators in the 
+limits are both nonpositive.
+
+Next we look specifically at (\ref{LeftLimitForF'(a)ForATheoremOnExtrema}).
+Since $\Delta x\to0^-$, we are looking at limits of fractions
+with denominators $\Delta x<0$.  Thus we have
+\begin{equation}f'(x_0)=\lim_{\Delta x\to0^-}
+  \frac{\overbrace{f(x_0+\Delta x)-f(x_0)}^{\le0}}
+          {\underbrace{\Delta x}_{<0}}\ge0.\label{f'>=0AtMaxFromLeft}
+\end{equation}
+On the other hand, when we instead look closely at the form of the limit
+in (\ref{RightLimitForF'(a)ForATheoremOnExtrema}), we see
+\begin{equation}f'(x_0)=\lim_{\Delta x\to0^+}
+  \frac{\overbrace{f(x_0+\Delta x)-f(x_0)}^{\le0}}
+          {\underbrace{\Delta x}_{>0}}\le0.\label{f'<=0AtMaxFromRight}
+\end{equation}
+So from (\ref{f'>=0AtMaxFromLeft}) and
+(\ref{f'<=0AtMaxFromRight})
+we have $(f'(x_0)\ge0)\wedge(f'(x_0)\le0)$,
+i.e., $0\le f'(x_0)\le0$, so we have to conclude $f'(x_0)=0$.
+
+The case where $f(x_0)$ is the minimum value of $x$ on $[a,b]$ is similar,
+except that $f(x_0+\Delta x)-f(x_0)\ge0$ in the limits
+(\ref{f'>=0AtMaxFromLeft}) and (\ref{f'<=0AtMaxFromRight}), giving
+$(f'(x_0)\le0)\wedge(f'(x_0)\ge0)$, yielding again $f'(x_0)=0$,
+q.e.d.\footnotemark
+\end{proof}
+\footnotetext{%%%
+%%% FOOTNOTE
+In the proof above it was necessary that $x_0\in(a,b)$, so that
+there is room to the left and right of $x_0$ in the interval $(a,b)$,
+so we can have $\Delta x\to0^-$ and $\Delta x\to0^+$ and
+still have $x+\Delta x\in(a,b)$ as well.  In particular, if
+$x_0\in\{a,b\}$ we can say nothing of its derivative.
+%%% END FOOTNOTE
+}
+It is useful to consider graphically why 
+(\ref{f'>=0AtMaxFromLeft}) and (\ref{f'<=0AtMaxFromRight}) should hold,
+as well as the conclusion of the theorem.  This is left to
+the reader.
+
+Now, recalling that $P\longrightarrow Q\iff(\sim P)\vee Q$
+(see (\ref{AltP->Q}), page~\pageref{AltP->Q}, though first proved as
+(\ref{p->q}), page~\pageref{p->q}), we 
+can rewrite the conclusion of Theorem~\ref{FirstTheoremOnInteriorExtrema}:
+$$[f'(x_0)\text{ exists }] \longrightarrow [f'(x_0)=0]
+      \iff [f'(x_0)\text{ does not exist}]\vee[f'(x_0)=0].$$
+The complete rewriting of Theorem~\ref{FirstTheoremOnInteriorExtrema}
+we state as a corollary:
+\begin{corollary}
+Suppose $f:[a,b]\longrightarrow\Re$ is continuous, and achieves its 
+maximum or minimum at a point $x_0\in(a,b)$, then
+$$[f'(x_0)=0]\vee[f'(x_0)\text{ does not exist}].$$
+\label{Corollary1ForFirstTheoremOnInteriorExtrema}\end{corollary}
+So any internal extremum of a continuous function on a closed interval
+$[a,b]$ must occur at points where $f'$ is zero or does not exist.
+This is illustrated in Figure~\ref{FigureForInternalExtrema}.
+
+\begin{figure}
+\begin{center}
+%%%Bounding Box \psline(0,-1)(12,-1)(12,4.25)(0,4.25)(0,-1)
+%%%%%%% First Graph
+\begin{pspicture}(0,-1)(4,4.25)
+\psline[linewidth=.08cm](1.5,1)(3.3,1)
+\pscircle[fillstyle=solid,fillcolor=black](1.5,1){.1}
+\pscircle[fillstyle=solid,fillcolor=black](3.3,1){.1}
+\rput(1.5,.5){$a$}
+\rput(3.3,.5){$b$}
+
+\pscurve{*-*}(1.5,2)(2.2,4)(2.9,2.5)(3.3,3)
+\pscircle*(2.2,4){.08}
+\psline[linestyle=dotted](2.2,4)(2.2,1)
+\psline(2.2,.8)(2.2,1.2)
+\rput(2.2,.5){$x_0$}
+
+%%%Draw Axes Last
+\psline{->}(.5,1)(4,1)
+\psline{->}(.75,.75)(.75,4.25)
+\psline(1.5,.8)(1.5,1.2)
+\psline(3.3,.8)(3.3,1.2)
+\rput(2,0){$x_0$ an internal maximum,}
+\rput(2,-.4){$f'(x_0)=0$.}
+\rput(2,-.8){No internal minima.}
+\end{pspicture}
+\qquad
+%%%%%%% Second Graph
+\begin{pspicture}(0,-1)(4,4.25)
+\psline[linewidth=.08cm](1.5,1)(3.3,1)
+\pscircle[fillstyle=solid,fillcolor=black](1.5,1){.1}
+\pscircle[fillstyle=solid,fillcolor=black](3.3,1){.1}
+\rput(1.5,.5){$a$}
+\rput(3.3,.5){$b$}
+
+\psline{*-*}(1.5,2)(2.2,4)(2.9,2.5)(3.3,3)
+\pscircle*(2.2,4){.08}
+\psline[linestyle=dotted](2.2,4)(2.2,1)
+\psline(2.2,.8)(2.2,1.2)
+\rput(2.2,.5){$x_0$}
+
+%%%Draw Axes Last
+\psline{->}(.5,1)(4,1)
+\psline{->}(.75,.75)(.75,4.25)
+\psline(1.5,.8)(1.5,1.2)
+\psline(3.3,.8)(3.3,1.2)
+\rput(2,0){$x_0$ an internal maximum,}
+\rput(2,-.4){$f'(x_0)$ does not exist.}
+\rput(2,-.8){No internal minima.}
+\end{pspicture}
+\qquad
+%%%%%%% Third Graph
+\begin{pspicture}(0,-1)(4,4.25)
+\psline[linewidth=.08cm](1.5,1)(3.3,1)
+\pscircle[fillstyle=solid,fillcolor=black](1.5,1){.1}
+\pscircle[fillstyle=solid,fillcolor=black](3.3,1){.1}
+\rput(1.5,.5){$a$}
+\rput(3.3,.5){$b$}
+
+\pscurve{*-*}(1.5,4)(1.95,2.5)(2.4,3.3)(2.85,2.5)(3.3,4)
+\pscircle*(1.95,2.5){.08}
+\pscircle*(2.85,2.5){.08}
+\psline[linestyle=dotted](1.95,2.5)(1.95,1)
+\psline(1.95,.8)(1.95,1.2)
+\rput(1.95,.5){$x_1$}
+
+\psline[linestyle=dotted](2.85,2.5)(2.85,1)
+\psline(2.85,.8)(2.85,1.2)
+\rput(2.85,.5){$x_2$}
+
+%%Draw Axes Last
+\psline{->}(.5,1)(4,1)
+\psline{->}(.75,.75)(.75,4.25)
+\psline(1.5,.8)(1.5,1.2)
+\psline(3.3,.8)(3.3,1.2)
+\rput(2,0){$x_1,x_2$  internal minima,}
+\rput(2,-.4){$f'(x_1),f(x_2)=0$.}
+\rput(2,-.8){No internal maxima.}
+\end{pspicture}
+\end{center}
+\caption{Illustration that internal extrema must occur
+at points where $f'$ is zero or does not exist.}
+\label{FigureForInternalExtrema}
+\end{figure}
+Because of the two possibilities for the derivative at an internal
+extremum, it is convenient to define those points where $f'(x)=0$
+or $f'(x)$ does not exist.  We collectively call such points
+{\it critical points.}
+\begin{definition}
+For $f(x)$ defined and continuous on $(a-\delta,a+\delta)$,
+for some $\delta>0$, we call $x=a$ a
+{\bf critical point} of $f(x)$ if and only if 
+$f'(a)=0$ or $f'(a)$ does not exist.
+\end{definition}
+Using this definition, we can again rewrite 
+Theorem~\ref{FirstTheoremOnInteriorExtrema}, and
+Corollary~\ref{Corollary1ForFirstTheoremOnInteriorExtrema}:
+\begin{quote}
+{\it For $f(x)$ continuous on $[a,b]$, any internal extremum
+must occur at a critical point.}
+\end{quote}
+This is still not quite the final and most useful version of this theorem.
+To arrive at the most complete statement, let us first recall 
+(from Section~\ref{ContinuityOnIntervalsSection})
+that if $f(x)$ is continuous on $[a,b]$, it will necessarily achieve its 
+maximum and minimum values for that interval on that interval.
+Now we can import our theorem, which states that if one of these
+is achieved {\it internally}, i.e., on $(a,b)$, then that
+point must be a critical point. Assume that $x_0$ is 
+{\it any} point in $[a,b]$ at which $f$ achieves either its maximum
+or minimum value for that interval $[a,b]$. Then
+\begin{alignat*}{2}
+x_0\in[a,b]&\iff(x_0\in(a,b))&&\vee(x_0\in\{a,b\})\\
+           &\,\implies(x_0\text{ a critical point of }f)&&\vee(x_0\in\{a,b\}).
+\end{alignat*}
+In other words, $x_0$ must be a critical point of $f$ in $(a,b)$, or
+an endpoint of the interval $[a,b]$.  Thus, when looking for 
+a maximum or minimum value of a continuous $f$ on $[a,b]$, we
+need only look at the set of critical points in $(a,b)$, and
+at the endpoints $a$ and $b$, for our candidates for $x_{\text{min}}$
+and $x_{\text{max}}$.  We tie all this together in the following theorem.
+\begin{theorem}
+For any function $f(x)$, continuous on a closed interval $[a,b]$, 
+\begin{enumerate}
+\item (EVT) there exist $x_{\text{min}},x_{\text{max}}\in[a,b]$ such that
+  \begin{equation}
+ (\forall x\in[a,b])[f(x_{\text{min}})\le f(x)\le f(x_{\text{max}})];
+    \label{RecallDefXmin,Xmax}\end{equation}
+\item furthermore, any such $x_{\text{min}},x_{\text{max}}\in[a,b]$
+    satisfying {\rm (\ref{RecallDefXmin,Xmax})} must be critical points
+    of $f$, or endpoints $a,b$ of the interval $[a,b]$.
+\end{enumerate}
+\label{HowToFindXmax,XminOn[a,b]}\end{theorem}
+
+
+
+\bex $f(x)=x^3-x$, $x\in[0,10]$
+\eex
+\bex $f(x)=x-\sqrt{x}$
+\eex
+
+
+
+
+
+  
+
+
+
+
+\section{Differentials and the Linear Approximation Method
+\label{Differentials/LinearApproxs}}
+The main idea of this section is to show how the tangent at $(a,f(a))$ can
+be used to approximate the function $f(x)$ near $x=a$.
+But because differential calculus (calculus of derivatives) is not
+just about tangent lines, we will first show intuitively how
+the same idea is reasonable in other contexts.  Finally, this
+will give yet another chance to interpret the Leibniz notation,
+this time giving $dx$ and $df(x)$ numerical significance, 
+consistent with but beyond the meaning we gave these
+before, when we only considered these symbols when put together
+formally in a fraction $\frac{df(x)}{dx}=f'(x)$.
+
+
+
+
+We will begin this section with some intuitive examples to
+motivate the technique.  We will then show how these 
+are specific cases of {\it linear approximations}.  
+At that point we will introduce differentials to show their
+geometric meaning.
+
+\subsection{Some Approximation Problems}
+The following examples should be intuitive, and eventually we will see that
+the underlying idea in each is the same.  We will discuss this principle
+after we introduce the examples.
+
+\bex Suppose a car travels along a highway, and a passenger
+notices the speedometer reads 72 miles per hour.  
+About how far will the car travel in the next second?
+
+\underline{Solution}: We have very little information here,
+but a reasonable assumption to make is that the car will
+not change speed very much in that one second.
+To the extent that that is true, we can say
+the distance traveled is given approximately by the following:
+%\begin{align*}
+$$\text{Distance}
+%&
+\approx \frac{72\text{ \rm mile}}{\text{\rm hour}}
+  \cdot 1\text{ \rm second}%_{\text{key}}%\\
+%&
+= \frac{\text{\rm 72 mile}}{\text{\rm 1 hour}}\cdot\frac{\text{\rm 5280 foot}}
+{\text{ \rm 1  mile}}
+   \cdot\frac{\text{\rm 1 hour}}{\text{\rm 3600 second}} 
+   \cdot 1\text{ \rm second}%\\
+\vphantom{\frac88}
+%&
+=105.6\text{ \rm foot}.
+%\end{align*}
+$$
+
+\label{VelocityAndLinearApproximationsI}
+\eex
+The idea in the above example
+is  akin to the grade school formula (distance) = (rate) $\cdot$ (time),
+but we made an assumption here that the velocity would be
+approximately constant over that one second.  The first form 
+of the answer is technically consistent, but unit conversions
+were  included to make the answer more intuitive.
+Still, the gist of the method was to assume
+that the rate taht position changed (72 mile/hour), at the time
+that rate was sampled, would be approximately the rate for the
+one-second time interval in question.
+
+\bex Suppose a manufacturer's research shows that the profit
+from making $x$ of a particular item should be
+$$P(x)=-0.004x^3+10x^2-1000.$$
+Suppose further that the manufacturer is initially planning on a 
+production run of 100 items.  How much more profit would he make if 
+he produced 101 items instead?
+
+\underline{Solution 1}: If the model is correct,
+the actual extra profit from making
+that 101st item would be the difference in profit from 
+making 101 items and the profit from making 100 items:
+\begin{align*}
+P(101)-P(100)&=\left[-0.004(101)^3+10(101)^2-1000\right]
+               -\left[-0.004(100)^3+10(100)^2-1000\right]\\
+             &=96888.796-95000\\
+             &=1888.796.\end{align*}
+Of course this should be rounded to hundredths of a dollar
+(that is, to the nearest cent),  so according to this
+model the manufacturer would make and extra \$1888.80
+from that 101st item.
+
+Of course, the model itself is likely an approximation based upon
+research.  The apparent precision of the expected extra profit
+is open to further scruitiny (as with any economic model).  
+In any event, another approach,
+this time {\bf definitely} an approximation, is given below:
+
+\underline{Solution 2}: Note that
+\begin{align*}
+P'(x)&=\frac{d}{dx}\left[-0.004x^3+10x^2-1000\right]\\
+             &=-0.012x^2+20x.\end{align*}
+Furthermore, $P'(100)=-0.012(100^2)+20(100)=1880$
+(dollars/item).  In other words, the profit is changing at 
+$\$1880/\text{item}$ when the number of items is 100.
+We can use this to approximate that the next (101st)
+item will cause a growth in the profit of approximately
+$\$1880$.
+\eex
+
+In the above example, note that the second method 
+offered a very good approximation for the difference
+$P(101)-P(100)$, by considering how quickly $P(x)$
+was changing with $x$ (quantified by $P'(x)$)
+when $x=100$, and---assuming that $P(x)$ continued
+to change at approximately that rate for $x$ near $100$---used
+that to approximate the actual change in the value 
+of $P(x)$ as $x$ changes from 100 to 101.  This is in the
+same spirit as in the previous example
+(Example~\ref{VelocityAndLinearApproximationsI}).  Below are two
+reasons why one may wish to use the approximating method
+of Solution~2 instead of the more exact, Solution~1 method\footnote{%
+%%%%%%% FOOTNOTE
+Of course the reasons given here are usually balanced by
+fact that, if the exact answer is easily available,
+it may be far preferable to an approximation.  We will
+discuss this further as we progress through this section.
+%%%%%%%%%% END FOOTNOTE
+}:
+\begin{itemize}
+\item It was easier (and faster) to compute $P'(100\text{ item})
+        \cdot (1\text{ item})$
+       than to compute the difference
+      $P(101\text{ item})-P(100\text{ item})$.  The former
+      (approximation) was
+      a second-degree polynomial with two terms,
+      while the latter (and actual) was a third-degree polynomial
+       with three terms, evaluated twice.
+\item The original model was only an approximation, so  this
+      approximation to an approximation might not have lost
+      too much confidence in accuracy to be useful.
+\end{itemize}
+Note that since we have an approximation for the difference
+$P(101)-P(100)\approx P'(100)\cdot 1$, we can write this
+as an approximation for $P(101)$, rather than the difference:
+$$P(101)\approx P(100)+P'(100)(1),$$
+where the trailing $1$ represents how many units away from
+$x=100$ we traveled to get to $x=101$.  If we strayed too far
+from $x=100$, the profit change may stray far from $P'(100)$,
+and our approximation will be less accurate.
+
+In the next example we will use a similar strategy which
+again lets us use a simple function to approximate a 
+computationally more complicated one.
+
+\bex Suppose a laser at ground level points to the 
+     base of a building 300 feet away.  If the laser
+     beam is then turned so that it still points to the 
+     building, but with an angle of elevation of $5^\circ$,
+     then approximately how high on the building
+     is the point illuminated by the beam?
+
+\underline{Solution}: The height $h$ on the building is a 
+function of $\theta$, the angle of elevation of the beam,
+that is, the angle formed by the beam and the horizontal.
+Since $h/(300 \text{ \rm foot})=\tan\theta$, we can write
+\begin{equation}h(\theta)=300\text{ \rm foot} \cdot \tan\theta.
+\label{BuildingForLinearApprox}\end{equation}
+If we use radian measure for $\theta$, then
+ $$h'(\theta)=300\text{ \rm foot}\sec^2\theta.$$
+For $\theta=0$, we have $h'(0)=300\text{ \rm foot}$.
+It is instructive to note that the units of
+$dh(t)/dt$ are formally foot/radian (though we often
+omit the ultimately dimensionless unit of radian).
+With this in mind, we can note that $5^\circ
+     =5^\circ\cdot\frac{\pi \text{\rm (rad)}}{180^\circ}=\frac{\pi}{36}
+      \text{ \rm(radian)}$,
+and so 
+ \begin{align*}h\left(\frac{\pi}{36}\right)&\approx
+  h(0)+h'(0)\frac{\pi}{36}\text{ \rm(radian)}\\
+  &=0+300\frac{\text{\rm foot}}{\text{\rm radian}}\cdot
+  \frac{\pi}{36}\text{ \rm (radian)}\\
+  &=\frac{300\pi}{36}\text{ \rm foot}\\
+  &\approx 26.18\text{  \rm foot}.\end{align*}
+
+The actual height of the laser beam is $300\text{ \rm foot}\cdot\tan5^\circ
+  \approx 26.25\text{ \rm foot}$.
+\eex
+
+If we look at the above example closely, we see that replacing
+$5^\circ$ with any angle $\theta$ in {\it radian} measure, then
+we can claim the approximation
+\begin{equation}
+h(\theta)\approx 300\text{ foot}\cdot\theta.\label{LinearApproxForBuilding}
+\end{equation}
+From the example we see that this approximation is very good for
+$\theta=5^\circ=\pi/36\text{ (radian)}$.  In fact it compares well
+even for larger $\theta$, but certainly not for all $\theta$.
+Clearly from (\ref{BuildingForLinearApprox}),
+$h(\theta)=300\text{ ft}\cdot\tan\theta
+\longto\infty$ as $\theta\to{\frac{\pi}{2}}^-$,
+which does not happen with our approximation (\ref{LinearApproxForBuilding}).
+What happened is that the rate of change $dh/d\theta=300\sec^2\theta$
+did not stay at all constant, and in fact blew up also as
+$\theta\to{\frac{\pi}2}^-$.
+
+\subsection{Linear Approximation}
+In all these examples, we approximated a ``future'' measurement
+of a function based upon its presently known value at a particular
+point, and how fast it was changing at that point.  For a function
+$f(x)$, the known value was at some $x=a$, where we had data
+on $f(a)$ and on how fast $f(x)$ changes with respect to
+$x$ at $x=a$; that is, we knew $f(a)$ and $f'(a)$.  Based
+upon these, we could find an approximation of $f(a+\Delta x)$
+by thinking of $\Delta x$ as a ``run,'' with $f(a+\Delta x)-f(a)$
+being the resulting  ``rise.''  Hence $(f(a+\Delta x)-f(a))/\Delta x$
+is ``rise/run,'' which is assumed to be approximately $f'(a)$, which---upon
+multiplying by $\Delta x$ gives us:
+$$f(a+\Delta x)-f(a)\approx f'(a)\Delta x.$$
+Solving for $f(a+\Delta x)$, we would have
+\begin{equation}f(a+\Delta x)\approx f(a)+f'(a)\Delta x.
+\label{LinearApproxWithDeltas}
+\end{equation}
+For a more useful formula, we now let $x=a+\Delta x$, so that $\Delta x=x-a$, 
+and then 
+(\ref{LinearApproxWithDeltas}) gives us the following:
+\begin{definition}
+For a function $f(x)$, and a real number $a$ for which $f(a)$, $f'(a)$
+exist, the {\bf linear approximation of $f(x)$ at $a$} is 
+given by
+\begin{equation}
+f(x)\approx f(a)+f'(a)(x-a).
+\label{LinearApproxWithX/A}
+\end{equation}
+\end{definition}
+Note that the right-hand side of (\ref{LinearApproxWithX/A})
+is exactly the expression for the tangent line to $y=f(x)$
+at the point $x=a$, given by 
+(\ref{TangentLineEq2}), that is, 
+$y=f(a)+f'(a)(x-a)$.\footnote{%
+%%%%%%%%%%%%%% FOOTNOTE
+That the approximation technique should give rise to the  tangent
+line should not be surprising, since $f'(a)$ measures the (instantaneous)
+rate of change of $y$ with respect to $x$, as well as 
+the slope of the tangent line at $x=a$.
+In our examples, we
+used respectively how position changed with time, how
+profit changed with the number of items produced, and how 
+one leg of a right triangle changed with its opposite angle.
+The connection to the derivative was apparent in each, and the 
+derivative is geometrically the slope of the curve, which also 
+defines the slope of the tangent line.
+%%%%%%%%%%%%%%  END FOOTNOTE
+}
+We can write (\ref{LinearApproxWithX/A}) in a colloquial way as 
+follows:  Where is $f$ at $x$?  The approximate answer is,
+where it was at $a$, plus how fast it was changing at $a$ multiplied by
+how far we traveled $(+/-)$ from  $a$. 
+ 
+\bex Use the linear approximation of $f(x)=\sqrt[3]{x}$ to
+approximate $\sqrt[3]{8.5}$.
+
+\underline{Solution}: Here $f(x)=x^{1/3}$, and $f'(x)=\frac13x^{-2/3}$.
+Using $a=8$ we get 
+\begin{align*}
+f(8)&=8^{1/3}=2,\\ f'(8)&=\frac13(8)^{-2/3}=
+   \frac13\cdot\frac14=\frac1{12}.\end{align*}
+Thus, for $x$ near $8$, we have
+\begin{align*}
+  f(x)&\approx f(8)+f'(8)(x-8),\text{ i.e., }\\
+  f(x)&\approx 2+\frac1{12}(x-8).\end{align*}
+Using this we get
+  \begin{align*}
+\sqrt[3]{8.5}&=f(8.5)\\
+          &\approx 2+\frac1{12}(8.5-8)\\
+          &=2+\frac{1}{12}\cdot\frac12\\  
+          &=2+\frac1{24}=49/24=2.041666666\cdots.\end{align*}
+Thus $\sqrt[3]{8.5}\approx 2.0417$.
+\eex
+The actual value of $\sqrt[3]{8.5}$ is approximately $2.04082755$,
+so our linear approximation is accurate to three significant digits
+when $x=8.5$. Any linear approximation is a statement regarding
+$x$ close to the point $x=a$ (at which the linear approximation is
+just the tangent line to the graph).  Such an approximation is likely
+to worsen in accuracy as we leave the immediate vicinity of $x=a$,
+although the degree to which this happens depends upon the function---in
+particular, how closely the graph follows the trend of the
+tangent line at $x=a$, as we move
+away from $x=a$.
+ 
+Below is a list of values of $\sqrt[3]{x}$ as approximated by this
+method, and than as computed directly (first 8  digits shown).
+\begin{alignat*}{2}
+f(8)&\approx2&\qquad\qquad\qquad f(8)&=2\\
+f(8.5)&\approx 2.0416667 & f(8.5)&=2.0408275\cdots\\
+f(9)  &\approx 2.0833333 & f(9)  &=2.0800838\cdots\\
+f(10) &\approx 2.1666667 & f(10) &=2.1544346\cdots\\
+f(11) &\approx 2.2500000 & f(11) &=2.2239800\cdots\\
+f(12) &\approx 2.3333333 & f(12) &=2.2894284\cdots\\
+f(13) &\approx 2.4166667 & f(13) &=2.3513346\cdots\\
+      &\ \vdots          &       &\ \vdots\\
+f(20) &\approx 3.0000000 & f(20) &=2.7144176\cdots\\
+f(30) &\approx 3.8333333 & f(30)  &=3.1072325\cdots\\
+      &\ \vdots          &       &\ \vdots\\
+f(64)&\approx 6.6666667 & f(64)&=4\cdots\\
+f(1000)&\approx84.6666667&f(1000)&=10.\end{alignat*}
+We see that the approximation based upon the behavior at $x=2$
+(i.e., the linear approximation at $x=2$) stays reasonably close
+to the actual values of $f(x)$ until we stray far from $x=8$.\footnote{%
+%%%%%%%%%% FOOTNOTE
+Of course, ``close'' and ``far'' are subjective measures of proximity,
+and acceptable tolerances differ from context to context.
+%%%%%%%%%% END FOOTNOTE
+}
+The actual graph of $f(x)=\sqrt[3]{x}$, together with the tangent
+line emanating from $(8,f(8))$ are graphed in 
+Figure~\ref{LinearApproxToCubeRootAtX=8},
+page~\pageref{LinearApproxToCubeRootAtX=8}.
+\begin{figure}
+\begin{center}
+\begin{pspicture}(-6,-4)(6,4)
+\psset{xunit=.2}
+\psaxes[Dx=4]{<->}(0,0)(-30,-4)(30,4)
+\psplot[plotpoints=1000]{0}{30}{x 1 3 div exp}
+\psplot[plotpoints=1000]{-30}{0}{x -1 mul 1 3 div exp -1 mul}
+\psplot{-30}{30}{2 x 8 sub 1 12 div mul add}
+\pscircle[fillcolor=black,fillstyle=solid](8,2){.08}
+\end{pspicture}
+\end{center}
+\caption{Partial graph of $f(x)=\sqrt[3]{x}$, along with the linear
+approximation (tangent line) at $x=8$. The two graphs are very
+close to eachother near $x=8$ (and coincide at $x=8$), but 
+part company as we stray farther from $x=8$.  They may (and in fact
+do) evenutually come together again, but that is coincidence,
+while the approximation is 
+known to be useful near $x=8$ by the nature of the tangent line.}
+\label{LinearApproxToCubeRootAtX=8}
+\end{figure}
+
+Again looking at Figure~\ref{LinearApproxToCubeRootAtX=8},
+we see that the tangent line at $x=2$ does stay somewhat close to the
+curve for a while as $x$ increases past $x=2$.  However, we see a
+different behavior as $x$ moves left of $x=2$.  Consider the 
+following comparisons of the linear approximation and actual value
+of $f(x)$ for $x<2$:
+\begin{alignat*}{2}
+f(7)&\approx1.9166667&\qquad\qquad\qquad 
+                            f(7)&=1.9129311\cdots\\
+f(6)&\approx1.8333333&      f(6)&=1.8171205\cdots\\
+f(5)&\approx1.75     &      f(5)&=1.7099759\cdots\\
+f(4)&\approx1.6666667&      f(4)&=1.5874010\cdots\\
+f(3)&\approx1.5833333&      f(3)&=1.4422495\cdots\\
+f(2)&\approx1.5      &      f(2)&=1.2599210\cdots\\
+f(1)&\approx1.4166667&      f(1)&=1\\
+f(0)&\approx1.3333333&      f(0)&=0\\
+    &\ \vdots        &          &\ \vdots\\
+f(-8)&\approx0.6666666&     f(-8)&=-2.
+\end{alignat*}
+As we can see from the graph in Figure~\ref{LinearApproxToCubeRootAtX=8},
+the function and the tangent line are quite close when $|x-8|$ is
+small, but is unreliable as we stray from $x=8$. 
+
+
+
+One of the most useful linear approximations in physics
+is used to approximate $\sin x$ for small $|x|$, i.e., when
+$|x-0|$ is small, i.e., when $x$ is near zero:
+\bex Find the linear approximation for $f(x)=\sin x$
+     at $x=0$.
+
+\underline{Solution}: We will use the formula
+$f(x)\approx f(a)+f'(a)(x-a)$ with $a=0$ and $f(x)=\sin x$. Now
+
+\begin{align*}
+f(0)&=\sin 0=0,\\
+f'(0)&=\cos 0=1.\end{align*}
+With this data, (\ref{LinearApproxWithX/A}) becomes
+\begin{align*}f(x)&\approx f(0)+f'(0)(x-0)=0+1(x-0), \text{ i.e.,}\\
+              f(x)&\approx x.\end{align*}
+The graphs of $y=\sin x$ and its linear approximation at 
+$x=0$, namely $y=x$, are given in 
+Figure~\ref{FirstSinXAndXComparedGraph}. The approximation 
+is very good for $|x|<1$.\footnote{%
+%%%%%%%%%%%% FOOTNOTE
+Note that $|x|<1$ in radians corresponds to, approximately $|x|<57^\circ$,
+but to use this to approximate $\sin48^\circ$, for instance, we
+need to convert back to radians:
+$$\sin48^\circ=\sin\frac{48^\circ\cdot\pi}{180^\circ}
+=\sin\frac{48\pi}{180}\approx\frac{48\pi}{180}\approx0.837758041.$$
+The actual value of $\sin48^\circ$ is 0.7431448, when rounded to seven
+places.
+%%%%%%%%%%%% END FOOTNOTE
+} 
+
+\eex
+\begin{figure}
+\begin{center}
+\begin{pspicture}(-6,-3)(6,3)
+\psset{xunit=0.636619772}
+\psaxes{<->}(0,0)(-9.4,-3)(9.4,3)
+\psplot[plotpoints=1000]{-9.4}{9.4}{x 180 mul 3.1415926353 div sin}
+\psline(-3,-3)(3,3)
+\end{pspicture}
+\end{center}
+\caption{Partial graph of $f(x)=\sin x$, and the linear approximation
+at $x=0$, which is $y=x$. Though not clear from the printed resolution
+here, the functions only coincide at $x=0$. The proof of that fact
+is left as an exercise.}
+\label{FirstSinXAndXComparedGraph}
+\end{figure}
+
+\subsection{Linear Approximations and Implicit Functions}
+Because we can find $\frac{dy}{dx}$ on implicit curves written
+as equations, we can find tangent lines and therefore
+linear approximations.  In such a case it is not for $y$
+as a function of $x$, but rather for $y$ as a local function
+on $x$.  Still the method is valid.  We offer two examples here.
+
+\bex Consider the curve $y^2-x^2=9$.  Approximate $y$ as a 
+function of $x$ near $(4,-5)$ using a linear approximation.
+
+\underline{Solution}:
+We use the usual implicit differentiation technique as in
+Section~\ref{ImplicitDifferentiationSection}:
+\begin{alignat*}{2}
+&\qquad\qquad&y^2-x^2&=9\\
+&\implies&\frac{d}{dx}\left[y^2-x^2\right]&=\frac{d}{dx}[9]\\
+&\implies&2y\cdot\frac{dy}{dx}-2x&=0\\
+&\implies&2y\frac{dy}{dx}&=2x\\
+&\implies&\frac{dy}{dx}&=\frac{2x}{2y}=\frac{x}y.\end{alignat*}
+For the point $(4,-5)$---which a quick check shows {\it is} on the
+curve---we have slope
+$$\left.\frac{dy}{dx}\right|_{(4,-5)}=\left.\frac{x}y\right|_{(4,-5)}
+         =\frac{4}{-5}=-\frac45.$$
+The tangent line is given by 
+$$y=-5-\frac45(x-4).$$
+Thus, on the curve near $(4,-5)$, we have $y\approx-5-\frac45(x-4)$.
+
+This graph and the linear approximation at $(4,-5)$ is given
+in Figure~\ref{FigureForLinearApproxForImplicitCurve}.
+\label{ExampleForLinearApproxForImplicitCurve}
+\eex
+
+\begin{figure}
+\begin{center}
+\begin{pspicture}(-3,-3)(3,3)
+\psset{xunit=.4cm,yunit=.4cm}
+\psaxes[Dx=2,Dy=2]{<->}(0,0)(-7.5,-7.5)(7.5,7.5)
+\psplot[plotpoints=1000]{-7.5}{7.5}{x dup mul 9 add sqrt}
+\psplot[plotpoints=1000]{-7.5}{7.5}{x dup mul 9 add sqrt -1 mul}
+\psplot[plotpoints=1000]{-3}{7.5}{x 4 sub -.8 mul -5 add}
+\pscircle[fillstyle=solid,fillcolor=black](4,-5){.08}
+\end{pspicture}
+\end{center}
+\caption{Graph for Example~\ref{ExampleForLinearApproxForImplicitCurve},
+showing a partial graph of the curve $y^2-x^2=9$ and the 
+tangent line at $(4,-5)$, which is also the linear approximation
+to the local (implicit) function defined near there.}
+\label{FigureForLinearApproxForImplicitCurve}
+\end{figure}
+
+\bex Recall that in Example~\ref{UglyImplicitDiffW/TanLine},
+on page \pageref{UglyImplicitDiffW/TanLine} we had the
+implicit curve given by $5x+x^2+y^2+xy=\tan y$, and we found
+$$\frac{dy}{dx}=\frac{5+2x+y}{\sec^2y-2y-x},$$
+and the tangent line to the curve at $(0,0)$ had slope
+5.  Thus near $(0,0)$, we can say that the local function
+is given by $y\approx0+5(x-0)$, or $y\approx 5x$, which
+is a huge advantage over trying to find an actual $y$
+for a given $x$ near $x=0$.
+\eex
+
+\newpage
+\section{Differentials}
+
+Below we define differentials.  Eventually we will give 
+numerical and geometric meaning to all of the terms in
+the definition, but first we define them only formally:
+\begin{definition} Given a function $f(x)$, the
+{\bf differential} of $f(x)$ is given by
+\begin{equation}df(x)=f'(x)\,dx,\label{EquationDefiningDifferentials}
+\end{equation}
+$dx$ being the {\bf differential of} $x$, and 
+where the prime, ``\ \,$'\,$'' represents that the derivative is taken with
+respect to the underlying variable, which here is $x$.
+\label{DefinitionOfDifferential}
+\end{definition}
+This is consistent with our previous use of Leibniz notation:
+\begin{itemize}
+\item $\ds{dx=d(x)=(x)'dx=1\cdot dx=dx}$, as we would hope, and
+\item $\ds{\frac{d\,f(x)}{dx}=f'(x)\iff d\,f(x)=f'(x)\,dx}$,
+      at least formally, where we (again formally)
+       multiplied both sides by $dx$.
+\end{itemize}
+Now we look at some quick computations which follow from this
+definition:
+\begin{itemize}
+\item $\ds{d\sin x=\cos x\,dx}$,
+\item $\ds{dx^2=2x\,dx}$,
+\item $\ds{d\sqrt{x}=\frac{1}{2\sqrt x}\,dx=\frac{dx}{2\sqrt{x}}}$,
+\item $\ds{d\csc x=-\csc x\cot x\,dx}$,
+\item $\ds{d\left[\frac{x}{x+1}\right]
+           =\frac{d}{dx}\left[\frac{x}{x+1}\right]\,dx
+             =\left[\frac{(x+1)\frac{d}{dx}(x)-(x)\frac{d}{dx}(x+1)}
+                         {(x+1)^2}\right]\,dx}$
+
+     \qquad$\ds{       =\frac{(x+1)(1)-(x)(1)}{(x+1)^2}\,dx
+       =\frac1{(x+1)^2}\,dx=\frac{dx}{(x+1)^2}}$,
+\item $\ds{d(x\tan x)=\frac{d}{dx}[x\tan x]\,dx
+         =\left[x\cdot\frac{d\,\tan x}{dx}+\tan x\cdot\frac{d(x)}{dx}
+         \right]\,dx=(x\sec^2x+\tan x)\,dx}$.
+\end{itemize}
+All of these become old-fashioned derivative problems if we divide
+these equations by $dx$.  We can fashion differential versions of all
+of our rules by taking the derivative rules and multiplying both
+sides by $dx$.  In particular, there are product, quotient and
+chain rules:
+\begin{align}
+d(uv)&=u\,dv+v\,du, \label{ProductRuleForDifferentials}\\
+d\left[\frac{u}{v}\right]
+          &=\frac{v\,du-u\,dv}{v^2},\label{QuotientRuleForDifferentials}\\
+d f(u(x))&=f'(u(x))u'(x)dx.\label{ChainRuleForF(U(X))ForDifferentials}
+\end{align}
+With these we can compute many more differentials directly:
+\begin{itemize}
+\item $\ds{d( x\tan x)=x\,d\tan x+\tan x\cdot dx=x\sec^2x\,dx+\tan x\,dx}$,
+      which is exactly the result of our efforts just above to compute
+      this differential.
+\item $\ds{d\sin x^2=\cos x^2\cdot 2x\,dx=2x\cos x^2\,dx}$.
+\end{itemize}
+In fact notice that (\ref{ChainRuleForF(U(X))ForDifferentials})
+is completely consistent with the idea that $df(u)=f'(u)\,du$:
+\begin{itemize}
+\item By definition: $df(u)=f'(u)\,du$.
+\item If it happens that $u$ is a function of $x$, i.e., $u=u(x)$, then 
+$$df(u)=df(u(x))=\frac{df(u(x))}{dx}\,dx
+                =\frac{df(u(x))}{du(x)}\cdot\frac{du(x)}{dx}\,dx
+                =\underbrace{f'(u(x))}_{f'(u)}\underbrace{u'(x)\,dx}_{du}
+                =f'(u)\,du.$$
+\item We now have two methods for computing quantities such as
+      $\ds{\frac{d\sin x^2}{dx^2}}$:
+  \begin{enumerate}
+  \item considering $x^2$ as a variable in its own right:
+          $$\frac{d\sin x^2}{x^2}=\cos x^2;$$
+  \item using the definition of differentials
+           (Definition \ref{DefinitionOfDifferential},
+            page~\pageref{DefinitionOfDifferential}):
+          $$\frac{d\sin x^2}{x^2}
+              =\frac{(\sin x^2)'\,dx}{(x^2)'\,dx}
+              =\frac{\cos x^2\cdot 2x\,dx}{2x\,dx}
+              =\cos x^2.$$
+  \end{enumerate}
+\end{itemize}
+This again shows the robustness of the Leibniz notation, with differentials
+as well as derivatives. Computations of differentials become
+ubiquitous as we develop integration techniques in later sections.
+
+So far we have only looked at these differentials formally.
+Now we will emphasize that these differentials can in fact
+be interpretted {\it numerically}.  
+
+Recall that $\frac{df(x)}{dx}$ measures how $f(x)$ changes
+as $x$ changes.  More precisely, the fraction $\frac{df(x)}{dx}$
+gives us the instantaneous rate of change in $f(x)$ as $x$
+changes, at a particular value of $x$.  (This is akin to
+$\frac{ds(t)}{dt}$ measuring velocity---that is, how position
+$s(t)$ is changing as $t$ is changing---at a particular value 
+of $t$.)  Note also that $\frac{df(x)}{dx}$ can be interpretted
+as the slope of the graph of $f(x)$ at the particular value $x$.
+Hence  $\frac{df(x)}{dx}$ represents an instantaneous
+``rise/run.''
+
+Now we will let $dx$ represent a ``run,'' i.e., a change in $x$
+from a fixed value of $x$, while $df(x)$ will be the resultant
+``rise,'' {\it at the rate of $\frac{df(x)}{dx}$}, i.e., 
+$df(x)$ will represent the ``rise'' along the tangent line
+which ran through $(x,f(x))$.
+This is illustrated in
+Figure~\ref{FigureForGeoemetricalMeaningOfDifferentials}.
+
+\begin{figure}
+\begin{center}
+\begin{pspicture}(-5,-1)(7,5)
+\psaxes{<->}(0,0)(-5,-1)(5,5)
+\psplot[plotpoints=1000]%
+     {-5}{5}{x 3 sub x 1 add x 4 add mul mul .03 mul 2 add}
+\psplot[plotpoints=1000]{-.571}{5}{.03 28 mul x 3 sub mul 2 add}
+\pscircle[fillstyle=solid,fillcolor=black](3,2){.07}
+\psline(3,2)(4,2)(4,2.84)
+  \rput(3.5,1.7){$dx$}
+  \rput[l](4.2,2.4){$df(x)$}
+  \rput[r](2.8,2){$(x,f(x))$}
+\psline[linestyle=dashed](4,3.2)(6,3.2)
+\psline[linestyle=dashed](3,2)(6,2)
+  \rput[l](6,2.6){$\Delta f(x)$}
+\pscircle[fillstyle=solid,fillcolor=black](4,3.2){.07}
+  \rput(2.2,3.2){$(x+\Delta x,f(x+\Delta x))$}
+\end{pspicture}
+\end{center}
+\caption{Illustration of the geometric meaning of $\frac{df(x)}{dx}$,
+giving further, geometric meaning to both $dx$ and $df(x)$.
+For any value $x$ in the domain, if  $f'(x)$ %$\frac{df(x)}{dx}$
+is defined, we have a tangent line of slope $f'(x)=\frac{df(x)}{dx}$.
+Now $df(x)=f'(x)dx$, where $dx$ can represent a ``run'' and
+$df(x)$ the resultant ``rise'' along the tangent line.
+Note that $df(x)$ is an approximation of the ``rise''
+(not necessarily positive) in the actual function, 
+as the input changes
+from $x$ to $x+dx$. Moreover that rise, being what
+is the rise in the tangent line instead of the function itself,
+is the same as what is given by the linear
+approximation.}
+\label{FigureForGeoemetricalMeaningOfDifferentials}
+\end{figure}
+
+The same justification for using linear approximations for functions
+allows us to use $df(x)$ to approximate an actual change in
+the function $f(x)$, as we perturb the $x$-value by a small
+quantity $dx$.  In fact, the actual change, the linear
+approximation, and the differentials are all related.
+If we call the perturbation in $x$ by both names $\Delta x$ and 
+$dx$, we get:
+\begin{align}
+f(x+\Delta x)&=f(x)+\frac{f(x+\Delta x)-f(x)}{\Delta x}\cdot\Delta x\notag\\
+             &\approx f(x)+f'(x)\Delta x\notag\\
+             &= f(x)+\frac{df(x)}{dx}\cdot dx\label{Diff'sAsLinApproxs}\\
+             &= f(x)+df(x).\notag
+\end{align}
+This reflects exactly what occurs with the linear approximation:
+\begin{equation}
+        f(x)\approx f(a)+\underbrace{f'(a)(x-a)}_{
+         \left.\frac{df(x)}{dx}\right|_{x=a}\cdot\ dx}
+        ,\label{LinApproxToCompareToDiff's}\end{equation}
+where the part of $x+\Delta x$ in (\ref{Diff'sAsLinApproxs})
+is played by $x$ in (\ref{LinApproxToCompareToDiff's}),
+the part of $x$ is played by $a$, and $\Delta x$ is played by
+$(x-a)$.  Furthermore, $f'(a)(x-a)$ represents $df(x)$
+evalutated at $x=a$ with $dx=(x-a)$, so the right-hand side
+of (\ref{LinApproxToCompareToDiff's}) $f(a)$ plus
+the approximate purturbation of $f(x)$ from $f(a)$ as 
+$x$ strays from $a$.
+\newpage
+
+
+
+
+
+\section{Newton's Approximation Method\label{Newton'sMethodSection}}
+
+\section{Chain Rule III: Related Rates}
+
+In many situation we have variables which 
+are constrained by a natural relationship or equation.
+For instance, if we have three sides of a right
+triangle, say $x$, $y$ and a hypotenuse $r$,
+then
+\begin{equation}x^2+y^2=r^2\label{PythagTheoremForRelatedRateExample}
+\end{equation}
+is the well-known Pythagorean Theorem.
+%
+\begin{figure}
+\begin{center}
+\begin{pspicture}(-1,0)(6,3)
+\psline(0,0)(5,0)(5,3)(0,0)
+\psline(4.6,0)(4.6,.4)(5,.4)
+\rput(2.5,-.5){$x$}
+\rput(5.5,1.5){$y$}
+\rput(1.8,1.6){$r$}
+\pscircle[fillstyle=solid,fillcolor=black](5,3){.1}
+\rput(5.6,3){$(x,y)$}
+\pscircle[fillstyle=solid,fillcolor=black](0,0){.1}
+\rput(-.6,0){$(0,0)$}
+
+
+\end{pspicture}
+\end{center}
+\caption{If $x$, $y$ and $r$ are the legs and hypotenuse of a
+right triangle, then $x^2+y^2=r^2$ according to the Pythagorean
+Theorem.  This implies the $2x\frac{dx}{dt}+2y\frac{dy}{dt}
+=2r\frac{dr}{dr}$, if $x$, $y$ and $r$ are functions of $t$.
+In fact, if we allow $x$ and $y$ to be respectively horizontal
+and vertical {\it displacements} from the origin $(0,0)$,
+with $r$ the distance from $(0,0)$, the Pythagorean Theorem
+still holds and so does the equation relating the rates.}
+\label{PythagTheoremDiagramForRelatedRates}\end{figure}
+%
+If $x,y,r$ are all functions of another variable, say
+$t$, then as in the previous section we have the
+left-hand and right-hand sides of
+Equation~\ref{PythagTheoremForRelatedRateExample}
+represent the same function of $t$, so
+we can differentiate with respect to $t$:
+\begin{align}
+\frac{d}{dt}\left[x^2+y^2\right]&=\frac{d}{dt}\left[r^2\right]
+\notag\\
+\implies\qquad
+2x\frac{dx}{dt}+2y\frac{dy}{dt}&=2r\frac{dr}{dt}
+\label{RelatedRatesForPythagoreanTheorem}.\end{align}
+This followed from the chain rule.\footnotemark%\hphantom{. }
+\footnotetext{Some texts also call this process
+{\it implicit differentiation}, mainly because it resembles
+the work we did in Section~\ref{ImplicitDifferentiationSection}.
+Related Rates and implicit differentiation
+are both really just further applications of the
+chain rule.}  Thus an equation relating variables holding true
+forces another equation relating the rates of change
+of these variables to hold true, hence the title
+of this section.
+\bex Using the illustration in 
+Figure~\ref{PythagTheoremDiagramForRelatedRates},
+suppose at some particular time $t_0$ we have
+$x=30\m$ and $y=40\m$, but $x$ is decreasing at
+$20\m/\sec$, and $y$ is increasing at $10\m/\sec$.
+How is $r$ changing at that time?
+
+To answer this we should first point out that
+\begin{xalignat*}{2}
+\frac{dx}{dt}&=-20\m/\sec,\qquad&\frac{dy}{dt}&=10\m/\sec.
+\end{xalignat*}
+What we want is $\frac{dr}{dt}$.  What we know are
+$x$, $y$, $\frac{dx}{dt}$, and $\frac{dy}{dt}$.
+In order to solve for $\frac{dr}{dt}$ in 
+(\ref{RelatedRatesForPythagoreanTheorem}), we 
+also need $r$.  But that is easy enough, since
+$$r^2=x^2+y^2=(30\m)^2+(40\m)^2=10,000\m^2
+\implies r=50\m.$$
+(We actually have $r=\pm50\m$ from the algebra, but here we
+do assume $r$ is a distance and is therefore nonnegative.)
+Entering these numbers into (\ref{RelatedRatesForPythagoreanTheorem})
+gives
+$$2(30\m)(-20\m/\sec)+2(40\m)(10\m/\sec)=2(100\m)\frac{dr}{dt},$$
+so
+$$-400\m^2/\sec=200\m\frac{dr}{dt}\implies \frac{dr}{dt}
+=-2\m/\sec.$$
+Hence the distance to the origin is decreasing at $2\m/\sec$.
+\eex
+
+Actually, in the above example we could have avoided 
+the need to compute $r$ if we had solved the algebraic
+equation for $r$ (recalling that $r$ here is nonnegative):
+$$r=\sqrt{x^2+y^2}.$$
+Taking time derivatives now gives us
+\begin{align*}
+\frac{dr}{dt}&=\frac1{2\sqrt{x^2+y^2}}\frac{d}{dt}\left(x^2+y^2\right)\\
+&=\frac1{\sqrt{x^2+y^2}}\left(2x\frac{dx}{dt}
++2y\frac{dy}{dt}\right)\\
+&=\frac1{\sqrt{x^2+y^2}}
+\left(x\frac{dx}{dt}+y\frac{dy}{dt}\right).\end{align*}
+It should be noted that
+the first approach had the advantage of easier differentiation,
+which we paid for by having to solve for $r$ in the algebraic
+equation before inserting that value into the related rate 
+equation.  This second approach puts more effort into
+preliminary algebraic work and  the
+differentiation step, and thus does not require the value of $r$ 
+because
+of the simplicity of the left-hand side.  This is because whenever
+a variable occurs only as a single term in the first power,
+that variable does not appear after differentiation 
+(though its rate, i.e., derivative still does).
+
+\bex(Ideal Gas)
+
+\eex

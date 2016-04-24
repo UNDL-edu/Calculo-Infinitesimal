@@ -1,0 +1,2836 @@
+%\setcounter{chapter}{6}
+%\setcounter{page}{700}
+\chapter{Basic Integration\label{FirstIntegrationChapter}}
+
+In this chapter we will consider the problem of recovering 
+a function from knowledge of its derivative, or, equivalently,
+for a given function we will try to find another function
+whose derivative is the given function's.  The general process
+is called  {\it antidifferentiation}, or
+{\it integration}.  The meaning of the first term is obvious:
+we are working backwards from the  derivative to the function.
+The meaning of the other name for the process
+is mainly left for Chapter~\ref{AppsDefIntegrals}.
+
+The main purpose of this chapter is to develop the first, basic
+techniques for computing antiderivatives $F(x)$ for a given
+function $f(x)$, i.e., given $f(x)$ we look for $F(x)$ so that
+\begin{equation}
+F'(x)=f(x).\label{IntroducingF(x)}\end{equation}
+As we will see early in this chapter and throughout the next, 
+antidifferentiation (finding some such $F(x)$), a.k.a.\ integration,
+is less straightforward than differentiation (finding $f'(x)$).  
+However, there are easily as many applications of antidifferentiation 
+as there are of differentiation so it is a worthwhile process.  
+In the first section we will limit ourselves to two applications:
+\begin{enumerate}
+\item Given the slope $f'(x)$, find the function $f(x)$
+      by antidifferentiation;\footnote{%
+%%% FOOTNOTE
+In this application, the part of $f(x)$ in (\ref{IntroducingF(x)})
+is played by $f'(x)$, while the part of $F(x)$ is played by $f(x)$.}
+%%% END FOOTNOTE
+
+      Moreover, given $f''(x)$, find $f'(x)$, and then $f(x)$.
+\item Given velocity $v$, find position $s$. 
+
+      Moreover, given
+      acceleration $a$, find $v$ and then $s$.
+\end{enumerate}
+Later in the chapter
+we will look at the geometric
+significance of antiderivatives $F(x)$ of a function $f(x)$.  
+Just as the geometric meaning of 
+slope gave us a useful perspective for arriving at derivative theorems
+(mean value theorem, first derivative test, etc.), so too will the
+antiderivatives benefit from geometric analysis.  To make
+that analysis will require us to consider another major theoretical device,
+namely {\it Riemann sums}, which---together with the 
+Fundamental Theorem of Calculus---will open the topic of integration
+to innumerable applications.  To illustrate the reasonableness of
+the Fundamental Theorem of Calculus, we will again look closely at the
+velocity-position connection as well, in
+Chapter~\ref{AppsDefIntegrals}.
+
+
+In Chapter~\ref{AdvancedIntTechniques}
+we will develop more advanced techniques of
+antidifferentiation, so that we can use all of our integration
+techniques in Chapter~\ref{AppsDefIntegrals}, which
+is devoted to applications.
+
+For now we will concentrate on the actual computation of
+antiderivatives of the more basic types.
+In the first section we will limit ourselves to those 
+which arise from our known derivative formulas.  In subsequent
+sections we will then explore the substitution technique, which
+is the antidifferentiation analog to the chain rule
+and is thus arguably the most important
+of the integration techniques.  It will be developed at length.  
+
+
+
+%In Chapter~\ref{DerivativeChapter} we described how we can take
+%a function such as position $s(t)$, and---using a particular limit
+%which was the derivative---compute the instantaneous rate of change in
+%the position with repsect to time $t$, that instantaneous
+%rate of change for that case being {\it velocity} $v(t)$.  
+%We did this by looking
+%at the net change in the function over smaller and smaller intervals,
+%such as $[t,t+\Delta t]$ if $\Delta t>0$, and $[t+\Delta t,t]$
+%if $\Delta t<0$, and dividing by how long it took for
+%those changes to occur (i.e., the directed lengths of the intervals)
+%to get average rates of change of $s$ with respect to $t$ on
+%those intervals. Then we let the lengths of the intervals approach
+%zero in the limit. 
+%Thus what we computed was
+%the limit---wherever it existed---of difference quotients:
+%\begin{equation}
+%\frac{s(t+\Delta t)-s(t)}{\Delta t} \longto s'(t)=v(t)
+%\qquad\text{as}\qquad\Delta t\to0.\end{equation}
+%Because we started with a function and used quotients of {\it differences}
+%to find its instantaneous rate of change, the process was called
+%{\it differentiation} (and for each $t$ at which the limit 
+%existed, we called $s(t)$ {\it differentiable}).
+
+%Next we will be interested in recovering the net change
+%in the function over intervals---for instance
+%the net change of $s(t)$ over the
+%interval $t\in\left[t_0,t_f\right]$, namely $s(t_f)-s(t_0)$---from
+%knowledge of the derivative $s'(t)$ over that interval.  
+%In other words, for this context we are interested in recovering
+%the total change in position, over some time interval, 
+%from knowledge of the velocity at each time in the interval.
+%This process of somehow
+%accumulating all these instantaneous changes $s'(t)$ into the total change
+%$s(t_f)-s(t_0)$ is, naturally enough,
+%called  {\it integration} (as opposed to {\it differentiation}).
+
+%Perhaps predictably, so-called {\it antiderivatives} will 
+%be central to our discussion
+%here and in subsequent chapters.  In this chapter, we will first
+%develop the idea of antiderivatives, and then pursue
+%the most basic methods of computing them.
+%We will then explore Riemann Sums, and how they arise in
+%very natural ways.  
+%For the climax of the chapter, we will see how the Fundamental Theorem of 
+%Calculus connects these things.\footnote{At this point it 
+%can be useful to re-read the introduction to Chapter~\ref{DerivativeChapter}
+%to recall the previous development to this point.}
+\newpage
+\section{First Indefinite 
+Integrals (Antiderivatives)\label{IndefiniteIntegrals}}
+In this section we introduce {\it antiderivatives}, which are 
+exactly what the name implies.  These are also called
+{\it indefinite integrals} for reasons which will eventually
+become clear.
+\subsection{Indefinite Integrals and Constants of Integration}
+
+\begin{definition}Consider a function $f(x)$ which is defined on an open
+interval $(a,b)$.  Another function $F(x)$, also defined
+on $(a,b)$ is called an {\bf antiderivative} of $f(x)$ on
+the same interval if and only if $F'(x)=f(x)$ on $(a,b)$.
+
+If instead $f(x)$ is defined on a closed interval $[a,b]$, we still call
+$F:[a,b]\longrightarrow\Re$ an {\bf antiderivative} of $f(x)$
+on $[a,b]$ if and only if 
+\begin{align*}
+F'(x)&=f(x),\qquad x\in(a,b),\\
+\lim_{\Delta x\to0^+}\frac{F(a+\Delta x)-F(a)}{\Delta x}&=f(a),\\
+\lim_{\Delta x\to0^-}\frac{F(b+\Delta x)-F(b)}{\Delta x}&=f(b).
+\end{align*}
+\end{definition}
+In other words, on an open interval we require $F'(x)=f(x)$,
+while on the closed interval we also require the right derivative
+of $F$ to be $f$ at $x=a$, and the left derivative of $F$ to be 
+$f$ at $x=b$.
+
+Notice that the definition implies that $F(x)$ is continuous
+on the interval in question
+(since $F'=f$ exists implies continuity of $F$).  
+For a simple example, consider $f(x)=2x+3$ on any open (or nontrivial closed)
+interval. An antiderivative of $f(x)$ can be
+$F(x)=x^2+3x$, since then $F'(x)=2x+3=f(x)$.  
+However, another perfectly good antiderivative
+can be $F(x)=x^2+3x+5$, or $F(x)=x^2+3x-100,000$, since the
+derivative of the trailing constant term will always be zero.
+In logical terms we can write
+\begin{align}
+F(x)=x^2+3x\implies& F'(x)=2x+3,\notag\\
+F(x)=x^2+3x+5\implies& F'(x)=2x+3,\notag\\
+F(x)=x^2+3x-100,000\implies& F'(x)=2x+3,\notag\\
+F(x)=x^2+3x+C,\text{ some }C\in\Re\iff& F'(x)=2x+3.
+\label{FirstAntiderivative}
+\end{align}
+That the last one (\ref{FirstAntiderivative})
+is an equivalence we will prove shortly.
+To signify that equivalence, we write
+\begin{equation}
+\int (2x+3)\,dx=x^2+3x+C,\qquad C\in\Re.\label{EasyIndefIntegEx}\end{equation}
+We call the right hand side of (\ref{EasyIndefIntegEx})
+{\it the most general antiderivative}, or just
+{\it the antiderivative,} of $2x+3$ (with respect to $x$). It is 
+also called the {\it indefinite integral} 
+of $2x+3$ (again with respect to $x$), and we will
+eventually migrate to using that term as our default.\footnote{%
+%%%%%% FOOTNOTE
+The indefinite integral has a strong connection to the 
+very important {\it definite integral, }which is a measure
+of accumulated change as computed from the instantaneous
+rate of change.  This computation is our eventual goal and---to
+restate the introduction to this chapter---the connection 
+between antiderivatives (indefinite integrals)
+and accumulated change (definite integrals) is precisely the 
+subject of the Fundamental Theorem of Calculus.}
+%%%%%% END FOOTNOTE
+The constant
+$C$ is called the {\it constant of integration},
+since it must be included to achieve all solutions to the question
+of what is an antiderivative of $f(x)=2x+3$.
+On the left hand side of (\ref{EasyIndefIntegEx})
+we have
+\begin{itemize}
+\item $\ds{\int}$: the {\it integral sign}, derived from a old style German 
+           S for reasons we will discuss later;
+\item $(2x+3)$: the {\it integrand}, whose antiderivatives we seek; and
+\item $dx$: the differential of $x$, which signifies which variable
+            the antiderivative is with respect to.
+\end{itemize}
+We now note that, indeed, all antiderivates of $2x+3$
+are necessarily of the form $x^2+3x+C$.  To prove this, on some interval
+define $F(x)=x^2+3x$, which we can easily see is an antiderivative
+of $2x+3$ on that interval.
+Next suppose $G(x)$ is another such antiderivative,
+i.e., that $G'(x)=2x+3$, on that same interval.  Then on that interval
+$$\frac{d}{dx}\left[G(x)-F(x)\right]
+=G'(x)-F'(x)=(2x+3)-(2x+3)=0
+\implies G(x)-F(x)=C,$$
+for some $C\in\Re$.  Thus any antiderivative $G(x)$
+must be of the form $G(x)=F(x)+C$, q.e.d.\footnote{%%%%%
+%%%%% FOOTNOTE
+Recall that a function with the zero function for its derivative
+on an interval
+must be constant on that interval: 
+$$(\forall x\in I)[(F(x)-G(x))'=0]\implies (\exists C\in\Re)
+      (\forall x\in I)[F(x)-G(x)= C].$$}
+%%%%  END FOOTNOTE
+To be clear on the notation, we now insert the following definition.
+\begin{definition}
+If $F(x)$ is an antiderivative of $f(x)$, with respect to $x$,
+on the interval $I$, then on that interval we write
+\begin{equation}
+\int f(x)\,dx=F(x)+C,\label{DefIndefIntegral} 
+\end{equation}
+where $C$ is an arbitrary constant of integration.
+\end{definition}
+\bex Consider $f(x)=2\sin x\cos x$.  One antiderivative
+is $F(x)=\sin^2x$, since
+$$F'(x)=\frac{d\sin^2x}{dx}=\frac{d(\sin x)^2}{dx}
+=2\sin x\cdot\frac{d\sin x}{dx}=2\sin x\cos x.$$
+However, another antiderivative is $G(x)=-\cos^2x$, since
+$$G'(x)=\frac{d(-\cos^2x)}{dx}
+=-\,\frac{d(\cos x)^2}{dx}
+=-\left[2\cos x\cdot\frac{d\cos x}{dx}\right]
+=-\left[2\cos x(-\sin x)\right]=2\sin x\cos x.$$
+Note that
+$$F(x)-G(x)=\sin^2x-\left(-\cos^2x\right)=\sin^2x+\cos^2x=1,$$
+so we see that $F$ and $G$ do actually differ by a constant.
+To report the most general antiderivative of $f(x)=2\sin x\cos x$,
+either of the following are valid (but understood to 
+have different ``$C$'s''):
+\begin{align*}
+\int2\sin x\cos x\,dx&=\sin^2x+C,\\
+\int2\sin x\cos x\,dx&=-\cos^2x+C.
+\end{align*}
+\eex
+
+Especially when dealing with trigonometric functions---and
+all their interconnectedness by various identities---it is 
+common to find very different-looking forms
+of the general antiderivative, all of which differ by
+constants from each other. It is occasionally important to be 
+alert for apparent discrepancies which are explained 
+by this nature of the general antiderivative.
+
+\bex Suppose $f(x)=x+1$.  Then both forms below are
+general antiderivatives:
+\begin{align*}
+\int(x+1)\,dx&=\frac12x^2+x+C,\\
+\int(x+1)\,dx&=\frac12(x+1)^2+C.
+\end{align*}
+We can see this by taking derivatives of each.  We can also see
+that if we label $F(x)=\frac12x^2+x$ and $G(x)=\frac12(x+1)^2$, 
+so the antiderivatives above are just $F(x)$ and $G(x)$ plus
+constants, respectively, and then compute
+$$F(x)-G(x)=\left[\frac12x^2+x\right]-\left[\frac12\left(x^2+2x+1
+   \right)\right]=-\,\frac12,$$
+so these do differ by a constant, as expected.
+\eex
+
+
+\subsection{Power Rule for Integrals}
+Where the rules for computing derivatives were
+straightforward (which is not to say necessarily ``easy''),
+those for computing antiderivatives are not so algorithmic.
+Indeed the methods are varied.  Nonetheless, they are necessary
+to learn for a reasonably complete understanding of standard
+calculus, and we begin with the {\it power rule for integrals:}
+\begin{align}
+\int x^n\,dx&=\frac1{n+1}x^{n+1}+C,\qquad n\ne-1,\label{IntegralPowerRule}\\
+\int \frac1x\,dx&=\ln|x|+C.\label{PwerRuleN=-1}
+\end{align}
+Here the intervals in question are those upon which $x^n$ is
+defined.  To check (\ref{PwerRuleN=-1}), we simply
+notice $\frac{d}{dx}\ln|x|=\frac1x$.
+For (\ref{IntegralPowerRule})
+we compute:
+$$\frac{d}{dx}\left[\frac1{n+1}x^{n+1}\right]
+=\frac1{n+1}\cdot(n+1)x^{[(n+1)-1]}=x^n,\qquad\text{q.e.d.}$$
+In performing the above computation, 
+we must notice that $n+1$ and $1/(n+1)$ are constants,
+and so are preserved throughout the computation (and do
+not, for instance, require product/quotient/chain rules since they do not
+vary).
+We also note that the formula to the right of (\ref{IntegralPowerRule})
+is meaningless for the case $n=-1$, so we need
+(\ref{PwerRuleN=-1}) for that case.  
+
+When checking any antiderivative by differentiation, it is customary to 
+not include the arbitrary additive constant, since its derivative is zero.
+However, it is certainly correct to include it, as in
+$\frac{d}{dx}\left[\ln|x|+C\right]=\frac1x+0=\frac1x$.
+
+
+We can apply the power rule immediately
+as in the following:
+\begin{align*}
+\int x^2\,dx&=\frac13x^3+C,\\
+\int x^3\,dx&=\frac14x^4+C,\\
+\int\frac1{x^2}\,dx&=\int x^{-2}\,dx=\frac1{-1}x^{-1}+C
+=-x^{-1}+C=\frac{-1}x+C,\\
+\int\frac{x}{x^2}\,dx&=\int\frac1x\,dx=\ln|x|+C.
+\end{align*}
+We can check all of these by taking derivatives of our answers,
+with respect to $x$ (i.e., by applying $d/dx$).\footnote{
+%%%%%%  FOOTNOTE
+In fact, it is a very useful exercise to check these antiderivatives
+by quick mental calculations.  Since the derivative formulas have
+been used extensively to this point, the processes of computing
+antiderivatives can be well-informed by their connections
+to known derivative techniques.  In particular, mistakes in 
+computing antiderivatives can often be immediately corrected.
+Perhaps even more importantly, the approximate form of an antiderivative
+can often be anticipated.  For instance, we know that the derivative
+of a fourth-degree polynomial is necessarily a third-degree polynomial.
+It should be clear (though some argument is necessary to prove) that
+the antiderivative of a third-degree polynomial is necessarily a 
+fourth-degree polynomial.  Anticipating the final form is also
+very useful in substitution problems, which are introduced in 
+Section~\ref{FirstSubstitutionSection} and ubiquitous thereafter.
+%%%%%  END FOOTNOTE
+}
+As with derivatives, many functions which are powers of the variable are
+not explicitly written as such.  Furthermore as with derivatives,
+the variable name in antiderivative formulas does not matter as long as 
+it is matched in the differential:
+\begin{align*}
+\int t^9\,dt&=\frac1{10}t^{10}+C,\\
+\int \sqrt{u}\,du&=\int u^{1/2}\,du=\frac1{\frac12+1}u
+             {\vphantom{X^X}}^{\left[\frac12+1\right]}
+    +C=\frac23u^{3/2}+C,\\
+\int\frac{1}{z\sqrt[4]z}\,dz&=\int z^{-5/4}\,dz
+   =\frac1{\frac{-5}4+1}z{\vphantom{X^X}}^{\left[\frac{-5}4+1\right]}+C
+   =\frac{z^{-1/4}}{-\frac14}+C=\frac{-4}{\sqrt[4]{z}}+C.
+\end{align*}
+To check these, we can apply respectively $d/dt$, $d/du$ and
+$d/dz$.  
+Before we go on we note that (\ref{IntegralPowerRule}),
+intepretted formally, applies to the case $n=0$ as well:
+$\int x^0\,dx=\frac{1}{0+1}x^{0+1}+C$, i.e.,
+\begin{equation}\int 1\,dx=x+C.\label{IntegralOfOne}\end{equation}
+Taking the derivative of the right-hand side of 
+(\ref{IntegralOfOne}) quickly shows it is in fact true.
+This integral is often abbreviated
+\begin{equation}\int\,dx=x+C.\label{IntegralOf_dx}\end{equation}
+As with the chain rule computations, the differential $dx$
+is formally treated as a factor as in the following:\label{UsingdxAsAFactor}
+$$\int\frac{dx}{x^3}=\int x^{-3}\,dx=\frac{1}{-2}x^{-2}+C
+=\frac{-1}{2x^2}+C.$$
+Later we will see this treatment of $dx$ justified and exploited
+in several contexts.
+
+Now we state two very general results which may seem obvious,
+but are worth exploring with some care because of a technical
+consideration regarding the constant of integration.\footnote{%
+%%%%  FOOTNOTE
+Many calculus students become careless about this constant of integration
+and just ``tack it on the end'' when computing antiderivatives.
+However, its correct placement is crucial
+in several contexts, so it is useful to be vigilant from the beginning
+of integration study.  Carelessness
+in its placement can cause trouble already in this section,
+but will be particularly troublesome in subsequent third-semester
+calculus and in differential equations studies.} %
+%%%%%%%%%% END FOOTNOTE
+These are also useful to us immediately because they allow to 
+use the power rule multiple times to compute the derivatives of
+polynomials.
+\begin{theorem}
+Suppose that $F'(x)=f(x)$ and $G'(x)=g(x)$ on some interval in 
+consideration, and that $k\in\Re$ is a fixed constant.  Then
+ on that same interval we have
+\begin{align}
+\int\left[f(x)+g(x)\right]\,dx&=F(x)+G(x)+C,\label{IntegralOfASum}\\
+\int\left[k\cdot f(x)\right]\,dx&=kF(x)+C.\label{k*Integral}\end{align}
+where $C\in\Re$ is a constant of integration.
+\end{theorem}
+These can be proved by taking derivatives.
+For instance, $\frac{d}{dx}[kF(x)]=k\cdot\frac{d}{dx}F(x)=kF'(x)=kf(x)$.
+ Note that this theorem can  be rewritten
+\begin{align}
+\int\left[f(x)+g(x)\right]\,dx&=\int f(x)\,dx+\int g(x)\,dx,
+   \label{AltIntegralOfSum}\\
+\int kf(x)\,dx&=k\int f(x)\,dx,\qquad k\ne 0,\label{Alt_k*Integral}\\
+\int 0\,dx&=C.\label{IntegralOfZero}\end{align}
+A moment's reflection shows that  we do need (\ref{Alt_k*Integral})
+and (\ref{IntegralOfZero}) to catch both cases summarzied in
+(\ref{k*Integral}), else we lose the constant of integration if
+we let $k=0$ in (\ref{Alt_k*Integral}).  
+(Note that, indeed, $\frac{d}{dx}C=0$ which
+verifies (\ref{IntegralOfZero}).)  More importantly, these new
+forms (\ref{AltIntegralOfSum})--(\ref{IntegralOfZero})
+are not inconsistent with those of the theorem when
+we consider the arbitrary constants.  For instance,
+if we assume $F'(x)=f(x)$ and $G'(x)=g(x)$ as in the theorem,
+then we can write (\ref{AltIntegralOfSum}) as follows:
+\begin{align*}\int f(x)\,dx+\int g(x)\,dx
+&=\left(F(x)+C_1\right)+\left(G(x)+C_2\right)\\
+&=F(x)+G(x)+\underbrace{\left(C_1+C_2\right)}_{\text{``$C$''}}
+=F(x)+G(x)+C,\end{align*} 
+where $C_1$ and $C_2$ are arbitrary constants, and their sum
+will also be an arbitrary constant which we can name $C$.
+
+With the above theorem and the power rule, we can now
+compute the indefinite integrals of polynomials and other
+linear combinations of powers.
+\bex Consider the following integrals:
+
+\begin{enumerate}[(a)]
+\item $\ds{\int\left(4x^2-9x+7\right)\,dx
+  =4\cdot\frac{x^3}{3}-9\frac{x^2}{2}+7\cdot x+C
+  =\frac43x^3-\frac92x^2+7x+C}$,
+\item $\ds{\int\left(\frac{3x-9}{x^3}\right)\,dx
+=\int\left(3x^{-2}-9x^{-3}\right)\,dx
+=-3\cdot\frac{x^{-1}}{-1}-9\cdot\frac{x^{-2}}{-2}+C
+=\frac3x+\frac9{2x^2}+C}$,
+\item$\ds{\int\left(5x^2\right)^3\,dx=\int125x^6\,dx=125\cdot\frac{x^7}7+C}$,
+\item$\ds{\int\left(x^2+7\right)^2\,dx
+=\int\left(x^4+14x^2+49\right)\,dx
+=\frac{x^5}5+14\cdot\frac{x^3}3+49x+C}$,
+\item$\ds{\int\sqrt{2x}\,dx=\int\sqrt2\sqrt{x}\,dx
+=\int2^{1/2}x^{1/2}\,dx
+=2^{1/2}\cdot\frac{x^{3/2}}{3/2}+C
+=\sqrt{2}\cdot\frac23x^{3/2}+C}$.
+\end{enumerate}
+\eex
+When we use an integration rule such as the power rule for
+integrals,  as with derivatives it is important
+that the variable which the antiderivative is with respect to 
+matches the variable in the function.  For instance,
+\begin{align}
+\int x^3\,dx&=\frac14x^4+C,\\
+\int w^3\,dw&=\frac14w^3+C,\\
+\int (5x-11)^3\,dx&\ne\frac14(5x-11)^4+C.\label{BadIntegral1}
+\end{align}
+What goes wrong in (\ref{BadIntegral1}) is the integral analog
+to what goes wrong  below (which is that we need the chain rule
+to make the variables of differentiation match):
+\begin{align*}
+\frac{d}{dx}\left[(5x-11)^4\right]&\ne4(5x-1)^3;\\
+\frac{d}{dx}\left[(5x-11)^4\right]
+&=4(5x-11)^3\cdot\frac{d(5x-11)}{dx}=4(5x-11)^3\cdot5\ne4(5x-11)^3,\end{align*}
+The problem is that the differential, $dx$, is that of
+$x$ and not $(5x-11)$.  In the next section we will address
+a kind of integral version of the chain rule (commonly known
+as {\it integration by substitution} for reasons which
+will be clear later), which would make short work of this
+integral.  Without it, we may need to expand $(5x-11)^3$
+as a polynomial, or guess the solution and check that it works,
+and possibly make adjustments.
+Either way, it should suffice to 
+point out that we need to take care in using integral formulas
+such as the integral power rule,
+page~\pageref{IntegralPowerRule}.\footnote{%
+%%% FOOTNOTE
+Without giving away the substitution technique, we will note here
+that we can rewrite the integral in (\ref{BadIntegral1})
+so the differential matches the term $(5x-11)$.  The argument
+would be the analog of our early chain rule expansions, such as
+(\ref{ChainRuleDecompFor(x^3+1)^2}), 
+page~\pageref{ChainRuleDecompFor(x^3+1)^2}.
+The idea is that $d(5x-11)=5dx$ (recall the meaning of $d(5x-11)/dx$),
+and so $dx=d(5x-11)/5$, which allows us to rewrite the integral
+as follows:
+$$\int(5x-11)^3\,dx=\int(5x-11)^3\frac{d(5x-11)}{5}
+  =\frac15\cdot\frac14\cdot(5x-11)^4+C=\frac1{20}(5x-11)^4+C.$$
+Except for the factor of $\frac15$ in the second interval, 
+that rewriting had an integral power rule form.
+
+Our integration by substitution method will be more systematic
+than the above computation.  Consequently it will read
+better, and be less error-prone.  That method
+will then be  called upon extensively from then on.}
+ 
+
+
+
+
+\subsection{Finding $C$}
+Many times we are interested in a particular antiderivative.
+Since all antiderivatives (on a particular interval) differ
+by a constant, this means we need to find one antiderivative,
+and then try to ``fix,'' i.e., determine, the  constant.  
+\bex Find $f(x)$ so that $f'(x)=2x$ and $f(3)=7$.
+
+\underline{Solution}: For a problem such as this, it is common
+to write
+$$f(x)=\int f'(x)\,dx,$$
+where it is understood that we will eventually find the exact antiderivative
+so that the function is well-defined.
+For our particular problem, one might continue to write
+$$f(x)=\int 2x\,dx=2\cdot\frac{x^2}2+C=x^2+C.$$
+Now we find the particular $C$, and we do this by inputting the
+``datum'' (sometimes called ``data point'') $f(3)=7$.
+Graphically this means that the point $(3,7)$ is on the curve.
+Since $f(x)=x^2+C$, we find $C$ using this datum:
+\begin{alignat*}{2}
+&&f(3)&=7\\
+&\iff\qquad\qquad& 3^2+C&=7\\
+&\iff &9+C&=7\\
+&\iff &C&=-2.
+\end{alignat*}
+Thus $f(x)=x^2-2.$
+\label{FirstFindCExample}
+\eex
+A graphical way of interpretting the example above is to realize
+that all the curves $y=x^2+C$ are parabolas, and in fact are just
+vertical shifts of the curve $y=x^2$.  Our task in 
+Example~\ref{FirstFindCExample} was then to find which shift
+satisfies both $f'(x)=2x$ and $f(3)=7$.  
+In Figure~\ref{FigureForFirstFindCExample}, $y=x^2+C$
+is graphed for various values of $C$.  Once we require
+the graph to pass through a particular point---in
+this case the point $(3,7)$, we ``pin down''
+a particular curve, i.e., we
+determine exactly one
+curve from the family of curves, as graphed in 
+Figure~\ref{FigureForFirstFindCExample}.
+\begin{figure}
+\begin{center}
+\begin{pspicture}(-5,-1.8)(5,5.4)
+\psset{xunit=.5cm,yunit=.3cm}
+\psaxes[Dx=2,Dy=2]{<->}(0,0)(-10,-6)(10,18)
+\psplot{-4.2426407}{4.2426407}{x dup mul}
+\psplot{-4}{4}{x dup mul 2 add}
+\psplot{-3.7416574}{3.7416574}{x dup mul 4 add}
+\psplot{-3.4641016}{3.4641016}{x dup mul 6 add}
+\psplot{-3.1622777}{3.1622777}{x dup mul 8 add}
+\psplot{-2.8284271}{2.8284271}{x dup mul 10 add}
+\psplot{-2.449497}{2.4494897}{x dup mul 12 add}
+\psplot{-1.4142136}{1.4142136}{x dup mul 16 add}
+\psplot{-2}{2}{x dup mul 14 add}
+\psplot{-4.472136}{4.472136}{x dup mul 2 sub}
+\psplot{-4.6904158}{4.6904158}{x dup mul 4 sub}
+\pscircle[fillstyle=solid,fillcolor=black](3,7){.075}
+\rput(5.4,7.){$(3,7)$}
+\psline{->}(4.6,7.)(3.14,7)
+%\psplot{-4}{4}{1 3 div x 3 exp mul}
+\end{pspicture}
+
+\end{center}
+\caption{Partial view of the 
+family of curves $y=x^2+C$. For Example~\ref{FirstFindCExample},
+we needed to find the value of $C$ satisfying $f'(x)=2x$, i.e.,
+$f(x)=x^2+C$, so that $(3,7)$ was on the curve.  Note that
+the slopes of all curves given above are the same for a given
+$x$-value, but only one passes through $(3,7)$.}  
+\label{FigureForFirstFindCExample}\end{figure}
+
+Finding a particular antiderivative is also very useful
+in kinematics.  For instance, if we know the velocity
+function $s'(t)=v(t)$, we can find the position function
+$s$ if we are given one position datum to fix the constant. 
+With the understanding that the constant is to be
+determined, it is often written:
+\begin{equation}
+s(t)=\int s'(t)\,dt=\int v(t)\,dt.
+\end{equation}
+A common datum to prescribe is that $s(0)=s_0$
+(where $s_0$ is some fixed number), but any data
+which ``pins down'' the function will suffice.
+\bex Suppose $v=t^2+11t-25$, and $s(1)=4$.  Find $s(t)$.
+
+\underline{Solution}:
+$$s(t)=\int v(t)\,dt=\int\left(t^2+11t-25\right)\,dt
+=\frac{t^3}3+\frac{11t^2}2-25t+C.$$
+Using $s(1)=4$ we get
+$$\frac{1^3}3+\frac{11\cdot1^2}2-25(1)+C=4
+\iff \frac13+\frac{11}2-25+C=4,$$
+and so $C=4+25-\frac{11}2-\frac13=29-\frac{35}6=\frac{174}6-\frac{35}6
+=\frac{139}6.$  Finally, this gives us
+$$s(t)=\frac{t^3}3+\frac{11t^2}2-25t+\frac{139}6.$$
+\eex
+
+Now we will derive a well-known formula of physics.
+\bex Suppose that acceleration is given by a constant, 
+say $s''(t)=a$ (where $a$ is fixed).  Suppose further
+that $s(0)=s_0$ and $v(0)=v_0$.  Now we work ``backwards''
+from the acceleration towards the position function as
+follows:
+$$v(t)=s'(t)=\int s''(t)\,dt=\int a\,dt=at+C_1.$$
+(Note that the last computation required that acceleration, $a$, be constant.)
+Using $v(0)=v_0$, we then have 
+$$a\cdot0+C_1=v_0\iff C_1=v_0.$$
+This gives us the following equation, which itself is well known
+to physics students:
+\begin{equation}v(t)=at+v_0.\label{VelocityWithConstAccel}\end{equation}
+Now we integrate (\ref{VelocityWithConstAccel}):
+$$s(t)=\int s'(t)\,dt=
+\underbrace{\int v(t)\,dt=\int\left(at+v_0\right)\,dt}_{
+(\ref{VelocityWithConstAccel})}
+=a\cdot\frac{t^2}2+v_0t+C_2.$$
+Finally, using $s(0)=s_0$, we get
+$$a\cdot\frac{0^2}2+v_0(0)+C_2=s_0\implies C_2=s_0.$$
+Thus
+\begin{equation}s=\frac12at^2+v_0t+s_0.\label{PositionWithConstAccel}
+\end{equation}
+\eex
+It is important to note that (\ref{PositionWithConstAccel})
+followed under the special condition that acceleration is 
+constant (such as occurs when an object is
+in freefall in a constant gravitational field, with no other 
+resistance).  Nonconstant acceleration will not give
+(\ref{VelocityWithConstAccel}) or (\ref{PositionWithConstAccel}).
+However, the method for computing $v$ and $s$, given $a$, is
+the same when $a$ is not constant:
+\begin{enumerate}
+\item find $\ds{v(t)=\int a(t)\,dt}$, using one datum regarding velocity
+      at a particular time, to fix the constant
+       of integration;
+\item find $\ds{s(t)=\int v(t)\,dt}$, using another datum regarding
+      position at a particular time, to fix the
+      second constant of integration.
+\end{enumerate}
+Actually, two position data can fix the constants as well, since
+we can just carry the first constant into the second calculation,
+and then we will have two equations with two unknowns (the
+constants of integration), and then solve for both constants.
+
+\bex Suppose $a(t)=3t^2$, $s(0)=3$ and $s(1)=5$.  Find $v(t)$ and 
+$s(t)$.
+
+
+\underline{Solution}:
+First we will find $v(t)$, to the extent that we can:
+$$v(t)=\int a(t)\,dt=\int 3t^2\,dt =3\cdot\frac{t^3}{3}+C_1=t^3+C_1.$$
+Next we find the form of $s(t)$:
+$$s(t)=\int v(t)\,dt=\int\left(t^3+C_1\right)\,dt=\frac{t^4}4+C_1t+C_2.$$
+So we know that $s(t)=\frac14t^4+C_1t+C_2$, for some $C_1,C_2$.
+Using the facts that $s(0)=3$ and $s(1)=5$, we get the
+following system of two equations in two unknowns:
+$$\left\{\begin{array}{rcrcrcr}
+\frac{0^4}4&+&C_1(0)&+&C_2&=3\\
+\frac{1^4}4&+&C_1(1)&+&C_2&=5
+\end{array}\right.
+\iff \left\{\begin{array}{rcrcr}&&C_2&=3\\ C_1&+&C_2&=\frac{19}4
+\end{array}\right.
+$$
+From the second form of the system, we see $C_2=3$,
+ and so $C_1=\frac{19}4-3=\frac{7}4$.  
+Putting all this together we first get
+$$s(t)=\frac{t^4}4+\frac{7t}4+3,$$
+from which we can calculate $v(t)=s'(t)$ (or just read $v(t)$
+off of our first integral calculation, inserting $C_1=\frac74$) to get
+$$v(t)=t^3+\frac74.$$ 
+\eex 
+\subsection{First Trigonometric Rules\label{FirstTrigRulesSubsection}}
+With every derivative formula for functions comes an analogous
+antiderivative formula, which is more or less the derivative
+formula in reverse.  Sometimes the reverse is more obvious than
+other times.  For instance, the power rule formula for derivatives is sometimes
+seen algorithmically as ``{\it multiply} by the exponent (`bring
+the power down') and {\it decrease} the exponent by one,''
+as in
+$$\frac{d}{dx}\left[x^n\right]=n\cdot x^{n-1}.$$  
+If we are careful to reverse the process, we need to do
+the inverse steps in reverse order:  {\it increase} the exponent
+by one, and then {\it divide} by the exponent.  That is the
+essence of (\ref{IntegralPowerRule}):
+$$\int x^n\,dx=\frac{x^{n+1}}{n+1}+C.$$  
+By other sophisticated arguments, in the next section we
+will see a kind of reverse chain rule.  A bit later in the text
+we will also come across what can be loosely called a
+reverse product rule called integration by parts,
+although there really is no good analog of the product rule
+with integrals {\it per se}.\footnote{%
+%%%%%%%%%  FOOTNOTE
+Integration by parts is really an integration technique
+which takes advantage of the product rule for derivatives---or
+more precisely a permutation of the product rule for 
+derivatives---but is not itself a product rule for integrals;
+it does not by itself give a formula for
+$\int f(x)g(x)\,dx$.
+Instead it gives a formula which can be summarized by
+$$\int f(x)g'(x)\,dx=f(x)g(x)-\int g(x)f'(x)\,dx,$$
+which follows from integrating---i.e., 
+applying $\int(\cdots)\,dx$ to both sides of---the following
+rearrangement of the product rule,
+$$f(x)g'(x)=[f(x)g(x)]'-g(x)f'(x).$$
+Because the product rule for derivatives is what makes the
+technique of integration by parts valid, many authors describe
+it as a kind of analog of the product rule, though again,
+it is not a direct formula for the integral of a product
+like we had for the derivative of a product.
+
+Still, it is a very useful technique which we will spend some time
+developing in a later chapter, when we have other methods to draw upon
+for the inevitable intermediate computations.
+%%%%%%%%%%%%%%  END FOOTNOTE
+} \footnote{
+There will be still several other techniques which are not
+at all simple reverses of derivative rules, and for which checking
+by differentiating (computing the derivative of) the answer
+is as difficult as, or more difficult than, the integration
+technique itself.  Those sophisticated techniques are for later chapters.
+}
+
+The formulas presented in this subsection are immediate
+consequences of our trigonometric derivative formulas.
+For instance, we have the following pair of formulas:
+\begin{align*}
+\frac{d\sin x}{dx}=\cos x&\iff \int\cos x\,dx=\sin x+C,\\
+\frac{d\cos x}{dx}=-\sin x&\iff \int(-\sin x)\,dx=\cos x+C.\end{align*}
+This second integration formula is more awkward than necessary,
+since it is more likely we would like an antiderivative for 
+$\sin x$ directly.  We could multiply both sides by $-1$, and
+rename the new constant $C$, or just notice that
+$\frac{d}{dx}(-\cos x)=\sin x$, to come to the formula
+$$\int \sin x\,dx=-\cos x+C.$$
+As before, we can always check these by taking the derivative
+of the right-hand side.  Recalling our six basic trigonometric
+derivative formulas, and making adjustments for negative sign
+placements as above, we have the following pairs of 
+derivative/integral formulas:
+\begin{alignat}{5}
+\frac{d\sin x}{dx}&=\cos x&\qquad&\iff\qquad&&\int\cos x\,dx&&=\sin x+C,
+      \label{IntOfCosine}\\
+\frac{d\cos x}{dx}&=-\sin x&&\iff&&\int\sin x\,dx&&=-\cos x+C,
+      \label{IntOfSine}\\
+\frac{d\tan x}{dx}&=\sec^2x&&\iff&&\int\sec^2x\,dx&&=\tan x+C,
+      \label{IntOfSecSquared}\\
+\frac{d\cot x}{dx}&=-\csc^2x&&\iff&&\int\csc^2x\,dx&&=-\cot x+C,
+      \label{IntOfCscSquared}\\
+\frac{d\sec x}{dx}&=\sec x\tan x&&\iff&&\int\sec x\tan x\,dx&&=\sec x+C,
+      \label{IntOfSecTan}\\
+\frac{d\csc x}{dx}&=-\csc x\cot x&&\iff&&\int\csc x\cot x\,dx
+                                    &&=-\csc x+C.
+      \label{IntOfCscCot}
+\end{alignat}
+With these and our previous rules, we have some limited
+ability to compute integrals involving trigonometric functions.
+\bex Consider the following integrals:
+\begin{itemize}
+\item $\ds{\int\left[x^2+\sin x-\frac1x\right]\,dx=\frac{x^3}3-\cos x+\ln|x|+C
+            }$
+\item $\ds{\int\frac{\sin x}{\cos^2x}\,dx
+      =\int\left[\frac1{\cos x}\cdot\frac{\sin x}{\cos x}\right]\,dx
+      =\int\sec x\tan x\,dx=\sec x+C}$
+\item $\ds{\int\cos w\,dw=\sin w+C}$
+\item $\ds{\int\tan^2x\,dx=\int\left(\sec^2x-1\right)\,dx=\tan x-x+C}$.
+\end{itemize}
+\eex
+In fact we are fortunate if an integral has the kind of trigonometric
+form which is just the derivative of one of the six basic trigonometric
+functions.  When it is the case, it often requires some rewriting,
+as in two of the integrals above.
+\subsection{Integrals Yielding Inverse Trigonometric Functions}
+
+
+\begin{align}
+\int\frac1{\sqrt{1-x^2}}\,dx&=\sin^{-1}x+C,\label{IntGivesArcsine}\\
+\int\frac1{x^2+1}\,dx&=\tan^{-1}x+C,\\
+\int\frac1{x{\sqrt{x^2-1}}}\,dx&=\sec^{-1}|x|+C.\label{IntGivesArcsecant}
+\end{align}
+Note how we only employ three of the six arctrigonometric functions
+in (\ref{IntGivesArcsine})--(\ref{IntGivesArcsecant}).  In fact
+these are sufficient.
+Recall for instance
+that the arccosine and arcsine have derivatives which differ by the 
+factor $-1$.  For simplicity, it is much more commonly written 
+$\int\frac{-1}{\sqrt{1-x^2}}\,dx=-\sin^{-1}x+C$, rather than
+using the arccosine function as the antiderivative,
+i.e.,  $\int\frac{-1}{\sqrt{1-x^2}}\,dx=\cos^{-1}x+C$
+though the latter is certainly legitimate.  Indeed,
+since $\sin^{-1}x+\cos^{-1}x=\frac{\pi}2$, we see
+$\cos^{-1}x$ and $-\sin^{-1}x$ differ by a constant.  In fact
+one could rewrite (\ref{IntGivesArcsine}) as
+$\int\frac1{\sqrt{1-x^2}}\,dx=-\cos^{-1}x+C$.  The choice can
+sometimes depend upon which range of angles we wish the antiderivative
+fuction to output, though for this case
+we can adjust that with the constant $C$.
+
+
+
+Similarly one usually writes $\int\frac{-1}{x^2+1}\,dx=-\tan^{-1}x+C$, 
+though $\cot^{-1}x+C$ (for a ``different'' $C$) is also legitimate.
+Analogously for arcsecant and arccosecant; we usually avoid the arccosecant
+function as an antiderivative.
+  
+But for these last two there is another small complication.  Note how
+Equation (\ref{IntGivesArcsecant}) has the absolute value on the 
+antiderivative rather than the $x$-term of the denominator in the integrand,
+so it does not appear to be just a restatement of the derivative rule
+for the arcsecant: $\frac{d}{dx}\sec^{-1}x=\frac1{|x|\sqrt{x^2-1}}$.
+To see that (\ref{IntGivesArcsecant}) is still correct,
+note that $|x|=x$ if $x>0$, and $|x|=-x$ if $x<0$.  Taking the derivative of
+$\sec^{-1}|x|$ for those two cases, as we did in the computation
+of $\frac{d}{dx}\ln|x|$  (see page~\pageref{ProofOfDerivLn|X|Stuff})
+we can see that we do get 
+$\frac1{x\sqrt{x^2-1}}$ both times.  But it should also be noted that,
+while not often seen, it would be legitimate to have the 
+absolute value inside, rather than outside, the integral, as 
+in
+$\int\frac1{|x|\sqrt{x^2-1}}\,dx=\sec^{-1}x+C$.\footnote{%
+%%% FOOTNOTE
+To further complicate things, we could notice that
+$\sec^{-1}x=\cos^{-1}\frac1x$, so it can occur that computational
+software will output an arccosine function, as 
+in $\int\frac1{x\sqrt{x^2-1}}\,dx=\cos^{-1}\frac1{|x|}+C$,
+and then this can be rewritten (with a ``different $C$'')
+$\int\frac1{x\sqrt{x^2-1}}\,dx=-\sin^{-1}\frac1{|x|}+C$.
+The software might also 
+omit the absolute values, theoretically assuming $x>0$.
+Still, the standard written
+computation would output the expected $\sec^{-1}|x|+C$.
+%%% END FOOTNOTE
+}
+
+Before listing some examples, we last make note of the convention
+mentioned earlier (see page~\pageref{UsingdxAsAFactor}), of
+using $dx$ as a factor.  So our new integration formulas
+are often written:
+\begin{align*}
+\int\frac{dx}{\sqrt{1-x^2}}&=\sin^{-1}x+C,\\
+\int\frac{dx}{x^2+1}&=\tan^{-1}x+C,\\
+\int\frac{dx}{x\sqrt{x^2-1}}&=\sec^{-1}|x|+C.
+\end{align*}
+
+The above formulas will become much more important in future sections.
+For now it is important to realize that these particular function forms 
+do have (relatively) simple antiderivatives.  At this point in the 
+development we are not prepared to make full use of these forms, 
+but we need to be aware of them.  Sometimes a simple manipulation
+produces a function containing one of these forms.
+
+\bex Compute $\ds{\int\frac{x^2}{x^2+1}\,dx}$.
+
+\underline{Solution}: With the aid of long division, we can see that\footnote{%
+%%% FOOTNOTE
+A popular alternative 
+technique for a fraction like that in our integrand is to 
+strategically add and subtract a term in the numerator, which
+produces a term in the numerator identical to (or a multiple of)
+the denominator,
+and the extra term, from which we can make two fractions:
+$$\frac{x^2}{x^2+1}=\frac{x^2+1-1}{x^2+1}
+      =\frac{x^2+1}{x^2+1}-\frac1{x^2+1}
+      =1-\frac1{x^2+1}.$$
+While this is a very useful technique for such a simple case, 
+it does not easily extend to more complicated cases.  Long division---when
+the degree of the numerator is at least that of the denominator---is more
+straightforward.  However, we will eventually have need of a technique
+similar to that given above in this footnote, though that setting will be 
+much more complicated and we will need all other advanced integration
+techniques to make full use of it.
+%%% END FOOTNOTE
+}
+$$\frac{x^2}{x^2+1}=1-\frac1{x^2+1},$$
+and so
+$$\int\frac{x^2}{x^2+1}\,dx
+=\int\left[1-\frac1{x^2+1}\right]\,dx
+=x-\tan^{-1}x+C.$$
+
+\eex
+
+\subsection{Integrals Yielding Exponential Functions}
+
+To finish our list of integrals which arise from differentiation
+formulas, we list those yielding exponential functions.  Below
+$a\in(0,1)\cup(1,\infty)$.
+
+\begin{alignat}{2}
+&\int e^x\,dx&&=e^x+C,\label{IntOfE^X}\\
+&\int a^x\,dx&&=\frac{a^x}{\ln a}+C.\label{IntOfA^X}\end{alignat}
+The first of these, (\ref{IntOfE^X}) is the more obvious.
+To see (\ref{IntOfA^X}), recall that $\frac{d\,a^x}{dx}=a^x\ln a$,
+and that $\ln a$ is a constant.
+Thus
+$$\frac{d}{dx}\left[\frac{a^x}{\ln a}\right]
+=\frac1{\ln a}\cdot\frac{d\,a^x}{dx}
+=  \frac1{\ln a}\cdot a^x\ln a=a^x,\qquad\text{q.e.d.}$$
+\bex We compute some antiderivatives involving these.
+\begin{itemize}
+\item $\ds{\int\left[1+x+e^x\right]\,dx=x+\frac{x^2}2+e^x+C}$,
+\item $\ds{\int 2^x\,dx=\frac{2^x}{\ln2}+C}$,
+\item $\ds{\int\frac{2^x-3^x}{5^x}\,dx
+        =\int\left[\frac{2^x}{5^x}-\frac{3^x}{5^x}\right]\,dx
+        =\int\left[\left(\frac25\right)^x-\left(\frac35\right)^x\right]\,dx
+        =\frac{\left(\frac25\right)^x}{\ln\frac25}
+         -\frac{\left(\frac35\right)^x}{\ln\frac35}+C}$,
+\item $\ds{\int\!\left(1+3^x\right)^2\,dx
+        =\int\left[1+2\cdot3^x+3^{2x}\right]\,dx
+        =\int\left[1+2\cdot3^x+9^x\right]\,dx
+        =x+\frac{2\cdot3^x}{\ln 3}+\frac{9^x}{\ln 9}+C}$.
+\end{itemize}
+In the last integral, we used the fact that
+$\left(3^x\right)^2=3^{x\cdot2}=3^{2\cdot x}=\left(3^2\right)^x=9^x$.
+\eex
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Substitution With Power Rule\label{FirstSubstitutionSection}}
+Substitution in general is the most important of the integrating
+techniques, finding its way into the other techniques as well.
+While we introduce it here, for now we limit the scope to power rules.
+
+Before looking at this method formally, consider the following
+antiderivative statements, each of which refer to the 
+same power rule (perhaps most familiar in the first case):
+\begin{align}
+\int x^2\,dx&=\frac{x^3}3+C,\notag\\
+\int u^2\,du&=\frac{u^3}3+C,\notag\\
+\int (\sin x)^2\,d(\sin x)&=\frac{(\sin x)^3}3+C.
+     \label{DumbSubExampleSin^2X--W.R.T.SinX}
+\end{align}
+The last integral is simply asking for an antiderivative of
+$(\sin x)^2$ with respect to $\sin x$.  Indeed, we can check the
+answer as before:
+$$\frac{d}{d\sin x}\left[\frac13(\sin x)^3\right]
+    =\frac13\cdot 3(\sin x)^2=(\sin x)^2,$$
+as we expect.  Of course we usually take derivatives and antiderivatives
+with respect to a variable, and not a function.  However the
+integral in (\ref{DumbSubExampleSin^2X--W.R.T.SinX})
+is not so unlikely to be occur as one might think. 
+Recall that $df(x)=f'(x)\,dx$
+is the definition of the differential (see
+(\ref{EquationDefiningDifferentials}), 
+page~\pageref{EquationDefiningDifferentials}).  Thus
+$d\sin x=\cos x\,dx$, and the integral
+in (\ref{DumbSubExampleSin^2X--W.R.T.SinX}) can be written instead
+$$\int(\sin x)^2\cos x\,dx=\int(\sin x)^2\frac{d\sin x}{dx}\,dx
+                          =\int(\sin x)^2\,d\sin x
+                          =\frac13(\sin x)^3+C.$$
+Indeed, it is not hard to see that the chain rule gives
+us $\frac{d}{dx}\left[
+\frac13(\sin x)^3\right]=\frac13\cdot3(\sin x)^2\cos x
+=\sin^2x\cos x$. 
+
+In this section we will concentrate on integrals of the form
+\begin{equation}\int u^n\,du=\left\{\begin{array}{lclcl}
+             \frac1{n+1}\cdot u^{n+1}&+&C&\qquad&\text{if }n\ne1,\\ \\
+             \ln|u|&+&C&&\text{if }n=-1.\end{array}\right.
+             \label{PowerRuleForIntegrationInU}
+       \end{equation}
+As anticipated in the discussion above, the content of the differential
+$du$ may be more expansive than what we may expect from a single variable.
+The point of this section is to recognize when we have the form
+(\ref{PowerRuleForIntegrationInU}), and how to go about rewriting the
+integral into the proper form.  
+
+The reader should be forwarned:  this method requires a fair amount 
+of practice.  It is not a simple algorithm. For each problem, the
+reader has to decide which substitution will produce an integral
+which can be computed with known rules.  Here we will limit ourselves
+to the power rule (\ref{PowerRuleForIntegrationInU}), but
+in subsequent sections we will delve into many other rules, and
+it is not always obvious which rule should be used for a given integral.
+With practice one learns to look for clues, and anticipate what
+will occur several steps ahead, to see if there is indeed an
+integration rule which can apply.\footnote{%%%
+%%% FOOTNOTE
+In fact, often there is no rule which will produce an antiderivative,
+and then some approximation scheme will be necessary.  Still, it is most
+desirable to have an exact antiderivative, and we can find one
+often enough that it is well worth studying these techniques.}
+
+\subsection{The Technique}
+Here we will look at some of the simpler problems of integration by
+substitution.  As we proceed, several observations will be made
+regarding the method.
+
+\bex Compute the indefinite integral $\ds{\int (x^2+1)^7\cdot2x\,dx}$.
+
+\underline{Solution}: The technique is to introduce a new variable,
+$u$, with which we can write the original integral in a simpler form.
+We also have to take into account what will be the new differential,
+namely $du$:
+\begin{align*}
+u&=x^2+1\\
+\implies\qquad du&=2x\,dx.
+\end{align*}
+(Recall that if $u$ is a function of $x$, then $du=u'(x)\,dx$,
+consistent with $\frac{du}{dx}=u'(x)$.)  Using this information, we can
+replace all the terms in the original integral: the $(x^2+1)^7$
+becomes $u^7$, and the terms $2x\,dx$ collectively become $du$
+(see the above implication arrow).  Thus
+$$\int(x^2+1)^7\cdot\underline{2x\,dx}=\int u^7\,\underline{du}
+=\frac18\,u^8+C.$$
+This is all true, but {\bf we} introduced $u$, while the
+original question asked for an antiderivative with respect to $x$.
+We only need to replace $u$ in the final answer, using again
+$u=x^2+1$.  Summarizing,
+$$\int(x^2+1)^7\cdot{2x\,dx}
+=\int u^7\,{du}=\frac18\,u^8+C=\frac18(x^2+1)^8+C.$$
+\label{FirstUSubExample}\eex
+
+Note that we can check our answer in the above example by
+computing the derivative of the answer (using the 
+chain rule), yielding $\frac{d}{dx}\left[\frac18(x^2+1)^8\right]=
+\frac18\cdot8(x^2+1)^7\cdot2x=
+(x^2+1)^7\cdot2x$ as hoped.  
+In fact, integration by substitution, at least in its
+simplest forms, is often called a type of reverse chain rule.
+Indeed, we can rewrite (\ref{PowerRuleForIntegrationInU}) as follows:
+\begin{equation}\int u^n\,du=\int u^n\cdot\left(\frac{du}{dx}\right)\,dx
+            =\int \left[u^n\cdot\frac{du}{dx}\right]\,dx
+=\left\{\begin{array}{lcll}
+             \frac1{n+1}\cdot u^{n+1}&+&C\quad&\text{if }n\ne1,\\ \\
+             \ln|u|&+&C&\text{if }n=-1.\end{array}\right.
+\label{IntPowerRuleWithUSubstitution}\end{equation}
+To see that this is correct, if we take the derivative of 
+the answers {\it with respect to $x$}, we see that we do indeed
+get $u^n\cdot\frac{du}{dx}$ from the chain rule.    
+
+In short, with integration by substitution we try to pick some
+function we call $u$, so that
+\begin{enumerate}
+\item a main part of the integrand can be written as a simple function
+      of $u$---one for which we know the antiderivative with respect to 
+      $u$---and, equally crucial, so that
+\item the remaining variable terms of the integral can be
+      safely absorbed in $du$ (except for multiplicative constants,
+      which we will see add only a slight complication).
+\end{enumerate}
+If these are both satisfied, our substitution of $u$ and $du$ terms
+gives us a new, simple integral (entirely in terms of $u$ and $du$!).
+
+When working such a problem (as opposed to, say, {\it publishing} a problem
+and solution for professional consumption),
+a useful format is to (1) write the original integral, (2) write the
+substitution function $u$, with its differential $du$ both on different
+lines than the original integral, (3) write the new form of
+the original integral, i.e.,  in $u$ 
+and $du$,  (4) compute the antiderivative of this new integral
+in $u$ as a continuation of the first step,
+and (5) resubstitute to arrive at the antiderivative in $x$.
+Hence a typical homework-style presentation of 
+Example~\ref{FirstUSubExample}
+might look like the following (with the choice of
+$u$ and resulting $du$ offset and below the original integral):
+
+\begin{align*}
+\int(x^2+1)^7\cdot\underline{2x\,dx}
+         &=\int u^7\,\underline{du}=\frac18u^8+C=\frac18(x^2+1)^8+C\\
+\left.\begin{aligned}
+u&=x^2+1\\ du&=\underline{2x\,dx}\end{aligned}\right|&\end{align*}
+That part of the integral which we hope to absorb into $du$ is underlined
+in the original integral, the computation of $du$, and the corresponding
+term in the new integral.  The rest of the integral was just 
+$(x^2+1)^7=u^7$. In fact, when we choose $u$ so that a major
+portion of the integral can be written $u^n$, then any
+other factors which are variable, along with the differential
+$dx$, must be absorbed in $du$ or the substitution will fail
+(because the resulting integral will contain both $x$ and $u$
+and no antiderivative rules will apply).
+We will continue to use this kind of spatial organization 
+when we integrate by substitution in the examples below.
+\bex Compute the indefinite integral $\ds{\int\sin^2x\cos x\,dx}$.
+
+\underline{Solution}: Note that this integral can be written
+$\ds{\int(\sin x)^2\cos x\,dx}$.  Now we proceed:
+\begin{align*}
+\int\sin^2x\ \underline{\cos x\,dx}&=\int u^2\,\underline{du}=\frac13u^3+C
+                                          =\frac13\sin^3x+C.\\
+\left.\begin{alignedat}{2}
+&&u&=\sin x\\
+&\implies&du&=\underline{\cos x\,dx}
+\end{alignedat}\right|&\end{align*}
+\eex
+
+Before continuing we will make a very minor change to the integral
+in the first example (Example~\ref{FirstUSubExample},
+page~\pageref{FirstUSubExample}), 
+and show a simple way to extend our method to handle this.
+
+\bex Compute $\ds{\int x(x^2+1)^7\,dx}$.
+
+\underline{Solution}: Here we will make the same substitution
+as before, but the $du$ will have an extra factor of 2.  Since
+constant factors are relatively easy to handle in derivative
+and antiderivative problems in general, we should not expect
+this extra factor of 2 to cause much difficulty.  It 
+will simply mean one extra step in the  substitution
+computations.\footnote{%
+%%% FOOTNOTE
+There is another method used by some texts to handle a 
+problem such as this, which is to simply introduce the
+needed factor of 2 in the integral to complete the
+differential $du=2x\,dx$, and compensate for the insertion of
+the new factor by
+simultaneously inserting a factor of $\frac12$, which
+is simply carried through the rest of the calculation:
+$$\int x(x^2+1)^7\,dx=\int\frac12
+ \underbrace{(x^2+1)^7}_{u^7}\cdot\underbrace{2x\,dx}_{du}
+ =\frac12\int u^7\,du=\frac12\cdot\frac18u^+C=\frac1{16}(x^2+1)^8+C,$$
+where again $u=x^2+1$, $du=2x\,dx$.
+
+This method is appealing because one rewrites the integrand into a form
+where it is, more or less, clearly a derivative of a chain rule function
+(perhaps multiplied by a constant, as with $\frac12$ here).
+
+We will avoid this method because, though it is not so challenging for
+simpler problems, it quickly becomes unreasonably difficult if an
+integral is complicated.  Furthermore, the method presented in this
+text---in the author's opinion---makes for much 
+better preparation for more advanced methods,
+such as trigonometric substitution and integration by parts.
+%%%% END FOOTNOTE
+}
+
+\begin{align*}
+\int \underline{x}(x^2+1)^7\,\underline{dx}
+         &=\int u^7\cdot\underline{\frac12\,du}=\frac12\cdot
+                \frac18u^8+C=\frac1{16}(x^2+1)^8+C\\
+\left.\begin{alignedat}{2}
+&&u&=x^2+1\\
+&\implies& du&=2\,\underline{x\,dx}\\ &\implies&\frac12du&=\underline{x\,dx}
+\end{alignedat}\right|\qquad&\end{align*}
+\label{IntX(X^2+1)^7dxExample}\eex
+
+This time the extra nonconstant and differential terms of the original
+integral were, collectively, $x\,dx$.  Though that product is not
+exactly $du$, it is a constant times $du$. In our substitution
+we took an extra step and solved, again collectively, for $x\,dx=\frac12du$.
+
+
+The preceding example shows that we need to be flexible when looking
+for a possible power rule application.  Not every integral where
+we can use the power rule will be of the strict form
+(\ref{IntPowerRuleWithUSubstitution}), 
+page~\pageref{IntPowerRuleWithUSubstitution}.  Indeed, we need
+to be especially vigilant to notice that an integral may be
+of the form
+\begin{equation}
+\int k\cdot u^n\,du=\int k\cdot u^n\cdot\left(\frac{du}{dx}\right)\,dx.
+\label{IntsWhichAreConstantsTimesChainRuleFormOfPowerRule}
+\end{equation}
+So when we make a substitution, we try not to be distracted by
+extra or missing multiplicative 
+constants, as they will work themselves out in
+the substitution and final integration steps.
+
+
+
+
+\bex Compute $\ds{\int x^3\cos^5x^4\sin x^4\,dx}$.
+
+\underline{Solution}: It is perhaps more obvious how to proceed
+if we rewrite the integral in the form
+$\ds{\int x^3(\cos x^4)^5\sin x^4\,dx}$.  Then we see that
+the $u^n$ term will be $(\cos x^4)^5=u^5$, where $u=\cos x^4$.
+Next we need to see if $du$ can absorb the other nonconstant terms:
+\begin{align*}
+\int \underline{x^3}\cos^5x^4\underline{\sin x^4\,dx}
+ &=\int u^5\underline{\left(-\frac14\right)\,du}
+ =-\frac14\cdot\frac16u^6+C=-\frac1{24}(\cos x^4)^6+C.\\
+\left.\begin{alignedat}{2}
+&&u&=\cos x^4\\
+&\implies&du&=-\underline{\sin x^4}\cdot 4\,\underline{x^3\,dx}\\
+&\implies&-\frac14du&=\underline{x^3\sin x^4\,dx}\end{alignedat}\right|&
+\end{align*}
+\eex
+We should point out that the method above would not have
+worked without {\it both} the $x^3$ and the $\sin x^4$
+terms in the integral, for the $du$ would have 
+variable terms not in the orginal integral.
+
+Also, it is possible to compute the integral in the previous
+by using two substitution steps instead of one.
+For instance, a student recognizing that $x^4$, and a multiple
+of its derivative in the form of $x^3$, both appear, might 
+first make a substitution of the form $u=x^4$:
+\begin{align*}
+\int \underline{x^3}\cos^5x^4\sin x^4\,\underline{dx}&=
+         \int\cos^5u\,\sin u\,\underline{\frac14\,du}
+ =\frac14\int\cos^5u\,\sin u\,du.\\
+\left.\begin{alignedat}{2}
+&& u&=x^4\\
+&\implies&du&=4\,\underline{x^3\,dx}\\
+&\implies&\frac14du&=\underline{x^3\,dx}\end{alignedat}\right|&
+\end{align*}
+At this point, we have a simpler integral which itself requires a
+substitution:
+\begin{align*}
+\frac14\int\cos^5u\,\underline{\sin u\,du}&=\frac14\int w^5\underline{(-dw)}
+ =-\frac14\cdot\frac16 w^6+C=-\frac1{24}(\cos u)^6+C.\\
+\left.\begin{alignedat}{2}
+&&w&=\cos u\\
+&\implies&dw&=-\underline{\sin u\,du}\\
+&\implies&-dw&=\underline{\sin u\,du}\end{alignedat}\right|&\end{align*}
+Of course this gives the answer in terms of $u$, so we substitute
+back again, in terms of $x$.  Summarizing,
+$$\int x^3\cos^5x^4\sin x^4\,dx=\cdots=
+    -\frac1{24}w^6+C=-\frac1{24}\cos^6u+C
+                =-\frac1{24}\cos^6x^4+C.$$
+The second approach is longer, but it has the advantage that we
+are not trying to rewrite the integral in one, all-encompassing
+(and thus more complicated)
+substitution step. Indeed it is sometimes desirable to simplify an 
+integral with substitution even if the resulting integral cannot be 
+evaluated immediately.  With most examples we will use the first
+method, but the student working problems should be aware that
+the option of successive substitutions is perfectly valid.
+
+Next we look at a few very common types of examples where the
+power of $n$ is $1/2$, $-1$ and $-2$.  These appear often enough that
+it is worth some effort to remember them specifically.
+
+\bex Compute $\ds{\int\frac{x}{\sqrt{x^2-9}}\,dx}$.
+
+\underline{Solution} Here we will take $u=x^2-9$, since the $du=2x\,dx$
+can absorb both the $dx$ and the extra factor of $x$:
+\begin{align*}
+\int\frac{\underline{x}}
+  {\sqrt{x^2-9}}\,\underline{dx}&=\int u^{-1/2}\cdot\underline{\frac12\,du}
+ =\frac12\cdot2{u}^{1/2}+C=\sqrt{x^2+1}+C.  \\
+\left.\begin{alignedat}{2}&&u&=x^2-9\\ &\implies&du&=2\,\underline{x\,dx}\\
+       &\implies&\frac12\,du&=\underline{x\,dx}\end{alignedat}\right|&
+\end{align*}
+\eex
+\bex Compute $\ds{\int\frac{\sin x}{\cos x}\,dx}$.
+
+\underline{Solution}:  Here we will take $u=\cos x$, since
+$du=-\sin x\,dx$ will absorb the other terms.  
+
+\begin{align*}
+\int\frac{{\sin x}\,dx}{\cos x}
+ &=\int\frac1{u}(-du)=-\ln|u|+C=-\ln|\cos x|+C.\\
+\left.\begin{alignedat}{2}
+&&u&=\cos x\\
+&\implies&du&=-\underline{\sin x\,dx}\\
+&\implies&-du&=\underline{\sin x\,dx}\end{alignedat}\right|&
+\end{align*}
+
+
+Note that
+if we instead took $u=\sin x$, then $du=\cos x\,dx$, but $\cos x$ is not
+a {\bf multiplicative} factor in the original integral; the desired factor is 
+$\frac1{\cos x}$, which is not contained in the $du$ term
+if $u=\sin x$.
+\eex
+It should be remembered that checking these antiderivatives is as
+simple as computing the derivative of the answer.  Here
+$$\frac{d}{dx}\left[-\ln|\cos x|\right]=
+   -\frac{1}{\cos x}\cdot\frac{d}{dx}\cos x
+   =-\frac{1}{\cos x}(-\sin x)=\frac{\sin x}{\cos x},$$
+as we hope. Of course our original integrand, and the
+derivative above, can both be written $\tan x$.
+
+ Note that we can write
+$-\ln|\cos x|=\ln\left|(\cos x)^{-1}\right|=\ln|\sec x|$,
+so many calculus books contain the integration formula
+\begin{equation}\int\tan x\,dx=\ln|\sec x|+C.\label{FirstAntiForTanGiven}
+\end{equation}
+(It is also interesting to ``fill in the dots''
+for the computation $\frac{d}{dx}|\sec x|=\cdots=\tan x$,
+verifying (\ref{FirstAntiForTanGiven}).
+See also Exercise~\ref{IntOfSecXTanX/SecXForFun}, 
+page~\pageref{IntOfSecXTanX/SecXForFun}.)
+
+\bex Compute $\ds{\int\frac{e^{3x}}{(e^{3x}+4)^2}\,dx}$.
+
+\underline{Solution}:
+Here we note that the numerator of the integrand, namely $e^{3x}$, is
+the derivative of $e^{3x}+4$, except for a multiplicative constant.
+Thus we will let $u=e^{3x}+4$:
+\begin{align*}
+\int\frac{e^{3x}}{(e^{3x}+4)^2}\,dx&
+  =\int\frac1{u^2}\,\cdot\frac13\,du
+  =\frac13\int u^{-2}\,du =\frac13\cdot(-1)u^{-1}+C\\
+\left.\begin{alignedat}{2}
+&&u&=e^{3x}+4\\
+&\implies&du&=\underline{e^{3x}}\cdot3\underline{dx}\\
+&\implies&\frac13\,du&=\underline{e^{3x}\,dx}
+\end{alignedat}\right|&=-\frac13(e^{3x}+4)^{-1}+C 
+                        =\frac{-1}{e^{3x}+4}+C.
+\end{align*}
+
+
+\eex
+
+At this point we notice three common forms of integration by
+substitution:
+\begin{align}
+\int\frac{u'(x)}{\sqrt{u(x)}}\,dx&=2\sqrt{u(x)}+C,\\
+\int\frac{u'(x)}{u(x)}\,dx&=\ln|u(x)|+C,\\
+\int\frac{u'(x)}{[u(x)]^2}\,dx&=\frac{-1}{u(x)}+C.
+\end{align}
+In all three cases, $u'(x)\,dx=du$, and we have simple power
+rules.  In the first and third cases there are
+multiplicative constants which occur.  There is no real
+need to memorize these, but they occur often enough that 
+their ``mechanics'' should become familiar.  For that
+reason these three results can become, if not memorized, 
+then at least easily cited.
+
+The method also works for cases where the $du$ term is 
+just a constant multiple of $dx$:
+%\bex Compute $\ds{\int\sec5x\tan5x\,dx}$.
+%
+%\underline{Solution}: Here we will let $u=5x$:
+%\begin{align*}
+%\int\sec5x\tan5x\,dx&=\int\sec u\tan u\,\frac15\,du
+%                    =\frac15\sec u+C=\frac15\sec5x+C.\\
+%  \left.\begin{alignedat}{2}
+%    && u&=5x\\
+%    &\implies&du&=5\,\underline{dx}\\
+%    &\implies&\frac15\,du&=\underline{dx}
+%   \end{alignedat}\right\}&
+%\end{align*}
+%
+%\eex
+
+\bex Compute $\ds{\int\frac1{(6-2x)^5}\,dx}$.
+
+\underline{Solution}: 
+\begin{align*}
+\int\frac1{(6-2x)^5}\,dx&=\int u^{-5}\cdot\frac{-1}2\,du
+   =-\frac12\cdot\frac1{-4}u^{-4}+C
+   =\frac18(6-2x)^{-4}+C \\
+\left.\begin{alignedat}{2}
+&&u&=6-2x\\
+&\implies&du&=-2\,\underline{dx}\\
+&\implies&\frac{-1}2\,du&=\underline{dx}\end{alignedat}\right|&
+=\frac1{8(6-2x)^4}+C.
+\end{align*}
+\eex
+
+In the case that $du=dx$, this can often be anticipated and the
+experienced calculus student might omit the middle steps:
+%\bex Compute $\ds{\int\csc^2(x-\pi)\,dx}$.
+%
+%\underline{Solution}:
+%\begin{align*}
+%\int\csc^2(x-\pi)\,\underline{dx}&=\int\csc^2u\,\underline{du}
+%       =-\cot u+C=-\cot(x-\pi)+C.\\
+%\left.\begin{alignedat}{2}
+%  &&u&=x-\pi\\
+%&\implies&du&=\underline{dx}\end{alignedat}
+%\right\}&\end{align*}
+%\eex
+\bex Compute $\ds{\int(x+9)^4\,dx}$.
+
+\underline{Solution}:
+\begin{align*}
+\int(x+9)^4&=\int u^4\,du=\frac15u^5+C=\int\frac15(x+9)^5+C.
+\\
+\left.\begin{aligned}
+u&=x+1\\
+\implies du&=dx\end{aligned}\right|&
+\end{align*}
+\eex
+
+
+
+
+
+Another way to look at the example above is to realize
+that $d(x+9)=dx$, so we can write
+$$\int(x+9)^4\,dx=\int(x+9)^4d(x+9)
+                       =\frac15(x+9)^5+C.$$
+In other words, $dx$ is the same as $d(x+9)$, so we get the same
+if we interpret the original integral as an antiderivative with 
+respect to $(x+9)$.\footnote{Note that the {\it change} in $x+9$ is the
+same as the change in $x$.}  Indeed this is a shortcut one learns with
+practice---thinking but perhaps not writing the second step---but 
+at first it is still best to write out the full substitution,
+as in the example above, at least until one is proficient in the 
+method as presented here.  Of course this is the analog to 
+a chain rule where the ``inner'' derivative is 1:
+$$\frac{d}{dx}\left[\frac15(x+9)^5\right]
+  =\frac15\cdot5(x+9)^4\cdot\frac{d(x+9)}{dx}
+  =\frac15\cdot5(x+9)^4\cdot1=(x+9)^4,\text{ q.e.d.}$$
+
+
+
+\subsection{A Slight Twist on the Method}
+
+Recall our second example, namely Example~\ref{IntX(X^2+1)^7dxExample}
+on page~\pageref{IntX(X^2+1)^7dxExample}: $\int x(x^2+1)^7\,dx$.
+We used a substitution $u=x^2+1$ because $du=2x\,dx$ contained the
+extra factor of $x$ in the integrand.  The substitution
+eventually gave us $\int u^7\cdot\frac12\,du$, which was a simple
+power rule.  Of course we could have ``simply'' expanded the
+original function
+\begin{align*}
+x(x^2+1)^7&=x(x^2+7x^4+21x^6+35x^8+35x^{10}+21x^{12}+7x^{14}+1)\\
+          &=x^3+7x^5+21x^7+35x^9+35x^{11}+21x^{13}+7x^{15}+x,
+\end{align*}
+and integrated ``term by term.''  However the substitution method was
+arguably easier, and the answer's simple form, 
+$\frac1{16}(x^2+1)^{8}+C$ would
+probably not be recongnizable from a strategy which expands the
+integrand first.
+
+Now consider the integral $\ds{\int x(x-1)^{3/2}\,dx}$.
+Here we can not simply ``expand'' the integrand (even
+by brute force, as above), because
+of the fractional power term $(x-1)^{3/2}$, which is algebraically
+more difficult to deal with than positive integer powers.  Furthermore,
+if we let $u=x-1$, then $du=dx$, but this differential
+term cannot absorb the extra factor $x$. The key is to then
+notice that the original substitution offers a way out:
+that extra factor $x$ can be rewritten $u+1$ (since
+$u=x-1\iff u+1=x$).
+Below we show how this can be utilized.
+Indeed we will expand the new integrand, but what is interesting 
+is how the algebraic difficulties of the $(x-1)^{3/2}$ term
+(namely that this is of the form $({a+b})^{r}$,
+$r\not\in\mathbb{N}$) is transfered
+to the $x$ term which, being a positive integer power, is 
+then easier to handle.  Below we write this out in the standard
+example format:\newpage
+\bex Compute $\ds{\int x(x-1)^{3/2}\,dx}$.
+
+\underline{Solution}: Here we substitute for $dx$ {\bf and} $x$.
+Both substitutions are calculated below, but separately.
+(This time we underline the substitution for $x$, instead of the
+differential part.) Once the substitutions are completed, we can 
+perform the multiplication to get two simple power rules:
+\begin{align*}
+\int \underline{{x}}(x-1)^{3/2}\,dx&=
+\int\underline{{(u+1)}}u^{3/2}\,du
+=\int\left(u^{5/2}+u^{3/2}\right)\,du
+=\frac27u^{7/2}+\frac25u^{5/2}+C\\
+\left.
+{\begin{alignedat}{2}
+&&u&=x-1\\
+&\implies&du&=dx\\
+\hline
+\text{Also, } &&u&=x-1\\
+&\iff& u+1&=\underline{{x}}\end{alignedat}}\right|
+&=\frac27(x-1)^{7/2}-\frac25(x-1)^{5/2}+C.\end{align*}
+Though the answer above is correct, one often factors the final 
+answer:
+$$=\frac2{35}(x-1)^{5/2}[5(x-1)-7]+C=\frac2{35}(x-1)^{5/2}(5x-12)+C.$$
+\eex
+\bex Compute $\ds{\int\frac{x}{\sqrt{2x+1}}\,dx}$.
+
+\underline{Solution}: We will work this problem
+twice  using two different
+substitutions.  The first is perhaps the most obvious, but the
+second has some appeal as well.
+\begin{align*}
+\int\frac{x}{\sqrt{2x+1}}\,dx&=\int\frac{\frac12(u-1)}{u^{1/2}}\cdot\frac12\,du
+=\frac14\int\left(u^{1/2}-u^{-1/2}\right)\,du\\
+\left.\begin{alignedat}{2}
+&&u&=2x+1\\
+&\implies&du&=2\,dx\\
+&\implies&\frac12du&=dx\\
+\hline
+&&u&=2x+1\\
+&\implies&x&=\frac12(u-1)
+\end{alignedat}\right|&=\frac14\left(\frac23u^{3/2}-2u^{1/2}\right)+C
+=\frac16(2x+1)^{3/2}-\frac12(2x+1)^{1/2}+C.
+\end{align*}
+Again one might factor, simplify and rearrange the variable parts of the answer
+to arrive at
+$$=\frac16(2x+1)^{1/2}\left[(2x+1)-3\right]+C
+  =\frac16\sqrt{2x+1}(2x-2)+C
+  =\frac13(x-1)\sqrt{2x+1}+C.$$
+For the alternative substitiution we let $u=\sqrt{2x+1}$.  Note how
+much of the integrand is then absorbed into $du$ (due to the
+relationship between the square root and its derivative).
+\begin{align*}
+\int\frac{x}{\sqrt{2x+1}}\,dx&=\int\underbrace{\frac12(u^2-1)}_{x}
+\underbrace{\,du\,\vphantom{\frac12}}_{\frac{dx}{\sqrt{2x+1}}}
+=\frac12\left[\frac13u^3-u\right]+C
+=\frac16u^3-\frac12u+C
+\\
+\left.\begin{alignedat}{2}
+&&u&=\sqrt{2x+1}\\
+&\implies&du&=\frac1{2\sqrt{2x+1}}\cdot2\,dx\\
+&\implies&du&=\frac1{\sqrt{2x+1}}\,dx\\
+\hline
+&&u&=\sqrt{2x+1}\vphantom{\frac22}\\
+&\implies&u^2&=2x+1\\
+&\implies&\frac12(u^2-1)&=x\end{alignedat}\right|
+&=\frac16\left(\sqrt{2x+1}\right)^3-\frac12\sqrt{2x+1}+C
+\text{ (as before).}\end{align*}
+\eex
+
+
+It is important to notice that we used {\it the same} equation
+for $u$ to calculate $du$, and to calculate $x$, in all of the above.
+Also the reader should begin to see that we can make some rather 
+interesting substitutions, so long as we are consistent when
+replacing every term inside the integral.  In doing so, it will
+become apparent if (1) it is even possible to use a given substitution
+to rewrite the integral, and (2) even if so, is the new integral
+one which we can actually compute.
+
+
+\bex Compute $\ds{\int\frac{x^3}{\sqrt{x^2+1}}\,dx}$.
+
+
+\eex
+
+
+
+
+\subsection{Other Miscellaneous Power Rule Substitutions}
+So far we have concentrated on algebraic (polynomial and
+rational-power), exponential and trigonometric functions in our 
+substitution problems.  It is also worth examining how power
+rules can arise from integrals involving logarithmic and
+arctrigonometric functions, which we do in this subsection.
+\bex Compute $\ds{\int\frac{(\ln x)^5}{x}\,dx}$.
+
+\underline{Solution}: He we see a factor $\frac1x$, which is
+the derivative of $\ln x$, so the latter will be $u$:
+\begin{align*}
+\int\frac{(\ln x)^5}{x}\,dx&=\int u^5\,du=\frac16u^6+C
+       =\frac{(\ln x)^6}{6}+C.\\
+\left.\begin{aligned}
+u&=\ln x\\
+du&=\frac1x\,dx\end{aligned}\right|&\end{align*}
+\eex
+Note that, as a general rule, if we have a function
+$f(x)$ with antiderivative $F(x)$, then we have\footnotemark
+\begin{align}
+\int\frac{f(\ln x)}{x}\,dx&=\int f(u)\,du=F(u)+C=F(\ln x)+C.\\
+\left.
+\begin{aligned}
+u&=\ln x\\
+\implies du&=\frac1x\,dx\end{aligned}\right|&\notag
+\end{align}
+\footnotetext{%%% FOOTNOTE
+In fact we can replace $\ln x$ with $\ln|x|$ in throughout the above.
+%%% END FOOTNOTE
+}
+Similar formulas apply to the arctrigonometric functions.
+Rather than list and commit to memorize them, it is better
+to look at the general idea that if, say,
+$\sin^{-1}x$ occurs in an integral, we would look immediately
+to see if its derivative, $\frac1{\sqrt{1-x^2}}$, also appears.
+Similarly for all functions.
+\bex Compute $\ds{\int\frac1{\sqrt{1-x^2}\sin^{-1}x}\,dx}$.
+
+\underline{Solution}: Note here that if $u=\sin^{-1}x$ then
+our $du$ below will account for
+$\frac1{\sqrt{1-x^2}}\,dx$:
+\begin{align*}\int\frac1{\sqrt{1-x^2}\sin^{-1}x}\,dx
+&=\int\frac1{u}\,du=\ln|u|+C=\ln\left|\sin^{-1}x\right|+C.\\
+\left.\begin{aligned}
+u&=\sin^{-1}x\\
+\implies du&=\frac1{\sqrt{1-x^2}}\,dx
+\end{aligned}\right|&\end{align*}
+\eex
+\bex Compute $\ds{\int\frac{\sec^{-1}x}{x\sqrt{x^2-1}}\,dx}$.  Assume $x>0$
+(or more precisely, $x\ge1$).
+
+\underline{Solution}:
+\begin{align*}
+\int\frac{\sec^{-1}x}{x\sqrt{x^2-1}}\,dx&=\int u\,du
+  =\frac12u^2+C=\frac{\left(\sec^{-1}x\right)^2}2+C.\\
+\left.\begin{aligned}
+u&=\sec^{-1}x\\
+du&=\frac1{x\sqrt{x^2-1}}\,dx\end{aligned}\right|&\end{align*}
+\eex
+In the example above, if instead $x<0$ (actually $x<-1$), 
+we would replace $x$ by $-|x|$ in the denominator of the integrand,
+giving eventually $-\frac12(\sec^{-1}x)+C$ for the antiderivative.
+
+
+\newpage
+\begin{center}
+\underline{\Large{\bf Exercises}}\end{center}
+
+\begin{multicols}{2}
+\begin{enumerate}
+\item $\ds{\int\frac{\sec x\tan x}{\sec x}\,dx}$
+      \label{IntOfSecXTanX/SecXForFun}
+\end{enumerate}
+\end{multicols}
+
+\newpage
+\section{Second Trigonometric Rules\label{SecondTrigRules}}
+We first looked at the simplest trigonometric integration rules---those
+arising from the derivatives of the trignometric functions---in
+Section~\ref{IndefiniteIntegrals}
+(Subsection~\ref{FirstTrigRules}, page~\pageref{FirstTrigRules}
+to be more precise).  Here we will complete the trigonomic rules
+in which one of the six basic trigonometric functions is the ``outer''
+function.  In fact we have four of the six antiderivatives we need:
+sine and cosine come quickly from the derivative formulas, and
+tangent and cotangent come from substitution arguments.  As it turns
+out, secant and cosecant require a little more cleverness, and while
+we will not derive these from first principles, we will show that
+checking them is a quick and interesting derivative computation.
+Unfortunately (or fortunately, whatever your perspective) there
+are variations of the antiderivatives of tangent, cotangent, secant
+and cosecant.  We will choose one form for each, but the well-informed
+student must be aware of the others to be prepared to discuss calculus
+topics among students with different backgrounds.\footnote{%
+%%% FOOTNOTE
+In fact there are no strongly compelling reasons not to use 
+\begin{align*}
+\int\tan x\,dx&=-\ln|\cos x|+C,\\
+\int\cot x\,dx&=\ln|\sin x|+C,\end{align*}
+which afterall have slightly simpler verifications by differentiation than
+(\ref{AntiDerivTanX}) and (\ref{AntiDerivCotX}).  Here we have opted to
+use the latter, 
+slightly more difficult formulas for a few reasons.
+First, they are themselves
+quite popular.  Second, the reader used to (\ref{AntiDerivTanX}) and
+(\ref{AntiDerivCotX}) will be less likely to be confused when presented
+the simpler alternatives by a colleague (or future professor) with a different
+background, while the reader used to those simpler
+alternatives may have some initial difficulty if similarly
+presented our forms here.  Finally, there is so much added
+structure, both calculus and algebraic, found in the context of the
+secant and cosecant
+functions so  it is important to be familiar and comfortable with them.
+
+Admittedly, however, if (\ref{AntiDerivTanX}) and (\ref{AntiDerivCotX})
+were not so common we would likely opt for the simpler forms.
+%%% END FOOTNOTE
+}
+
+\subsection{Antiderivatives of the Six Trigonometric Functions}
+The antiderivatives of the six basic trigonometric functions
+are as follow:
+\begin{alignat}{2}
+\int\sin x\,dx&\ =\ &-&\cos x+C,\label{AntiDerivSinX}\\
+\int\cos x\,dx&\ =\ &&\sin x+C,\label{AntiDerivCosX}\\
+\int\tan x\,dx&\ =\ &&\ln|\sec x|+C,\label{AntiDerivTanX}\\
+\int\cot x\,dx&\ =\ &-&\ln|\csc x|+C,\label{AntiDerivCotX}\\
+\int\sec x\,dx&\ =\ &&\ln|\sec x+\tan x|+C,\label{AntiDerivSecX}\\
+\int\csc x\,dx&\ =\ &-&\ln|\csc x+\cot x|+C.\label{AntiDerivCscX}
+\end{alignat}
+The first four of these can be verified mentally through quick derivative
+computations if the student is well enough versed in differentiation.
+The last two require some more care, but are somewhat interesting to check.
+For instance, we can verify (\ref{AntiDerivSecX}) as 
+follows:
+\begin{align*}
+\frac{d\,\ln|\sec x+\tan x|}{dx}
+&=\frac1{\sec x+\tan x}\cdot\frac{d\,(\sec x+\tan x)}{dx}\\
+&=\frac1{\sec x+\tan x}\cdot(\sec x\tan x+\sec^2x)\\
+&=\frac{\sec x(\tan x+\sec x)}{\sec x+\tan x}\\
+&=\frac{\sec x(\sec x+\tan x)}{\sec x+\tan x}=\sec x,\text{ q.e.d.}
+\end{align*}\label{ProofOfIntegralOfSecant}
+
+
+It is not entirely obvious how one would derive antiderivatives of 
+the secant and cosecant functions, and so it is important to memorize
+those especially. Indeed it is likely these were discovered through
+experimentation, and such results are often very time consuming
+to reproduce from first principles if one has to re-invent ``the trick,''
+one of which will be explored in the exercise.
+%(The others can be derived by inspection or through
+%fairly simple substitution, recalling for instance that
+%$\tan x=\sin x/\cos x$ and that $-\ln|\cos x|=\ln|\sec x|$, and so
+%on.)  
+In fact we will later show a popular alternative antiderivative
+for the cosecant, and a not-so-popular alternative for the secant.
+The alternatives for the tangent and cotangent are similar in
+popularity to those we will use for our standards.
+
+There is little we can do with just 
+(\ref{AntiDerivSinX})--(\ref{AntiDerivCscX}) as they stand,
+but we nonetheless explore a few examples quickly.
+
+\bex Below are two quick antiderivative computations involving our
+basic trigonmetric integral formulas.
+\begin{itemize}
+\item $\ds{\int\frac{\sin^2 x+\cos x}{\sin x}\,dx
+  =\int\left(\sin x+\cot x\right)\,dx=-\cos x-\ln|\csc x|+C}$.
+\item $\ds{\int\left(x+\sec x\right)\,dx
+  =\frac{x^2}2+\ln|\sec x+\tan x|+C}$.
+\end{itemize}
+\eex
+
+\bex Suppose $v(t)=1+\tan t$, and $s(\pi/6)=7$.  Find $s(t)$, and
+the range of $t$ for which the solution is valid.
+
+\underline{Solution}: We know that $s(t)$ is an antiderivative
+of $v(t)$, so we write the following, realizing that we will use
+our one datum ($s(\pi/6)=7$) to find the additive constant later.
+$$s(t)=\int v(t)\,dt=\int(1+\tan t)\,dt=t+\ln|\sec t|+C.$$
+So far $s(t)=t+\ln|\sec t|+C$, and $s({\pi}/6)=7$, so
+$$7=\frac{\pi}6+\ln\left|\sec\frac{\pi}6\right|+C\iff 
+7=\frac{\pi}6+\ln2+C\iff 7=\frac{\pi}6+\ln2+C,$$
+and so $C=7-\frac{\pi}6-\ln2$.  Hence 
+$$v(t)=t+\ln|\sec t|+7-\frac{\pi}6-\ln2.$$
+\eex
+
+\subsection{Substitution and the Basic Trigonometric Functions, Part I}
+
+A student who uses calculus extensively is likely to eventually
+encounter an antiderivative problem where the form is
+particularly difficult or obscure, in which case it is common
+to refer to so-called tables of integrals.  These usually
+contain all the basic forms as well as those which would be
+difficult enough to warrant a search through such a reference.\footnote{%
+%%% FOOTNOTE
+In a typical calculus class, the professor usually
+has to answer the question of
+why students have to learn all of the difficult integration techniques
+when there are references available.  The answer is several-fold,
+and we make just a few points addressing it here.
+
+First, many problems are simple enough to not require reference,
+and using tables for every problem becomes akin to looking up every word
+in a dictionary as one reads a newspaper, for instance. 
+Second, it is not even possible to use tables for 
+every integration problem simply because 
+many problems which can be accomplished through the techniques
+will not match what is in the tables.  Third, on occasion there will
+be a technicality which the editors of the tables did not anticipate
+for a particular problem, or a mistake they did not catch,
+and so reliance on tables can be problematic.
+(On this last point, the same is true of mathematical software packages
+which claim to compute integrals.)
+
+We will eventually make use of tables to a limited extent, to see what
+technicalities need to be addressed when using them, and to give some
+flavor of what kinds of integrals one can find in standard lists.  Indeed,
+every serious calculus student should eventually posess such a reference, 
+though again it should be used sparingly.
+%%% END FOOTNOTE
+}
+It is interesting to note that most modern tables of integrals do
+not use the common variable $x$ in the formulas, but instead use
+$u$, which is the most common variable for substitution type problems.
+This is because substitution is so ubiquitous that it is assumed
+the reader might not need a form exactly as it is
+in the table, but rather needs one which becomes one of the forms 
+(or a constant multiple of one of the forms) found in the table
+only after a substitution.  In that spirit, the standard method
+of listing the antiderivatives of the basic six trigonometric
+functions is as follows:
+\begin{alignat}{2}
+\int\sin u\,du&\ =\ &-&\cos u+C,\label{AntiDerivSinUdU}\\
+\int\cos u\,du&\ =\ &&\sin u+C,\label{AntiDerivCosUdU}\\
+\int\tan u\,du&\ =\ &&\ln|\sec u|+C,\label{AntiDerivTanUdU}\\
+\int\cot u\,du&\ =\ &-&\ln|\csc u|+C,\label{AntiDerivCotUdU}\\
+\int\sec u\,du&\ =\ &&\ln|\sec u+\tan u|+C,\label{AntiDerivSecUdU}\\
+\int\csc u\,du&\ =\ &-&\ln|\csc u+\cot u|+C.\label{AntiDerivCscUdU}
+\end{alignat}
+Of course these are just our previous formulas
+(\ref{AntiDerivSinX})--(\ref{AntiDerivCscX}), 
+from page~\pageref{AntiDerivSinX}, but with the entire
+integral written in the variable $u$
+instead of $x$.  However, each of these properly interpretted
+contains a reverse chain
+rule, also known as a substitution-type, form.  So for instance,
+if $u=u(x)$, then $du=u'(x)\,dx$ and so we can read
+(\ref{AntiDerivTanUdU}) as
+$$\int\underbrace{\tan u(x)}_{\tan u}\,\underbrace{u'(x)\,dx}_{du}=
+  \ln|\sec u(x)|+C,$$
+verified by differentiation:
+$$\frac{d}{dx}\ln|\sec u(x)|
+ =\frac1{\sec u(x)}\cdot\frac{d\,\sec u(x)}{dx}
+ =\frac1{\sec u(x)}\cdot\sec u(x)\tan u(x)\cdot\frac{d\,u(x)}{dx}
+ =\tan u(x)\cdot u'(x),$$
+q.e.d.  So forms (\ref{AntiDerivSinUdU})--(\ref{AntiDerivCscUdU}) are all
+forms in which a basic trigonometric function of some function
+$u(x)$, and the derivative $u'(x)$, and the differential $dx$
+are the nonconstant factors of the integral.  We now look at several
+examples.
+%\newpage
+\bex Compute $\ds{\int x\sin x^2\,dx}$.
+
+\underline{Solution}: As often occurs, the form is not exact but
+a constant multiple of one of our forms, this time (\ref{AntiDerivSinUdU}),
+and furthermore the order of the factors is changed.  Here
+we see that the factor $x$ is a constant multiple of $u'(x)$ if
+$u(x)=x^2$, so the extra factor of $x$ can be ``absorbed'' in the 
+differential $du$ after the substitution.  This ultimately leaves
+us with the problem of finding the antiderivative of a sine function.
+\begin{align*}
+\int \underline{x}\sin x^2\,\underline{dx}&=
+      \int \sin u\cdot\underline{\frac12\,du}
+  =-\frac12\cos u+C=-\frac12\cos x^2+C.\\
+\left.\begin{alignedat}{2}
+&&u&=x^2\\
+&\implies &du&=2\,\underline{x\,dx}\\
+&\iff&\frac12\,du&=\underline{x\,dx}\end{alignedat}\right|&\end{align*}
+\eex
+The above example can be quickly checked by differentiation.
+\bex Compute $\ds{\int e^x\cot e^x\,dx}$.
+
+\underline{Solution}:  Here we see the derivative of the argument
+$e^x$ of the cotangent function is also present as a multiplicative 
+factor.
+\begin{align*}
+\int \underline{e^x}\cot e^x\,\underline{dx}&=
+      \int \cot u\,\underline{du}
+  =-\ln|\csc u|+C=-\ln\left|\csc e^x\right|+C.\\
+\left.\begin{alignedat}{2}
+&&u&=e^x\\
+&\implies &du&=\underline{e^x\,dx}\end{alignedat}
+\right|&\end{align*}
+\eex
+\bex Compute $\ds{\int\frac{\sec\sqrt{x}}{\sqrt x}\,dx}$.
+
+\underline{Solution}: Here the factor $\frac{1}{\sqrt{x}}$
+is in fact a constant multiple of the derivative of 
+$\sqrt{x}$, the argument of the trigonometric function.
+Thus we take $u=\sqrt{x}$, and then the resulting $du$ will
+absorb the $\frac1{\sqrt{x}}$ term:
+\begin{align*}
+\int\frac{\sec\sqrt{x}}{\sqrt x}\,dx&=
+  \int\sec\sqrt{x}\cdot\underline{\frac1{\sqrt{x}}\,dx}
+  =\int \sec u\cdot\underline{2\,du}
+  =2\ln|\sec u+\tan u|+C\\
+\left.\begin{alignedat}{2}
+&        &u&=\sqrt x\\
+&\implies&du&=\frac1{2\sqrt{x}}\,dx\\
+&\iff &2\,du&=\underline{\frac1{\sqrt{x}}\,dx}\end{alignedat}\right|
+&=2\ln\left|\sec\sqrt{x}+\tan\sqrt{x}\right|+C.
+\end{align*}
+\eex
+
+\bex Compute $\ds{\int\frac{\cos(1+4\ln x)}{x}\,dx}$.
+
+\underline{Solution}: Here we see the derivative of $(1+4\ln x)$ appearing
+as a factor as well, except for a constant factor.
+\begin{align*}
+\int\frac{\cos(1+4\ln x)}{x}\,dx&=\int\cos(1+4\ln x)\cdot
+               \underline{\frac1x\,dx}
+               =\int\cos u\cdot\underline{\frac14\,du}=\frac14\sin u+C\\
+\left.\begin{alignedat}{2}
+&         &u&=1+4\ln x\\
+&\implies&du&=4\cdot\underline{\frac1x\,dx}\\
+&\iff&\frac14\cdot du&=\underline{\frac1x\,dx}
+\end{alignedat}\right|
+&=\frac14\sin(1+4\ln x)+C.\end{align*}
+\eex
+
+\bex Compute $\ds{\int x^2\csc\left(\cos x^3\right)\sin x^3\,dx}$.
+
+\underline{Solution}:  To be clear, first
+we note that the integrand is the product of three
+factors:
+$$x^2\cdot\csc\left(\cos x^3\right)\cdot\sin x^3,$$
+so the argument of the cosecant is $\cos x^3$.
+Now we will compute this two different ways.
+The first method requires two substitions, which is an option that
+students must be aware is legitimate, assuming all computations are
+made carefully and consistently.
+\begin{description}
+\item[Method 1.] Here we will first make a substitution $u=x^3$
+to yield a simpler integral without any polynomial factors, 
+though our new integral will still require some
+work.
+\begin{align*}
+\int \underline{x^2}\csc\left(\cos x^3\right)\sin x^3\,\underline{dx}
+ &=\int\csc(\cos u)\sin u\cdot\frac13\,du\\
+\left.\begin{alignedat}{2}
+&          &u&=x^3\\
+&\implies &du&=3\,\underline{x^2\,dx}\\
+&\iff&\frac13\,du&=\underline{x^2\,dx}
+\end{alignedat}\right|&
+\end{align*}
+So at this point our problem reduces to computing
+$\ds{\int\csc(\cos u)\sin u\cdot\frac13\,du}$.  
+To do so we use another substitution, noting that
+$\sin u$ is the derivative---up to a multiplicative constant---of
+$\cos u$ (with respect to $u$ this time).
+To remain consistent this second substitution must use a new
+variable (lest we give one letter two different meanings within the
+same problem, which would be contradictory!).
+So we  call our new variable something other than $u$ or $x$.
+A commonly used variable at this stage is $w$:
+\begin{align*}
+\frac13\int\csc(\cos u)\underline{\sin u\,du}
+&=\frac13\int\csc w\underline{(-1)\,dw}
+=-\frac13\left[-\ln|\csc w+\cot w|\right]+C\\
+\left.\begin{alignedat}{2}
+           &&w&=\cos u\\
+ &\implies&dw&=-\underline{\sin u\,du}\\
+ &\iff&(-1)dw&=\underline{\sin u\,du}
+\end{alignedat}\right|
+&=\frac13\ln|\csc w+\cot w|+C\\
+&=\frac13\ln\left|\csc\left(\cos u\right)
+      +\cot \left(\cos u\right)\right|+C\\
+&=\frac13\ln\left|\csc\left(\cos x^3\right)
+      +\cot \left(\cos x^3\right)\right|+C.\end{align*}
+Note how we computed the antiderivative in $w$, which we
+then replaced by its expression in $u$, and finally by
+the definition of $u$ in terms of $x$.
+\item[Method 2.] If we can see far enough ahead, we can combine
+both substitutions into one.  For clarity we will use a different
+variable---namely $z$---here (though by convention
+one would usually use $u$).  We choose $z=\cos x^3$, noting
+that its derivative, requiring the chain rule, will have
+a $\sin x^3$ and a $x^2$ term (ignoring multiplicative constants),
+which leaves us with a constant mulitiple of $\int\csc z\,dz$, for
+which we have a formula.  
+\begin{align*}
+\int \underline{x^2}\csc\left(\cos x^3\right)\underline{\sin x^3\,dx}
+ &=\int\csc z\cdot\underline{\frac{-1}3\,dz}
+ =-\frac13\cdot[-\ln|\csc z+\cot z|]+C\\
+\left.\begin{alignedat}{2}
+& &z&=\cos x^3\\
+&\implies &dz&=-\underline{\sin x^3}\cdot3\,\underline{x^2\,dx}\\
+&\iff&-\frac13\,dz&=\underline{x^2\sin x^3\,dx}\end{alignedat}\right|
+&=\frac13\ln\left|\csc\left(\cos x^3\right)
+                  +\cot\left(\cos x^3\right)\right|+C.\end{align*}
+\end{description}
+\eex
+
+In the previous example, the second method in fact just combines
+the two substitutions from the first method into one.  Indeed,
+the formula for $w$ in terms of $x$ is the same as that of 
+$z$:\footnote{%
+%%% FOOTNOTE
+Similarly, though perhaps not so obviously, when we recall
+these variables are all functions of $x$ we also have $dw=dz$:
+\begin{align*}
+dw&=\frac{dw}{du}\cdot\frac{du}{dx}\cdot dx\\
+  &=(-\sin u)\cdot\left(3x^2\right)\,dx\\
+  &=-\sin x^3\cdot 3x^2\,dx\\
+  &=dz.\end{align*}
+Again we see the power of the Leibniz notation in what is essentially
+a chain rule.  Of course we should expect that $w=z\implies dw=dz$.
+But also we see that while there are obvious algebraic consistencies
+in our substitution method, there are also consequent
+calculus consistencies which, while more subtle, are still correct
+when we perform all the computations correctly.
+%%% END FOOTNOTE
+}
+$$w=\csc(u)=\csc\left(\cos x^3\right)=z.$$
+When one is well practiced in substitution the second method will
+likely be chosen.  However, it is important also for the student
+to realize that even if a substitution does not achieve an
+integral that can be immediately computed, that does not mean
+that the particular substitution need be abandoned.  If the
+new integral is simpler, then the
+first substitution can be worthwhile.  In fact in later sections
+we will on occasion {\it require} multiple substitutions.
+Of course it is important that all steps be carried out 
+carefully, accurately and consistently.  
+
+In this section we concentrated on those integrals which reduce
+to integrals of a single trigonometric function, perhaps with the
+aid of a substitution. In 
+Chapter~\ref{AdvancedIntTechniques}
+(and more sepcifically Section~\ref{TrigIntsSection})
+we will look at the many techniques for computing those integrals 
+which contain several factors of trigonometric functions, and no
+other factors.  The techniques of our present section will
+be called upon often, but these are only a small part of the 
+needed knowledge for computing the  ``trignometric integrals''
+of the later sections.  But in fact we have some other techniques
+already.  For instance, there were the first trigonometric integral
+formulas we had in Section~\ref{IndefiniteIntegrals},
+Subsection~\ref{FirstTrigRulesSubsection} which arose from
+the derivative rules for the six basic trigonometric functions.
+In fact we had one other technique for dealing with some trigonometric
+integrals, which was substitution in the case we could rewrite
+the trigonometric integral as a power-rule type integral.\footnote{%
+%%% FOOTNOTE
+In fact there will be several other substitution type arguments we
+will make for trigonometric integrals besides those which yield power
+rules.
+%%% END FOOTNOTE
+}
+\bex Compute $\ds{\int\frac{\sin3x}{\cos^53x}\,dx}$.
+
+\underline{Solution}:  Here we see that we have
+the derivative of the cosine function is present as a factor,
+and we are left with a power of the cosine:
+\begin{align*}
+\int\frac{\sin3x}{\cos^53x}\,dx
+ &=\int(\cos3x)^{-5}\underline{\sin3x\,dx}
+  =\int u^{-5}\cdot\underline{\frac{-1}3\,du}\\
+\left.\begin{alignedat}{2}
+&&u&=\cos3x\\
+&\implies&du&=-\underline{\sin3x}\cdot3\,\underline{dx}\\
+&\iff&\frac{-1}3\,du&=\underline{\sin3x\,dx}
+\end{alignedat}\right|
+&=-\frac13\cdot\frac{-1}4\,u^{-4}+C\\
+&=\frac1{12}\cos^{-4}3x+C\\
+&=\frac1{12}\sec^{4}3x+C.
+\end{align*}
+\eex
+The integration techniques we encounter throughout the book are
+many and varied.  We will see later how a slight change in a problem
+can substantially change the result, its difficulty,
+or the technique used to achieve it.  We have seen this phenomenon
+before.  Consider for instance
+\begin{align*}
+\int\frac{x}{x^2+1}\,dx&=\frac12\ln\left(x^2+1\right)+C,\\
+\int\frac{1}{x^2+1}\,dx&=\tan^{-1}x+C,\\
+\\
+\int\frac{x}{\sqrt{1-x^2}}\,dx&=-\sqrt{1-x^2}+C,\\
+\int\frac1{\sqrt{1-x^2}}\,dx&=\sin^{-1}x+C,\\
+\\
+\int\sec x\,dx&=\ln|\sec x+\tan x|+C,\\
+\int\sec^2x\,dx&=\tan x+C,\\
+\int\sec^3x\,dx&=\frac12(\sec x\tan x+\ln|\sec x+\tan x|)+C.
+\end{align*}
+In fact this last problem will have to wait until 
+Chapter~\ref{AdvancedIntTechniques}, and is quite long and technical.
+Even the verification by differentiation is nontrivial, and
+requires one to employ some trigonometric identity along the way.
+Suffice for now 
+to simply note that the techniques, and results,
+for even these first three powers of
+the secant are all very different.
+
+Computing antiderivatives in good time requires 
+the ability to recognize which technique will work for a 
+particular problem.  That in turn requires 
+a fairly complete knowledge of the techniques, even to the
+extent that one can anticipate the outcomes of several later steps.
+Of course practice is one key to gaining this understanding.
+For that reason this chapter will contain one
+section in which the exercises' required
+techniques are purposely randomized, by method as well as difficulty.
+\begin{center}
+\underline{\Large{\bf Exercises}}\end{center}
+\bigskip
+\begin{multicols}{2}
+\begin{enumerate}
+\item By differentiation, verify each of our basic six trigonometric
+ integrals in the forms we use,
+ (\ref{AntiDerivSinX})--(\ref{AntiDerivCscX}).  For reference
+ see the proof for the secant, page~\pageref{ProofOfIntegralOfSecant}.
+ \begin{enumerate}
+ \item $\ds{\int\sin x\,dx=-\cos x+C}$
+ \item $\ds{\int\cos x\,dx=\sin x+C}$
+ \item $\ds{\int\tan x\,dx=\ln|\sec x|+C}$
+ \item $\ds{\int\cot x\,dx=-\ln|\csc x|+C}$
+ \item $\ds{\int\sec x\,dx=\ln|\sec x+\tan x|+C}$
+ \item $\ds{\int\csc x\,dx=-\ln|\csc x+\cot x|+C}$
+ \end{enumerate}
+\item Compute the following integrals.
+ \begin{enumerate}
+ \item $\ds{\int x\sec\left(x^2+1\right)\,dx}$
+ \item $\ds{\int \frac{\tan(\ln x)}{x}\,dx}$
+ \item $\ds{\int \frac{\cos\left(\frac1x\right)}{x^2}\,dx}$
+ \item $\ds{\int \sqrt{x}\csc\left(x\sqrt{x}\right)\,dx}$
+ \item $\ds{\int x^3e^{5x^4}\cot \left(6e^{5x^4}\right)\,dx}$
+ \end{enumerate}
+
+
+
+\item Derive our formula (above) for the integral of
+$\sec x$ by the following algebraic device, namely multiplying
+and dividing by $\sec x+\tan x$ within the integral, i.e.,
+$$\int\sec x\,dx
+=\int\sec x\cdot\frac{\sec x+\tan x}{\sec x+\tan x}\,dx,$$
+and then using an appropriate substitution argument.
+\item By differentiation, verify each of the following alternative
+ integration formulas.
+ \begin{enumerate}
+ \item $\ds{\int\tan x\,dx=-\ln|\cos x|+C}$.
+ \item $\ds{\int\cot x\,dx=\ln|\sin x|+C}$.
+ \item $\ds{\int\sec x\,dx=-\ln|\sec x-\tan x|+C}$.
+ \item $\ds{\int\csc x\,dx=\ln|\csc x-\cot x|+C}$.
+ \end{enumerate}
+
+\end{enumerate}
+\end{multicols}
+
+
+
+\newpage
+\section{Substitution with All Basic Forms%
+\label{SubWithAllForms}}
+In this section we will add to our forms for substitution
+and recall some rather general guidelines for substitution.
+Except for our four new trigonometric forms
+from Section~\ref{SecondTrigRules},
+all forms in this chapter derive directly from 
+derivative rules.  These comprise
+what we call here the {\it basic} integration rules.  Each
+is based upon a single function specific to the rule. So for
+instance, we will have in our list the following:
+$$\int\frac1{u^2+1}\,du=\tan^{-1}u+C.$$
+As before, the usual variable of integration in the given problem
+will likely be $x$, but the {\it form} may be ultimately as
+above, except for multiplicative constants, where $u=u(x)$ and then
+$du=u'(x)\,dx$ contains another factor from the original integral.
+So for instance we might see
+\begin{align*}
+\int\frac{x}{x^4+1}\,dx&=\int\frac1{\left(x^2\right)^2+1}
+                            \cdot\underline{x\,dx}
+                        =\int\frac{1}{u^2+1}\cdot\underline{\frac12\,du}
+                        =\frac12\tan^{-1}u+C\\
+\left.\begin{alignedat}{2}
+ &&u&=x^2\\
+&\implies&du&=2\,\underline{x\,dx}\\
+&\iff&\frac12\,dx&=\underline{x\,dx}\\
+\end{alignedat}\right|
+&=\frac12\tan^{-1}x^2+C.\end{align*}
+One clue that we might try $u=x^2$ was that its derivative was a factor
+in the integrand in the form of the factor $x$,
+again excepting multiplicative constants, and so we wrote that
+factor separately next to the differential $dx$.
+As it turned out, the rest of the integrand could indeed be written
+as a function of $u=x^2$.  
+
+Reading the problem above backwards,
+the arctangent is the ``outer function'' of a chain
+rule differentiation problem, and $x^2$ was the ``inner function.''
+Put in terms of integration, the {\it form} was $\int\frac1{u^2+1}\,du$,
+excepting multiplicative constants, with the ``inner function'' 
+$u=x^2$.  The arctangent appeared because of the ultimate form
+of the integral, in terms of $u=x^2$.
+
+But note that the arctangent can also appear as the ``inner function,''
+which we may wish to set equal to $u$. So for instance,
+\begin{align*}
+\int\frac{\left(\tan^{-1}x\right)^2}{x^2+1}\,dx
+ &=\int\left(\tan^{-1}x\right)^2\cdot\underline{\frac1{x^2+1}\,dx}
+ =\int u^2\,\underline{du}=\frac{u^3}3+C\\
+\left.\begin{alignedat}{2}
+ &&u&=\tan^{-1}x\\
+&\implies&du&=\underline{\frac1{x^2+1}\,dx}\end{alignedat}\right|
+&=\frac{\left(\tan^{-1}x\right)^3}3+C.\end{align*}
+
+In all these cases, we are looking for some $u=u(x)$ so that
+\begin{itemize}
+\item one major (nonconstant) factor of the integral can be simply 
+ written $f(u)$, i.e., $u$ is an ``inner function'' of some
+ composite function $f(u(x))$ which appears in the integrand,
+\item the remaining factors of the integrand will collectively
+  be a constant multiple of $du=u'(x)\,dx$, 
+\item and finally, so that $\int f(u)\,du$ is an integral we can
+  compute, i.e., we know the antiderivative of $f$.
+\end{itemize}
+So of course identifying $u$ is the key, and in doing so we have to
+be sure its derivative is also present, and finally that we are
+left with an integral---albeit in $u$---which we can handle.\footnote{%
+%%% FOOTNOTE
+This all assumes that there is a substitution which will make
+the integral into one of these simple forms.  It is not always the
+case.  One which occurs in probability and other subjects
+is $\int e^{x^2}\,dx$, which can not be changed by substitution into
+a useful form.  In fact it will not succumb to any of the methods in
+this or the next chapter.  We will eventually find a way to 
+deal with this integral, in Chapter~\ref{TaylorSeriesChapter}.
+In the meantime it is actually a good exercise to see why this
+integral can not be forced into any of our methods.  Indeed, 
+seeing what goes wrong in such a case very well complements
+seeing what goes right in the cases where substitution,
+and later methods, do achieve an answer.%%%
+%%% END FOOTNOTE
+}
+\subsection{List of Basic Forms}
+
+\begin{align}
+\int u^n\,du&=\frac{u^{n+1}}{n+1}+C,\qquad u\ne-1,\label{IntPwrRlInU}\\
+\int\frac1u\,du&=\ln|u|+C,\label{Int1/URl}\\
+\int\sin u\,du&=-\cos u+C,\label{IntSinURl}\\
+\int\cos u\,du&=\sin u+C,\label{IntCosURl}\\
+\int\tan u\,du&=\ln|\sec u|+C,\label{IntTanURl}\\
+\int\cot u\,du&=-\ln|\csc u|+C,\label{IntCotURl}\\
+\int\sec u\,du&=\ln|\sec u+\tan u|+C,\label{IntSecURl}\\
+\int\csc u\,du&=-\ln|\csc u+\cot u|+C,\label{IntCscURl}\\
+\int\frac1{\sqrt{1-u^2}}\,du&=\sin^{-1}u+C,\label{IntGivingArcSinURl}\\
+\int\frac1{u^2+1}\,du&=\tan^{-1}u+C,\label{IntGivingArcTanURl}\\
+\int\frac1{u\sqrt{u^2-1}}\,du&=\sec^{-1}|u|+C,\label{IntGivingArcSec|U|Rl}\\
+\int e^u\,du&=e^u+C,\label{IntGivingExp(U)Rl}\\
+\int a^u\,du&=\frac{a^u}{\ln a}+C,\label{IntA^URl}\\
+\int \sec^2u\,du&=\tan u+C,\label{IntSec^2URl}\\
+\int\csc^2u\,du&=-\cot u+C,\label{IntCsc^2URl}\\
+\int\sec u\tan u\,du&=\sec u+C,\label{IntSecUTanURl}\\
+\int\csc u\cot u\,du&=-\csc u+C.\label{IntCscUCotURl}\end{align}
+
+
+It can not be stressed too much that each form given assumes that
+a substitution may be required.  So again, the following formulas
+say the same:
+$$\int e^u\,du=e^u+C,\qquad\qquad \int e^{u(x)}u'(x)\,dx=e^{u(x)}+C.$$
+Recognizing when we have such a form is again key to using these formulas.
+
+\bex Compute $\ds{\int x e^{x^2}\,dx}$.
+
+\underline{Solution}:  Here we see the derivative of $x^2$ appearing
+as the factor $x$, except for a constant multiple.  Hence we let $u=x^2$,
+and the $du$ will contain the other factor $x$, leaving
+an integral in one of our standard forms, namely (\ref{IntGivingExp(U)Rl}),
+and nothing else except
+a multiplicative constant.
+\begin{align*}\int \underline{x}\, e^{x^2}\,\underline{dx}
+ &=\int e^u\cdot\frac12\,du
+  =\frac12\,e^u+C\\
+\left.\begin{alignedat}{2}
+&&u&=x^2\\
+&\implies&du&=2\,\underline{x\,dx}\\
+&\iff&\frac12\,du&=\underline{x\,dx}
+\end{alignedat}\right|
+&=\frac12\,e^{x^2}+C.
+\end{align*}
+\label{IntXE^x^2Example}\eex
+%\bex Compute $\ds{\int\frac{\sqrt{\tan^{-1}x}}{x^2+1}\,dx}$.%%
+%
+%\underline{Solution}:  Here we see the derivative of $\tan^{-1}x$,
+%namely $\frac1{x^2+1}$, appearing as a factor, so letting $u=\tan^{-1}x$
+%will result in $du$ accounting for this other factor.
+%\begin{align*}
+%\int\frac{\sqrt{\tan^{-1}x}}{x^2+1}\,dx
+%&=\int\sqrt{\tan^{-1}x}\cdot\underline{\frac1{x^2+1}\,dx}
+%=\int\sqrt{u}\,du=\int u^{1/2}\,du\\
+%\left.\begin{alignedat}{2}
+%&&u&=\tan^{-1}x\\
+%&\implies&du&=\underline{\frac1{x^2+1}\,dx}\end{alignedat}
+%\right|&=
+%\end{align*}
+%\eex
+\bex Compute $\ds{\int\frac{x^3}{\sqrt{1-x^8}}\,dx}$.
+
+\underline{Solution}: At first it is tempting to let $u=1-x^8$
+and hope this will become a power rule,
+except that such $u$ implies $du=-8x^7$,
+ which is very different from a constant
+multiple of the other factor here, namely $x^3$.  
+
+In fact, the other factor can be a good source of information
+about what to set equal to $u$.  Indeed the factor $x^3$ will
+be part of the differential of $u=x^4$, and then we can recognize
+a form which will yield an arcsine ultimately, i.e., form
+(\ref{IntGivingArcSinURl}).
+\begin{align*}
+\int\frac{x^3}{\sqrt{1-x^8}}\,dx
+&=\int\frac{1}{\sqrt{1-\left(x^4\right)^2}}\cdot\underline{x^3\,dx}
+=\int\frac1{\sqrt{1-u^2}}\cdot\underline{\frac14\,du}
+=\frac14\,\sin^{-1}u+C\\
+\left.\begin{alignedat}{2}
+&&u&=x^4\\
+&\implies&du&=4\,\underline{x^3\,dx}\\
+&\iff&\frac14,du&=\underline{x^3\,dx}
+\end{alignedat}\right|&=\frac14\sin^{-1}\left(x^4\right)
+                      +C.
+\end{align*}
+\eex
+
+As with the power rule, there are occasions where the derivative
+of our $u$ is a nonzero constant, and thus a constant multiple of every
+other nonzero constant.  While these integrals are arguably easier than
+the others we encounter here, their relative simplicity can be
+a source of confusion.
+
+\bex Compute $\ds{\int\csc5x\,dx}$.
+
+\underline{Solution}: Here we simply let $u=5x$.
+\begin{align*}
+\int\csc5x\,\underline{dx}&=\int\csc u\cdot\underline{\frac15\,du}
+      =-\frac15\ln|\csc u+\cot u|+C\\
+\left.\begin{alignedat}{2}
+&&u&=5x\\
+&\implies&du&=d\,\underline{dx}\\
+&\iff\frac15\,du&=\underline{dx}
+\end{alignedat}\right|&=-\frac15\ln|\csc5x+\cot 5x|+C.
+\end{align*}
+\eex
+
+\bex Compute $\ds{\int 2^{3^x}\cdot 3^x\,dx}$.
+
+\underline{Solution}:  Here we will need (\ref{IntA^URl}) eventually,
+but first we simply notice that the factor $3^x$ is 
+a constant multiple of the exponent in the first factor,
+so we let $u=3^x$.
+\begin{align*}
+\int 2^{3^x}\cdot\underline{3^x\,dx}
+&=\int 2^u\cdot\underline{\frac{1}{\ln 3}\,dx}
+=\frac{1}{\ln 3}\cdot\frac1{\ln 2}\cdot 2^u+C\\
+\left.\begin{alignedat}{2}
+&&u&=3^x\\
+&\implies&du&=\underline{3^x}\,\ln 3\,\underline{dx}\\
+&\iff&\frac1{\ln 3}\,du&=3^x\,dx\end{alignedat}\right|
+&=\frac{2^{3^x}}{\ln3\cdot\ln2}+C.
+\end{align*}
+\eex
+The example above shows the importance of following the various
+constant factors through the integration.  Students who rely
+upon guessing the answers, without performing the
+formal substitution steps, are much more likely to misplace
+one or more constant factors.
+
+For further practice we consider more basic examples.
+
+\bex Compute $\ds{\int\frac{\sec\sqrt x}{\sqrt{x}}\,dx}$.
+
+\underline{Solution}: The key here is that the derivative
+of the argument of the secant is also present as a factor.
+Recall $\frac{d}{dx}\left(\sqrt{x}\right)=\frac1{2\sqrt{x}}$,
+which is obvious when the radicals are written as 1/2-powers.
+\begin{align*}
+\int\frac{\sec\sqrt x}{\sqrt{x}}\,dx
+&=\int\sec{\sqrt{x}}\cdot\underline{\frac1{\sqrt{x}}\,dx}
+=\int\sec u\cdot\underline{2\,du}
+=2\ln|\sec u+\tan u|+C\\
+\left.\begin{alignedat}{2}
+&&u&=\sqrt{x}\\
+&\implies&du&=\frac12\cdot\underline{x^{-1/2}\,dx}
+\end{alignedat}\right|&=2\ln\left|\sec\sqrt{x}+\tan\sqrt{x}\right|+C.
+\end{align*}
+
+
+\eex
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+In the next section we will further explore the arctrigonometric
+antiderivatives by considering further complications.
+For now we only look at two such complications, first involving the
+arctangent (though the arcsine has a similar potential complication),
+and then the arcsecant, which has the same complications as the others
+and then one more.
+\bex Compute $\ds{\int\frac{x^2}{1+25x^6}\,dx}$.
+
+\underline{Solution}: There are two clues directing our choice of $u$.
+First, we see the factor $x^2$, which is a multiple of the derivative
+of $x^3$.  Then we see that the denominator can be written
+as $1+\left(5x^3\right)^2$, which we can put into the form
+yielding the arctangent, namely (\ref{IntGivingArcTanURl}).
+\begin{align*}
+\int\frac{x^2}{1+25x^6}\,dx
+&=\int\frac{1}{1+\left(5x^3\right)^2}\cdot\underline{x^2\,dx}
+=\int\frac1{1+u^2}\cdot\underline{\frac1{15}\,du}
+=\frac1{15}\,\tan^{-1}u+C\\
+\left.\begin{alignedat}{2}
+  &&u&=5x^3\\
+&\implies&du&=15\,\underline{x^2\,dx}\\
+&\iff&\frac1{15}\,du&=\underline{x^2\,dx}
+\end{alignedat}\right|&=\frac1{15}\tan^{-1}\left(5x^3\right)+C.
+\end{align*}
+\eex
+The complication in this example is fairly benign: that the $u$ term
+contains a multiplicative constant.  Here we wanted $25x^6$ to be
+$u^2$ for the form (\ref{IntGivingArcTanURl}), so we took 
+$u=5x^3$.\footnote{%%%
+%%% FOOTNOTE
+Note that we could also have used $u=-5x^3$, but then $du=-15x^2\,dx$,
+and so our
+answer would ultimately be 
+(as the reader should verify) 
+$-\frac{1}{15}\tan^{-1}\left(-5x^3\right)+C$.
+In fact that is the same as the answer we got, since the arctangent
+is an ``odd'' function, that is, $\tan^{-1}(-z)=-\tan^{-1}z$.
+%%% END FOOTNOTE
+}
+Fortunately this was consistent with the $du$ containing the $x^2$ term
+of the integrand, and that form (\ref{IntGivingArcTanURl})
+could actually be used.  In the next section we will
+see how to deal with cases where the additive constant in the denominator
+of the integrand is not $1$.  For now we look at another complication
+which is somewhat specific to the arcsecant form.
+
+\bex Compute $\ds{\int\frac1{x\sqrt{9x^2-1}}\,dx}$.
+
+\underline{Solution}: Because a new complication needs to be explained
+while the problem is solved, the organization will be slightly different
+than previous exercises, but every technique used below has appeared
+previously. Note that we are trying to fit this integral into
+form (\ref{IntGivingArcSec|U|Rl}).
+
+Here we want $u^2=9x^2$ so we have $\sqrt{u^2-1}$ as one factor in
+the denominator of our integrand.  Thus will let 
+$u=3x\implies du=3\,dx\iff\frac13\,du=dx$.  Our integral so far is then
+$$\int\frac1{x\sqrt{u^2-1}}\,\cdot\frac13\,du.$$
+Now, all of our integral formulas require just one variable, but
+in fact the integral above makes sense because of the relationship 
+between $x$ and $u$.  But to use a formula we have to put it all into the
+new variable, namely $u$.  So there is one term left, which is the 
+factor $x$ on the bottom, which has to be put into $u$-terms.
+For that we go back to our original substitution and note that
+$u=3x\iff x=\frac13\,u$.  Now we continue:
+\begin{align*}
+\int\frac1{x\sqrt{9x^2-1}}\,dx&=\int\frac1{x\sqrt{u^2-1}}\,\cdot\frac13\,du\\
+ &=\int\frac1{\frac13\,u\sqrt{u^2-1}}\cdot\frac13\,du\\
+ &=\int\frac1{u\sqrt{u^2-1}}\,du\\
+ &=\sec^{-1}|u|+C\\
+ &=\sec^{-1}|3x|+C.\end{align*}
+\label{FirstWackySecantU-SubProblem}\eex
+
+
+\newpage
+\begin{center}
+\underline{\Large{\bf Exercises}}\end{center}
+\bigskip
+\begin{multicols}{2}
+\begin{enumerate}
+\item Compute $\ds{\int x e^{x^2}\,dx}$ two ways.
+ \begin{enumerate}
+ \item Let $u=x^2$ (as in Example~\ref{IntXE^x^2Example}).
+ \item Instead let $u=e^{x^2}$.
+ \end{enumerate}
+\item In the spirit of the previous exercise,
+      compute $\ds{\int\frac{e^{1/x}}{x^2}\,dx}$
+      two ways, i.e., using two different substitutions.
+\item Compute $\ds{\int\sec^2x\tan x\,dx}$
+      two different ways.
+ \begin{enumerate}
+ \item Let $u=\tan x$.
+ \item Instead let $u=\sec x$.
+ \item Explain why the two answers are equivalent.
+ \end{enumerate}
+\end{enumerate}\end{multicols}
+
+
+\newpage
+\section{Further Arctrigonometric Forms}
+
+Here we will still use the same arctrigonometric forms
+we had before, namely
+\begin{align}
+\int\frac1{\sqrt{1-u^2}}\,du&=\sin^{-1}u+C,\label{IntGivingArcSinUR2}\\
+\int\frac1{u^2+1}\,du&=\tan^{-1}u+C,\label{IntGivingArcTanUR2}\\
+\int\frac1{u\sqrt{u^2-1}}\,du&=\sec^{-1}|u|+C.\label{IntGivingArcSec|U|R2}
+\end{align}
+What is different in this section is that our integrals will
+need to be algebraically rewritten into these forms, and this will
+require more than the previous substitution.
+
+Each of the integrals in (\ref{IntGivingArcSinUR2}), 
+(\ref{IntGivingArcTanUR2}) and (\ref{IntGivingArcSec|U|R2})
+need to be exactly as they are stated.  For instance, replacing
+$1-u^2$ with $1+u^2$ or $u^2-1$ in  (\ref{IntGivingArcSinUR2})
+will give completely different antiderivatives.  In fact, even
+the domain of the integrand would be completely different
+with any such changes!  Similar changes would substantially alter
+the results in
+(\ref{IntGivingArcTanUR2}) and (\ref{IntGivingArcSec|U|R2}).
+
+In this section we will have integrands which we can algebraically
+rewrite so they conform to one of the forms (\ref{IntGivingArcSinUR2}), 
+(\ref{IntGivingArcTanUR2}) or (\ref{IntGivingArcSec|U|R2}).
+In fact there are only a couple of algebraic ``tricks'' which we
+introduce here.  The first of these is to force the denominators
+to have the additive constant $1$, where originally there may
+be another constant.  This is accomplished through simple factoring
+techniques.  The second technique is ``completing the square,''
+where appropriate, and then using the first technique to 
+finish rewriting the integrand.  With substitution there will
+often be further multiplicative constants to accommodate as well.
+
+\subsection{Factoring to Achieve ``1''}
+Each of our integrals (\ref{IntGivingArcSinUR2}), 
+(\ref{IntGivingArcTanUR2}) and (\ref{IntGivingArcSec|U|R2})
+have the number $1$ conspicuously appearing in the denominator,
+near the $u^2$ term.  Any other nonzero {\it constant} there
+will have an effect on the vertical and horizontal scaling
+of the function in ways we can not ignore in the formula.
+To compensate is fairly straightforward: factor the constant,
+and see what should be called ``$u^2$.''
+
+\bex Compute $\ds{\int\frac1{9+x^2}\,dx}$.
+
+\underline{Solution}: Our first priority is to rewrite this so
+we have a form $1+u^2$ in the denominator.
+$$\int\frac1{9+x^2}\,dx=\int\frac1{9\left(1+\frac{x^2}9\right)}\,dx
+                       =\int\frac19\cdot\frac1{1+\frac{x^2}9}\,dx.$$
+The factor $\frac19$ can simply be carried along for the rest of the
+computation.  The denominator of the other factor can be
+written $1+u^2$  (same as $u^2+1$ in our formula) if we
+take $u^2=\frac{x^2}9$, which can be accomplished letting $u=\frac{x}3$.
+\begin{align*}
+\int\frac1{9+x^2}\,dx&=\frac1{9}\cdot\int\frac1{1+\frac{x^2}9}\,\underline{dx}
+                    =\frac1{9}\int\frac{1}{1+u^2}\cdot\underline{3\,du}\\
+\left.\begin{alignedat}{2}
+&&u&=\frac{x}3\\
+&\implies&du&=\frac13\,\underline{dx}\\
+&\iff&3du&=\underline{dx}
+\end{alignedat}\right|
+&=\frac39\tan^{-1}u+C=\frac13\tan^{-1}\left(\frac{x}3\right)+C.\end{align*}
+\eex
+The above example illustrated much of the process:  algebraically
+manipulate by factoring to achieve ``$1$'' in the appropriate place,
+and then pick $u$ so the other term is $u^2$.  It is slightly
+more complicated with the forms yielding arcsine and arcsecant, 
+due to the presence of the radical.  In the next example
+we will show more detail than one might normally write.
+
+\bex Compute $\ds{\int\frac1{\sqrt{25-4x^2}}\,dx}$.
+
+\underline{Solution}: Here we must find a way to replace the 
+constant 25 with 1 instead.  We factor as before, but respect
+the operation of the radical as well.
+$$\int\frac1{\sqrt{25-4x^2}}\,dx
+=\int\frac1{\sqrt{25\left(1-\frac{4x^2}{25}\right)}}\,dx
+=\int\frac1{\sqrt{25}\sqrt{1-\frac{4x^2}{25}}}\,dx
+=\int\frac15\cdot\frac1{\sqrt{1-\frac{4x^2}{25}}}\,dx.$$
+So the factor 25 under the radical becomes the factor 5 outside
+the radical.  Otherwise it is the same process as the previous
+example.  Now we continue, using a substitution which will
+result in $u^2=\frac{4x^2}{25}$.  For simplicity we take $u=\frac{2x}5$.
+\begin{align*}
+\int\frac1{\sqrt{25-4x^2}}\,\underline{dx}
+ &=\frac15\int\frac1{\sqrt{1-\frac{4x^2}{25}}}\,\underline{dx}
+ =\frac15\int\frac1{\sqrt{1-u^2}}\cdot\underline{\frac52\,du}\\
+\left.\begin{alignedat}{2}
+&&u&=\frac{2x}5\\
+&\implies&du&=\frac25\cdot\underline{dx}\\
+&\iff&\frac52\,du&=\underline{dx}\end{alignedat}\right|
+&=\frac12\sin^{-1}u+C=\frac12\sin^{-1}\left(\frac{2x}5\right)+C.
+\end{align*}
+\eex
+This example above again illustrates the role of the number $1$
+in the denominator, but also
+suggests a couple of new points that we make here.
+First, it is not obvious where the factors $2$ and $5$---being
+the square roots of the $4$ and $25$ appearing in the original---will
+be present in the final answer.  There is a pattern for the
+arctangent form, and a different one for the arcsine form, but
+patterns can be forgotten if not used often enough, where the logic
+of manipulating the integral algebraically to get one of the
+three basic arctrigonometric forms should still be reproducible
+after the patterns---which we will explore at the end of this 
+section---are forgotten.  Second, we are approaching the
+boundary between integrals which are easily checked with 
+differentiation, and those where the differentiation has at least
+as many algebraic difficulties as the integration.  In such cases,
+it is usually better to have carefully written each integration step so it
+can be audited for accuracy, rather than risk algebraic error in
+testing our answer.  Consider a verification of the answer in this
+latest example (readers' steps may vary):
+\begin{align*}
+\frac{d}{dx}\left[\frac12\sin^{-1}\left(\frac{2x}5\right)\right]
+&=\frac12\cdot\frac1{\sqrt{1-\left(\frac{2x}{5}\right)^2}}
+ \cdot\frac{d}{dx}\left[\frac{2x}5\right]
+=\frac12\cdot\frac1{\sqrt{1-\frac{4x^2}{25}}}\cdot\frac25\\
+&=\frac15\cdot\frac1{\sqrt{1-\frac{4x^2}{25}}}
+=\frac1{\sqrt{25}}\cdot\frac1{\sqrt{1-\frac{4x^2}{25}}}
+=\frac1{\sqrt{25-4x^2}},\qquad\text{q.e.d.}
+\end{align*}
+While such a verification is certainly possible, it is not likely one
+to be performed ``mentally'' with much confidence,
+as we may have been able to do with
+many previous computations.  Indeed 
+there are enough constants to be accommodated
+that this verification should be done in careful writing.
+In most of 
+Chapter~\ref{AdvancedIntTechniques} we will see much more complicated
+rewritings of integrals, and  verification will usually be much better
+accomplished by checking our individual steps in integration rather than
+by differentiating of our answers.
+
+Our next example just takes this theme one step further.  Recall
+that substitution in the arcsecant form had a slight complication,
+which was that the $u$-variable appeared both inside and outside
+the radical.  This caused a minor complication in
+Example~\ref{FirstWackySecantU-SubProblem}, 
+page~\pageref{FirstWackySecantU-SubProblem} for instance.
+A similar problem will occur in this next example.
+
+\bex Compute $\ds{\int\frac1{x\sqrt{81x^2-16}}\,dx}$.
+
+\underline{Solution}: As with the previous two examples,
+it is necessary to have a $1$ in the place presently
+occupied by $16$, so we will factor the $16$ from the
+radical.  The other algebraic difficulties will be
+taken care of by the substitution. Indeed, the remaining
+term under the radical must be $u^2$, and the rest of the
+form will follow, with residual multiplicative constants.
+\begin{align*}
+\int\frac1{x\sqrt{81x^2-16}}\,\underline{dx}
+&=\int\frac1{4x\sqrt{\frac{81x^2}{16}-1}}\,\underline{dx}
+=\int\frac1{4\cdot\frac{4u}9\sqrt{u^2-1}}\cdot\underline{\frac49\,du}\\
+\left.\begin{alignedat}{2}
+&&u&=\frac{9x}4\\
+&\implies&du&=\frac94\cdot \underline{dx}\\
+&\iff&\frac49\,du&=\underline{dx}\\
+\hline
+\text{also,}&&u&=\frac{9x}4\\
+&\iff&x&=\frac{4u}9\end{alignedat}
+\right|&=\int\frac1{4u\sqrt{u^2-1}}\,du
+        =\frac14\sec^{-1}|u|+C
+        =\frac14\sec^{-1}\left|\frac{9x}4\right|+C.
+\end{align*}
+Note how the term $\frac{81x^2}{16}$ under the radical became
+simply $u^2$, and then the term $x$ outside the 
+radical became $\frac{4u}{9}$, both consistent with
+$u=\frac{9x}{4}$.  Also note that a factor of
+$\frac49$ in the denominator canceled with the same
+factor multiplying the differential $du$.
+\eex
+This latest example again illustrates the points made before:
+that having the $1$-term 
+in the denominator is the key to the whole process,
+that the rest is taken care of by the $u$-substitution which follows
+and finally, that checking by differentiation is nontrivial.
+
+Another minor complication is that the numbers we must factor might
+not be perfect squares.  The process is exactly the same,
+though perhaps some more care is required.
+
+\bex Compute $\ds{\int\frac1{\sqrt{5-2x^2}}\,dx}$.
+
+\underline{Solution}: The process is exactly the same as before.
+The key is to factor the denominator to have a $1$ in the place
+of the $5$:
+\begin{align*}
+\int\frac1{\sqrt{5-2x^2}}\,dx
+&=\int\frac1{\sqrt{5}\cdot\sqrt{1-\frac{2x^2}5}}\,dx
+ =\frac1{\sqrt{5}}\int\frac1{\sqrt{1-u^2}}
+     \cdot\underline{\sqrt{\frac52}\cdot du}\\
+\left.\begin{alignedat}{2}
+&&u&=\sqrt{\frac25}\cdot x\\
+&\implies&du&=\sqrt{\frac25}\cdot\underline{dx}\\
+&\iff&\sqrt{\frac52}\cdot du&=\underline{dx}
+\end{alignedat}\right|
+&=\frac{1}{\sqrt2}\,\sin^{-1}u+C
+ =\frac1{\sqrt2}\,\sin^{-1}\left(\sqrt{\frac25}\cdot x\right)+C.
+\end{align*}
+
+\eex
+
+\subsection{Completing the Square}
+In the previous subsection our first concern after identifying our
+target form was to rewrite the integrand to have the number $1$
+in the appropriate place in the denominator.  In this subsection
+our first concern is identifying, except for a multiplicative
+constant, what will be $u^2$.  We do this by completing the 
+square first, and then fixing the form to have the number
+$1$ where we need it, and working from there as before.
+As there are differing levels of difficulty in such problems,
+we will begin with one of the simplest and continue from there.
+It should be noted that the completing the square step is
+sometimes needed before determining that one of our three forms,
+(\ref{IntGivingArcSinUR2}), 
+(\ref{IntGivingArcTanUR2}) or (\ref{IntGivingArcSec|U|R2}),
+can even be achieved.  If not, and we are fortunate, another
+earlier method may work, though usually we should notice that
+before attempting the method here.  If no earlier method will work,
+there may be a method available in Chapter~\ref{AdvancedIntTechniques} 
+that will solve the problem.
+
+Recall that when completing the square, one adds and subtracts
+$(b/2)^2$, where the original polynomial is $x^2+bx$, or 
+more generally $x^2+bx+c$:
+\begin{align*}
+x^2+bx+c&=x^2+bx+\left(\frac{b}2\right)^2-\left(\frac{b}2\right)^2+c\\
+&=\left(x+\frac{b}2\right)^2-\left(\frac{b}2\right)^2+c.\end{align*}
+As we will see, the fact that the coefficient of $x^2$ was $1$
+was key to the computation above.  If not, the leading coefficient 
+will be factored from the $x^2$ and $x$ terms. Our first 
+examples will not require that inititial factoring.
+
+
+\bex Compute $\ds{\int\frac1{x^2+2x+2}\,dx}$.
+
+\underline{Solution}: The hope is that we can somehow write the
+denominator as $1+u^2$, perhaps multiplied by some nonzero constant,
+without introducing any more variable factors.  For this one we
+are unusually fortunate. Note that here ``$b$'' is 2.
+\begin{align*}
+\int\frac1{x^2+2x+2}\,dx&
+=\int\frac1{x^2+2x+\left(\frac22\right)^2-\left(\frac22\right)^2+2}\,dx
+=\int\frac1{x^2+2x+1-1+2}\,dx\\
+\left.\begin{alignedat}{2}
+&&u&=x+1\\
+&\implies&du&=dx
+\end{alignedat}\right|
+&=\int\frac1{(x+1)^2+1}\,dx
+ =\int\frac1{u^2+1}\,du=\tan^{-1}u+C=\tan^{-1}(x+1)+C.
+\end{align*}
+\eex
+What made this last example particularly simple was that the
+additive constant outside of the perfect square was already $1$,
+which is of course key to our arctrigonometric antiderivative forms.
+If not, we have to perform some division.
+\bex Compute $\ds{\int\frac1{x^2+6x+17}\,dx}$.
+
+\underline{Solution}: Here $b=3$, so we add and subtract
+$\left(\frac{b}3\right)^2=9$.
+\begin{align*}
+\int\frac1{x^2+6x+17}\,dx
+&=\int\frac1{x^2+6x+9-9+17}\,dx=\int\frac1{(x+3)^2+8}\,dx
+=\frac18\int\frac1{\frac{(x+3)^2}8+1}\,dx\\
+\left.\begin{alignedat}{2}
+&&u&=\frac{x+3}{\sqrt8}\\
+&\implies&du&=\frac1{\sqrt8}\,dx\\
+&\iff&\sqrt8\,du&=dx
+\end{alignedat}\right|
+&=\frac18\int\frac1{u^2+1}\cdot\sqrt8\,du
+ =\frac1{\sqrt8}\tan^{-1}u+C
+ =\frac1{\sqrt8}\tan^{-1}\left(\frac{x+3}{\sqrt8}\right)+C.
+\end{align*}
+\eex
+As this last example illustrates, the final form of the antiderivative
+can be more complicated when completing the square is required.  While it 
+would be an interesting exercise to verify the answer by differentiation,
+perhaps verifying each individual step in the solution process would
+be a more efficient means of verifying the answer we derived.
+
+For simplicity we will continue with arctangent forms for the moment,
+as we look at the next complication, which is that the coefficient of 
+$x^2$ is not equal to 1.  In such a case we factor that leading
+coefficient out of the entire polynomial, or at least out of the
+$x^2$ and $x$ terms.  It is then important to perform
+the addition and subtraction steps of completing the square
+within the factor with the $x^2$ and $x$ terms;  the addition
+and subtraction of the $(b/2)^2$ in the process must occur
+simultaneously and beside eachother.  Note that such a term
+has a different effect inside parentheses (or brackets) compared
+to outside, so we must have the addition and subtraction
+steps together in order that numerically they have no net effect.
+
+\bex Compute $\ds{\int\frac1{5x^2-4x+9}\,dx}$.
+
+\underline{Solution}: Our first priority is to have the 
+coefficient of $x^2$ to be $1$, after which we complete the
+square and finish the problem.
+\begin{align*}\int\frac1{5x^2-4x+9}\,dx
+&=\int\frac1{5\left[x^2-\frac45\,x+\frac95\right]}\,dx
+=\int\frac1{5\left[x^2-\frac45+\left(\frac25\right)^2-\left(\frac25\right)^2
+              +\frac95\right]}\,dx\\
+&=\int\frac1%
+{5\left[\left(x-\frac25\right)^2-\frac4{25}+\frac{45}{25}\right]}\,dx
+=\frac15\int\frac1{\left[\left(x-\frac25\right)^2+\frac{41}{25}\right]}\,dx
+\end{align*}
+(Note how we added and subtracted $(2/5)^2$ together, both within the 
+brackets.)
+Now we need to manipulate this integral so there is a $1$ 
+in place of the fraction $\frac{41}{25}$, which we do as before,
+by factoring. Continuing,
+\begin{align*}
+\int\frac1{5x^2-4x+9}\,dx&=\cdots\\
+&=\frac15\int\frac1{\left[\left(x-\frac25\right)^2+\frac{41}{25}\right]}\,dx\\
+&=\frac15\int\frac1{\frac{41}{25}\biggl[\,
+ \underbrace{\frac{25}{41}\left(x-\frac25\right)^2}_{\text{``$u^2$''}}
+ +1\,\biggr]}\,dx\\
+\left.\begin{alignedat}{2}
+&&u&=\frac5{\sqrt{41}}\left(x-\frac25\right)\\
+&\implies&du&=\frac5{\sqrt{41}}\,dx\\
+&\iff&\frac{\sqrt{41}}5\,du&=dx\end{alignedat}\right|
+&=\frac15\cdot\frac{25}{41}\int\frac1{u^2+1}\cdot\frac{\sqrt{41}}5\,du\\
+&=\frac1{\sqrt{41}}\tan^{-1}u+C
+ =\frac1{\sqrt{41}}\tan^{-1}\left[
+           \frac5{\sqrt{41}}\left(x-\frac25\right)\right]+C.
+\end{align*}
+
+\eex
+
+
+
+\newpage
+\section{Hyperbolic Functions}
+The algebraic and differential structure embedded in the trigonometric
+functions made for some surprising, but useful derivative and integral
+formulas involving the arctrigonometric functions.  As it happens,
+there is another genre of functions with a similar, yet distinct
+structure, that genre being the so-called {\it hyperbolic functions}.
+
+In fact the hyperbolic functions are somewhat redundant, in that
+they are based upon exponential functions and the more interesting
+integration formulas can be arrived at through other methods.  However,
+exploiting these functions can greatly simplify certain types of 
+integration problems, as we will see.
+
+We will begin with definitions, derivatives and some identities 
+involving the hyperbolic functions.  We will then 
+look at their graphs, and consider what their ``inverses'' 
+would look like, and how they play out in derivative and integral
+formulas.  Along the way we will compare them to their trigonometric
+counterparts and see how a sign ($\pm$) here or there can make
+a crucial difference in an integration problem.
+
+\subsection{Hyperbolic Functions and Their Basic Intrinsic Structures}
+We begin with the hyperbolic sine and hyperbolic cosine functions.
+These can be defined geometrically, but unlike their trigonometric
+counterparts, these also have  straightforward definitions
+in terms of our earlier, familiar functions (though it is not 
+obvious from the geometry!):
+\begin{align}
+\sinh x&=\frac12\left(e^x-e^{-x}\right)=\frac{e^x-e^{-x}}{2},
+      \label{DefSinh}\\
+\cosh x&=\frac12\left(e^x+e^{-x}\right)=\frac{e^x+e^{-x}}2.
+      \label{DefCosh}
+\end{align}
+The others are defined in terms of these, just as with the
+trigonometric functions.  Before we define 
+the others, we will notice a couple of relationships which are
+similar, though distinct, from what occurs with the trigonometric
+functions.  The first result is algebraic:
+
+\begin{theorem}  For all $x\in\Re$, we have
+\begin{equation}\cosh^2x-\sinh^2x=1.\label{Cosh^2X-Sinh^2X=1}
+\end{equation}
+\end{theorem}
+For the proof, we just expand the left-hand side:
+\begin{align*}
+\cosh^2x-\sinh^2x&=\left(\frac{e^x+e^{-x}}2\right)^2
+                   -\left(\frac{e^x-e^{-x}}2\right)^2\\
+                  &=\frac{e^{2x}+2e^xe^{-x}+e^{-2x}}4
+                   -\frac{e^{2x}-2e^xe^{-x}+e^{-2x}}4\\
+                  &=\frac{\not{e^{2x}}+2e^0+\not{e^{-2x}}-
+                   \not{e^{2x}}+2e^0-\not{e^{-2x}}}4\\
+                  &=\frac{2+2}4\\
+                  &=1,\text{ q.e.d.}\end{align*}
+Of course this is the hyperbolic analog of the basic trigonometric
+identity $\cos^2\theta+\sin^2\theta=1$.  As we will see, the 
+difference in the signs between the trigonometric identity
+and (\ref{Cosh^2X-Sinh^2X=1}) makes for analogous, but significantly
+distinct results throughout the hyperbolic development.  We next
+look at the derivatives of these:
+\begin{theorem} For $x\in\Re$, we have
+\begin{align}
+\frac{d}{dx}\sinh x&=\cosh x, \label{DerivSinhX}\\
+\frac{d}{dx}\cosh x&=\sinh x. \label{DerivCoshX}
+\end{align}
+\end{theorem}
+These are simple chain rule computations.  For the first
+case, we have
+$$
+\frac{d}{dx}\left[\frac12\left(e^x-e^{-x}\right)\right]
+=\frac12\left(e^x-e^{-x}\frac{d(-x)}{dx}\right)
+=\frac12\left(e^x-e^{-x}(-1)\right)
+=\frac12\left(e^x+e^{-x}\right)$$
+i.e., $\frac{d}{dx}\sinh x=\cosh x$.
+That $\frac{d}{dx}\cosh x=\sinh x$ is similar.  Note
+how these compare to derivative formulas for $\sin x$ and
+$\cos x$.

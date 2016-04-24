@@ -1,0 +1,3118 @@
+%\setcounter{page}{800}
+\chapter{Advanced Integration Techniques\label{AdvancedIntTechniques}}
+Before introducing the more advanced techniques, we will look at
+a shortcut for the easier of the substitution-type integrals.
+Advanced integration techniques then follow:
+integration by parts, trigonometric integrals, trigonometric
+substitution, and partial fraction decompositions.
+
+\section{Substitution-Type Integration by Inspection}
+In this section we will consider integr>als which we 
+would have done earlier by substitution, but which are
+simple enough that we can guess the approximate form
+of the antiderivatives, and then insert any factors needed
+to correct for discrepancies detected by (mentally) computing
+the derivative of the approximate form and comparing it to 
+the original integrand.  Some general forms will be mentioned
+as formulas, but the {\it idea} is to be able to compute
+integrals without resorting to writing the usual $u$-substitution
+steps.
+
+\bex Compute $\ds{\int\cos5x\,dx}$.
+
+\underline{Solution}: We can anticipate that the 
+{\bf approximate form\footnotemark} of the answer is
+$\sin5x$, 
+but then
+$$\frac{d}{dx}\sin5x=\cos5x\cdot\frac{d}{dx}(5x)=\cos5x\cdot5=5\cos5x.$$
+Since we are looking for a function whose derivative is
+$\cos5x$, and we found one whose derivative is $5\cos5x$,
+we see that our candidate antiderivative $\sin5x$ gives
+a derivative with an extra factor of $5$, compared with
+the desired outcome.  Our candidate antiderivative's
+derivative is 5 times too large, so
+this candidate $\sin 5x$ must be 5 times too large.  To compensate
+and arrive at a function with the proper derivative, 
+we multiply our candidate  $\sin5x$
+by $\frac15$.  This give us a new candidate antiderivative $\frac15\sin5x$,
+whose derivative is of course $\frac15\cos5x\cdot5=\cos5x$,
+as desired.  Thus we have
+$$\int\cos5x\,dx=\frac15\sin5x+C.$$
+\eex
+%%%%%  FOOTNOTE
+\footnotetext{In this section, by {\it approximate form} we mean
+a form which is correct except for {\bf multiplicative constants}.}
+%%%%%  END FOOTNOTE
+
+It may seem that we wrote more in the example above than with 
+the usual $u$-substitution method, but what we
+wrote could be performed mentally without resorting to writing
+the details.
+
+In future sections, an integral such as the above may occur as a
+relatively small step in the execution of a more advanced and
+more complicated method
+(perhaps for computing a much more difficult integral).  
+This section's purpose is to point out how such an integral can be 
+quickly dispatched, to avoid it becoming a needless distraction
+in the more advanced methods.
+
+Some formulas which should be quickly verifiable by inspection
+(that is, by reading and mental computation rather than 
+with paper and pencil, for instance) follow:
+\begin{align}
+\int e^{kx}\,dx&\hphantom{-}=\hphantom{-}\frac1ke^{kx}+C,\label{IntE^KX}\\
+\int \cos kx\,dx&\hphantom{-}=\hphantom{-}\frac1k \sin kx+C,\\
+\int\sin kx\,dx&\hphantom{-}=-\frac1k\cos kx+C,\\
+\int \sec^2kx\,dx&\hphantom{-}=\hphantom{-}\frac1k\tan kx+C,\\
+\int\csc^2kx\,dx&\hphantom{-}=-\frac1k\cot kx+C,\\
+\int\sec kx\tan kx\,dx&\hphantom{-}=\hphantom{-}\frac1k\sec kx+C,\\
+\int\csc kx\cot kx\,dx&\hphantom{-}=-\frac1k\csc kx+C,\\
+\int\frac1{ax+b}\,dx&\hphantom{-}=\hphantom{-}\frac1a\ln|ax+b|+C.
+            \label{Int1/AX+B}
+\end{align}
+
+\bex The following integrals can be computed with $u$-substitution,
+but also are computable by inspection:
+\begin{align*}
+\int\frac1{5x-9}\,dx&=\frac15\ln|5x-9|+C,\\
+\int\sin5x\,dx&=-\frac15\cos5x+C,\\
+\int\cos\frac{x}2\,dx&=2\sin\frac{x}2+C,\\
+\int\sec^2\pi x\,dx&=\frac1{\pi}\tan\pi x+C,\\
+\int\csc6x\cot6x\,dx&=-\frac16\csc6x+C.\end{align*}
+\eex
+
+While it is true that we can call upon the formulas
+(\ref{IntE^KX})--(\ref{Int1/AX+B}), the more flexible
+strategy is to anticipate the form of the antiderivative
+and adjust accordingly.  For instance, we have the following
+antiderivative form, written two ways:
+\begin{align*}
+\int \frac{1}u\,du&=\ln|u|+C,\\
+\int\frac{f'(x)}{f(x)}\,dx&=\ln|f(x)|+C.\end{align*}
+(As usual, the second form is the same as the first where 
+$u=f(x)$.) So when we see an integrand which is a fraction,
+the numerator being the derivative of the denominator
+except for multiplicative constants, we know the 
+antiderivative will be, approximately, the natural 
+log of the absolute value of that denominator.
+
+\bex Consider $\ds{\int\frac{x}{x^2+1}\,dx}$
+
+Here we see that the derivative of the denominator is also a factor
+in the integrand.
+Our candidate approximate form can then be $\ln|x^2+1|=\ln(x^2+1)$.
+Now we differentiate to see what we need to include to get the
+correct derivative:
+$$\frac{d}{dx}\ln(x^2+1)=\frac1{x^2+1}\cdot2x=2\cdot\frac{x}{x^2+1}.$$
+To correct for the extra factor of 2 and thus get the correct derivative,
+we insert the factor $\frac12$:
+$$\frac{d}{dx}\left[\frac12\ln(x^2+1)\right]
+ =\frac12\cdot\frac1{x^2+1}\cdot2x=\frac{x}{x^2+1},$$
+as desired.  Thus 
+$$\int\frac{x}{x^2+1}\,dx=\frac12\ln(x^2+1)+C.$$
+To be sure, a quick (mental?) check by differentiation verifies the answer.
+\eex
+
+Of course there are many other forms.
+
+
+\bex Consider $\ds{\int\frac1{\sqrt{5x-9}}\,dx}$.
+
+Of course this can be rewritten
+$\int(5x-9)^{-1/2}\,dx$.  Now it is crucial that a
+complete substitution, $u=5x-9\implies du=5\,dx$, etc., 
+shows that $du$ and $dx$ agree except for a multiplicative
+constant, so we know that the integral---up to multiplicative
+constants---is of form $\int u^{-1/2}\,du$, which is a power rule.
+
+The {\it approximate} form of the antiderivative is thus
+$u^{1/2}=(5x-9)^{1/2}$,  which we write in $x$ and then differentiate,
+$$\frac{d}{dx}(5x-9)^{1/2}=\frac12(5x-9)^{-1/2}\cdot5,$$
+which has {\bf extra} factors (compared to our original integrand)
+of collectively  $\frac52$. To cancel their effects we
+include a factor $\frac25$ in our actual, reported  antiderivative.
+Thus
+$$\int\frac1{\sqrt{5x-9}}\,dx=\frac25(5x-9)^{1/2}+C=\frac25\sqrt{5x-9}+C.$$
+\eex
+
+Note that a quick derivative computation, albeit involving a
+(simple) chain rule, gives us the correct function $1/\sqrt{5x-9}$. 
+
+\bex Consider $\ds{\int 7x\,\sin^5x^2\cos x^2\,dx}$.
+
+For such an antiderivative, our ability to guess the form 
+depends upon our exptertise with the original substitution
+methods.  In all of these was a form $\int f(u)\,K\,du$,
+where we could anticipate both $u$ and $f$, with $du$
+accounting for remaining terms, and $K\in\Re$
+which we can ignore by taking our shortcut path
+described in this section.  Looking ahead, the student well-versed
+in substitution will expect $u=\sin x^2$, and the integral
+being of the approximate form $\int u^5\,du$.  Thus we will
+have an approximate antiderivative of $u^6$ (times a constant),
+i.e., the approximate form should be $\sin^6x^2$.  Now we differentiate
+this and see what compensating factors must be included
+to reconcile with the original integrand:\footnotemark
+$$\frac{d}{dx}(\sin x^2)^6
+=6(\sin x^2)^5\cdot \cos x^2\cdot 2x
+=12x\,\sin^5x^2\cos x^2.$$
+Of course we want $7$ in the place of the $12$ (or separately,
+$2\cdot6$), so we multiply
+by $\frac7{12}$ (or again, $7\cdot\frac1{6\cdot2}$).  With this we have
+$$\int7x\,\sin^5x^2\cos x^2\,dx=\frac7{12}\sin^6x^2+C.$$
+\eex
+\footnotetext{%%%
+%%% FOOTNOTE
+Notice that we are assuming fluency in the chain rule as we
+compute the derivative of $\sin^6x^2$, rather than writing out
+every step as we did in Chapter~\ref{DerivativeChapter}.
+Each student must gage personal ability to omit steps.
+%%% END FOOTNOTE
+}
+
+
+It would be perfectly natural to forego this method of ``guess and
+adjust'' in favor of the old-fashioned substitution method.
+Indeed the full substitution method has some advantages (see the next
+subsection).  For instance, it
+is more ``constructive,'' and thus
+less error-prone; one is less tempted to skip steps
+while employing substitution, while one might 
+attempt a mental derivation of the answer here and
+thus easily be off by a factor.  
+It is important that each student find the comfortable
+level of brevity for himself.\footnote{%%
+%%% FOOTNOTE
+It is the author's experience that students in engineering
+and physics programs are more interested in arriving at the
+answer quickly, while mathematics and other science students prefer the
+presentation of the full substitution method.  The latter
+are somewhat less likely to be wrong by a multiplicative
+constant, though the former tend to progress through the
+topics faster.  There are, of course, spectacular exceptions,
+and each group benefits from camaraderie with the other.
+%%% END FOOTNOTE
+}
+
+
+
+The method used in the above examples can be summarized as follows:
+\begin{enumerate}
+\item Anticipate the form of the antiderivative by an {\it approximate form}
+      (correct up to a multiplicative constant).
+\item Differentiate this approximate form and compare to the original
+      function (to be integrated);
+\item If Step 1 is correct, and thus the approximate form's derivative 
+      differs from the original (integrand) function by a multiplicative 
+      constant, insert a compensating,
+      reciprocal multiplicative constant in the approximate form to arrive
+      at the actual antiderivative;
+\item For verification, differentiate the answer to see if the
+      original function emerges.
+\end{enumerate}
+
+\bex Compute $\ds{\int x^3\sin x^4\,dx}$.
+
+\underline{Solution}: This is of the approximate form
+$\int\sin u\,du$, with $u=x^4$. The approximate form of the solution
+is thus $\cos x^4+C$ (or $-\cos x^4+C$, but these differ by 
+a multiplicative constant $-1$), which has derivative
+$-\sin x^4\cdot4x^3$.  We introduce a factor of $-\frac14$
+to compensate for the extra factor of $-4$:
+$$\int x^3\sin x^4\,dx=-\frac14\cos x^4+C,$$
+which can be quickly verified by differentiation.
+\eex
+
+\bex Compute $\ds{\int x\sqrt{9-x^2}\,dx}$.
+
+\underline{Solution}: It is advantageous to read this
+integral $\int x(9-x^2)^{1/2}\,dx$, which is of
+approximate form $\int u^{1/2}\,du$ (where $u=9-x^2$).  These observations,
+and the approximate form $(9-x^2)^{3/2}$ of the integral, can be 
+gotten by mental observation (referred to earlier as
+``by inspection'').  Its derivative
+is $\frac32(9-x^2)^{1/2}\cdot(-2x)$, which
+has an extra factor of $-3$ (after cancellation).
+Thus
+$$\int x\sqrt{9-x^2}=-\frac13\left(9-x^2\right)^{3/2}+C.$$
+
+
+\eex
+
+
+
+
+
+
+\subsection{Limitations of the Method}
+There are two very important points to be made about the
+limitiations of the method.  The first point is argued
+by making several related points, and the second is illustrated in
+an example.
+
+\begin{enumerate}[{\bf(I)}]
+\item {\bf This method can not totally replace the earlier substitution
+      method.} 
+  \begin{enumerate}[(a)]
+      \item The skills used in the substitution method will be
+            needed for later methods.  In particular, the idea
+            that the entire integral in $x$ is replaced
+            by one in $u$ (for instance), including the $dx$
+            and, if a definite integral, the interval of integration.
+      \item If an integral is difficult enough, the more constructive
+            substitution method is less error-prone than
+            this ``guess and adjust'' style here.
+      \item The idea of the substitution method is the same as
+            this method; anticipating what to set equal to $u$ is
+            equivalent to guessing the approximate form of the
+            integral in $u$, and thus the approximate form of
+            the antiderivative.
+      \item When using numerical and other methods with definite
+            integrals, a substitution can sometimes make for a
+            much simpler integral to be approximated or otherwise 
+            analyzed, even if the antiderivative is never computed. 
+            For instance, with $u=x^2$, giving then $du=2x\,dx$, we can write
+            $$\int_{-1}^2 xe^{x^4}\,dx=\frac12\int_{1}^4e^{u^2}\,du.$$
+       \end{enumerate}
+\item {\bf It is imperative that the derivative of the approximate form
+differs from the original function to be integrated by at most a
+{multiplicative constant}.}  In particular, an extra
+variable function cannot be compensated for.  
+\end{enumerate}
+To illustrate this point, and simultaneously warn against a 
+common mistake, consider 
+$$\int\frac1{x^2+1}\,dx.$$
+The mistake to avoid here is to take the approximate solution to be
+$\ln(x^2+1)$, which we then notice has derivative
+$$\frac{d}{dx}\ln(x^2+1)=\frac1{x^2+1}\cdot2x.$$
+Unfortunately we cannot compensate by dividing by 
+the extra factor $2x$, because\footnotemark
+$$\frac{d}{dx}\left[\frac{\ln(x^2+1)}{2x}\right]=
+\frac{2x\cdot\frac{d\ln(x^2+1)}{dx}-\ln(x^2+1)\cdot\frac{d(2x)}{dx}}{(2x)^2},$$
+which is guaranteed (by the presence of the logarithm in
+the result) to be something other than our original 
+function $\frac1{x^2+1}$.  The method does not work because multiplicative
+{\it functions} do not ``go along for the ride'' in derivative (or 
+antiderivative) problems the way multiplicative constants do.
+%%% FOOTNOTE
+\footnotetext{Alternatively, a product rule computation can be used:
+$$\frac{d}{dx}\left[\frac1{2x}\ln(x^2+1)\right]
+=\frac1{2x}\cdot\frac{d\ln(x^2+1)}{dx}+
+  \ln(x^2+1)\cdot\frac{d}{dx}\left[\frac1{2x}\right],$$
+which eventually gives the original function for the first product, but 
+the second part of the product rule is a complication
+we cannot rid ourselves of easily.
+
+It should be pointed out that the method of the next section
+does utilize the fact that the first product above is
+the desired original function, and an algorithm can be fashioned
+to compensate for the presence of the second product.  The application of 
+that method is not universally useful, and even 
+when it is helpful 
+it takes considerable work to develop the theory as well as
+fluency in its application.
+%%% END FOOTNOTE
+}
+
+Of course we knew from before that 
+$$\int\frac1{x^2+1}\,dx=\tan^{-1}x+C,$$
+so this integral is not really suitable for a substitution argument, 
+but is rather a special case in and of itself.  
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Integration By Parts\label{IntByPartsSection}}
+
+While integration by substitution in its elementary form
+takes advantage of the chain rule, by contrast integration by
+parts exploit the product rule. The application is a bit
+more complicated than with substitution, and there are 
+perhaps more variations on the theme than with substitution.
+Furthermore, to be truly fluent in this method requires one to be able
+to see more steps ahead than with substitution, as the method
+is arguably twice as long and complicated as most substitution
+problems.  Still, it can be similarly mastered with practice.
+
+\subsection{The Idea by an Example\label{IntByPartsSubsec''TheIdea''}}
+Suppose that we need to find an antiderivative of the function
+$f(x)=x\sec^2 x$.  It is not hard to see that normal substitution
+in not going to easily yield our desired antiderivative $F$:
+$$\int x\sec^2x\,dx=F(x)+C.$$  
+However, a clever student might notice that $x\sec^2 x$
+contains terms that could have arisen from
+a product rule derivative computation:
+\begin{align*}\frac{d}{dx}\left[x\tan x\right]
+  &=x\cdot\frac{d\tan x}{dx}+\tan x\cdot\frac{dx}{dx}\\
+  &=x\sec^2x+\tan x.\end{align*}
+If we rearrange the terms above, we can summarize as follows:
+$$x\sec^2x=\frac{d}{dx}\left[x\tan x\right]-\tan x.$$
+In fact the line immediately
+above is perhaps where the spirit of the method is
+most on display:  that the given function is indeed one {\it part}
+of a product rule derivative.  If we are fortunate, the other
+{\it part} of the product rule formula is easier to integrate,
+because the derivative term, namely $\frac{d}{dx}\left[x\tan x\right]$
+is trivial to integrate, since we are just asking for the antiderivative
+of the derivative of a (differentiable) function, which ultimately 
+returns the function itself, and an additive constant we can absorb
+in the second integral.
+Indeed, if we take antiderivatives of both sides, we then get
+\begin{align*}\int x\sec^2x\,dx&=\int\left[\left(\frac{d[x\tan x]}{dx}\right)
+               -\tan x\right]\,dx\\
+             &=x\tan x-\int\tan x\,dx\\
+             &=x\tan x-\ln|\sec x|+C.\end{align*}
+From such as the above emerges a method whereby we identify
+our given function (here $x\sec^2x$) as a {\it part} of a product rule 
+computation ($\frac{d}{dx}[x\tan x]$),
+and integrate our original function by instead (trivially) integrating the
+product rule derivative term (again $\frac{d}{dx}[x\tan x]$), 
+and then integrating the other {\it part} ($\tan x$)
+of the product rule output.  Often the other, hidden part of the
+underlying product rule is easier to integrate than the original
+function, and therein lies much of the success of the method.
+
+
+\subsection{The Technique In Its Simpler Applications}
+Recall that when we completely developed the substitution method, 
+the underlying 
+principle---the chain rule---was not written out in complete
+derivative form, but rather in {\it differential} form.
+That was partly because of the compactness of the differential
+notation.  Having supposed that $F$ was an antiderivative of $f$,
+we eventually settled on writing the argument below without
+the first two integrals:
+$$\int f(u(x))u'(x)\,dx=\int f(u(x))\cdot\frac{du(x)}{dx}\,dx
+ =\int f(u)\,du=F(u)+C=F(u(x))+C.$$
+At first we did write the first steps because the proof was in the chain
+rule: $\frac{d}{dx}F(u(x))=F'(u(x))u'(x)=f(u(x))u'(x).$
+However, we eventually opted for the differential form, though for
+most it takes some practice.  We will adopt differential notation
+in integration by parts as well.  For instance, recall the 
+product rule can be rewritten in differential form:
+\begin{equation}
+d(uv)=u\,dv+v\,du.\label{ProdRuleInDifferentialsForParts}
+\end{equation}
+Of course this came from multiplying a derivative product rule
+by, say, $dx$, assuming $u$ and $v$ are in fact functions of $x$:
+$$\frac{d(uv)}{dx}=u\cdot\frac{dv}{dx}+v\cdot\frac{du}{dx}.$$
+Now we rearrange (\ref{ProdRuleInDifferentialsForParts}) as follows:
+\begin{equation}
+u\,dv=d(uv)-v\,du.\label{Rearr.ProdRuleInDifferentialsForParts}
+\end{equation}
+Equation (\ref{Rearr.ProdRuleInDifferentialsForParts}) is perhaps
+the best equation to visualize the principle behind the eventual
+integration formula, because it is an easy step from the product rule.
+The actual formula quoted in most textbooks is still two steps away.
+First we integrate both sides:
+\begin{equation}\int u\,dv=\int d(uv)-\int v\,du.
+\label{OneStepBeforeIntByParts}\end{equation}
+Next we  notice that the first integral on the right hand side of 
+(\ref{OneStepBeforeIntByParts}) is simply $uv$, and so we arrive
+at our final working formula for our integration by parts technique:
+\begin{equation}
+\boxed{\int u\,dv=uv-\int v\,du.}\label{IntByPartsFormula}\end{equation}
+Most textbooks and instructors use the formula above in exactly that
+form.  It is best memorized, though its derivation---particuarly
+from (\ref{Rearr.ProdRuleInDifferentialsForParts})---should
+not be forgotten.  
+
+Next we look at an example of the actual application of
+(\ref{IntByPartsFormula}).  In the example below, the arrangement of terms
+is as one would work the problem with pencil and paper, except for
+the implication arrows and the underbraces (which we explain briefly below,
+and exclude from then on).
+
+\bex Compute $\ds{\int xe^x\,dx}$.
+
+\underline{Solution}:
+\begin{alignat*}{3}
+u&=x&&\qquad\qquad& dv&=e^x\,dx\\
+&\Downarrow&&&&\Uparrow\\
+du&=dx&&&v&=e^x
+\end{alignat*}
+$$\int\underbrace{x}_{u}\ \underbrace{e^x\,dx}_{dv}
+=uv-\int v\,du
+=(x)(e^x)-\int(e^x)\,dx
+=xe^x-e^x+C.$$
+\eex
+ It is interesting to note
+that we {\it choose} $u$ and $dv$, and then {\it compute}
+$du$ and $v$, with one qualification.  That is that
+$v$ is not unique;  the computation from $dv$ to $v$ is
+of an antidifferentiation nature and so we really only know $v$
+up to an additive constant.  In fact {\it any} $v$ so that $dv=e^x\,dx$
+(we took $v=e^x\implies dv=e^x\,dx$)
+will work in (\ref{IntByPartsFormula}).  Any additive constant,
+while legitimate, will eventually cancel in the final computation.
+For instance, if we had chosen $v=e^x+100$, we would have had
+\begin{align*}
+uv-\int v\,du&=x(e^x+100)-\int(e^x+100)\,dx\\
+               &=xe^x+100x-e^x-100x+C\\
+              &=xe^x-e^x+C,
+\end{align*}
+as before.  For most cases, we will just assume that the additive
+constant is zero and we will use the simplest antiderivative for $v$.
+(We will not continue to write the implication arrows as they 
+are technical and perhaps confusing.)
+
+Now we will revisit the example we gave in
+Subsection~\ref{IntByPartsSubsec''TheIdea''}, using what will be our
+basic style for this method.
+
+\bex Compute $\ds{\int x\sec^2x\,dx}$.
+
+\underline{Solution}:
+\begin{alignat*}{3}
+u&=x&&\qquad\qquad&dv&=\sec^2x\,dx\\
+du&=dx&&&v&=\tan x
+\end{alignat*}
+$$
+\int x\sec^2x\,dx =\int u\,dv
+=uv-\int v\,du=x\tan x-\int\tan x\,dx=x\tan x-\ln|\sec x|+C.$$
+\eex
+Since this method is more complicated than substitution, there
+are more complicated considerations in how to
+apply it. First of course, one should attempt an
+earlier, simpler method.  But if those fail, and integration
+by parts is to be attempted,\footnote{%%%
+%%% FOOTNOTE
+Of course with practice one can see ahead whether or not integration by
+parts is likely to achieve an answer for a particular integral.}
+ the following guidelines for choosing $u$ and $dv$
+should be considered:
+\begin{enumerate}
+\item $u$ and $dv$ {\bf must} account for exactly all factors of 
+      the integral.
+  \begin{enumerate}[1.5.]
+  \item Of course, 
+        $dv$ {\bf must} contain the differential term (for example, $dx$)
+      as a factor,
+      but can contain more terms.\end{enumerate}
+\item $v=\int dv$ should be computable with relative ease.
+\item $du=u'(x)\,dx$ (assuming the original integral was in $x$)
+      should not be overly complicated.
+\item The integral $\int v\,du$ should be simpler than the original
+      integral $\int u\,dv$.\footnote{%%%%
+%%% FOOTNOTE
+Later, in a twist on the method,
+we will see that the we do not necessarily require
+$\int v\,du$ be easier than the original,  $\int u\,dv$.%
+%%% END FOOTNOTE
+}
+\end{enumerate}
+The next example illustrates the importance of the second consideration
+(numbered 2.) above.
+
+\newpage
+\bex Compute $\ds{\int x^3\sin x^2\,dx}$.
+
+\underline{Solution}: 
+We  do not want to make $u=\sin x^2$, because 
+then $dv=x^3\,dx$, giving $du=2x\cos x^2$ and $v=\frac14x^4$,
+and our $\int v\,du$ will be $\int\frac12x^5\cos x^2\,dx$,
+which is worse than our original integral.
+
+We will instead take $u$ to be some power of $x$,
+but not all of $x^3$, else the terms remaining for $dv$
+would be $dv=\sin x^2\,dx$, which we cannot integrate with ordinary
+methods.\footnote{%%% 
+%%% FOOTNOTE
+In fact, we cannot compute $\int\sin x^2\,dx$ using any kind of
+substitution or parts, or any other method of this text for that
+matter, and arrive at an antiderivative in simple terms of the
+functions we know so far such as powers, exponentials, logarithms,
+trigonometric or hyperbolic functions or their inverses.  
+However, when we
+study series we will find other expressions with which we can
+fashion an antiderivative of $\sin x^2$.%%
+%%% END FOOTNOTE
+}
+
+
+
+What we will settle on is $dv=x\sin x^2\,dx$, for its integral
+is an easy substitution.  We leave the remaining terms, $x^2$,
+for $u$:
+\begin{alignat*}{3}
+u&=x^2&&\qquad\qquad&dv&=x\sin x^2\,dx\\
+du&=2x\,dx&&&v&=-\frac12\cos x^2\end{alignat*}
+\begin{align*}
+\int x^3\sin x^2\,dx&=\int \underbrace{x^2}_{u}
+                       \cdot \underbrace{x\sin x^2\,dx}_{dv}\\
+                    &=uv-\int v\,du\\
+                    &=(x^2)\left(-\frac12\cos x^2\right)
+                        -\int\left(-\frac12\cos x^2\right)2x\,dx\\
+                    &=-\frac{x^2}{2}\cos x^2+\frac12\int \cos x^2\cdot x\,dx\\
+                    &=-\frac{x^2}{2}\cos x^2+\frac12\sin x^2+C.
+\end{align*}
+We omitted the details of computing $v$ from $dv$, and computing the
+last integral, as most students at this point can anticipate the
+approximate forms of those antiderivatives, mentally compute
+the derivatives of the approximate forms, and then insert constant factors
+required to make the antiderivatives correct.  (This was 
+the purpose of the last section.)
+\eex
+
+This last example shows how the requirement that $v=\int dv$ (up
+to an additive constant) be computable helps to guide us to 
+the proper choice of $u$ and $dv$.  It was lucky that the second integral
+was easily computable (which would not have been the case
+if the original integral were, say, $\int x^2\sin x^2\,dx$
+or $\int x^4\sin x^2\,dx$), but anyhow we cannot even get
+to the second integral if we cannot compute $v$.
+
+ The next example shows a different lesson:
+that it is sometimes appropriate to integrate by parts more than once
+in a given problem.
+
+\bex Compute $\ds{\int x^2\cos 3x\,dx}$.
+
+\underline{Solution}: For reasons that will be clear later, 
+we will call this integral $\I$.  Now we proceed to the 
+integration by parts.
+\begin{alignat*}{3}
+u&=x^2&&\qquad\qquad&dv&=\cos3 x\,dx\\
+du&=2x\,dx&&&v&=\frac13\sin3x\end{alignat*}
+$$\I=\int \underbrace{x^2}_{u}\underbrace{\cos 3x\,dx}_{dv}
+=uv-\int v\,du
+=\frac13x^2\sin 3x-\int\frac23x\sin3x\,dx.
+$$
+While we still cannot compute this last integral directly with old methods,
+it is better than the original in the sense that
+our trigonometric function is multiplied by a first-degree polynomial,
+where in the original the polynomial was second degree.
+The work which is left more closely resembles our earliest examples
+of integration by parts.  
+
+A strict use of the language would force us to introduce
+two new variables other than $u$ and $v$, but since they
+have ``disappeared'' in the present form of our answer,
+namely $\frac13x^2\sin3x-\frac23\int x\sin3x\,dx$, it is
+not considered such bad form to ``reset'' (or ``recycle'') $u$ and $v$
+for another integration by parts step, this time 
+involving the integral $\int x\sin 3x\,dx$:
+\begin{alignat*}{3}
+u&=x&&\qquad\qquad&dv&=\sin3x\,dx\\
+du&=dx&&&v&=-\frac13\cos3x\end{alignat*}
+$$\int \underbrace{x}_{u}\underbrace{\sin3x\,dx}_{dv}
+=uv-\int v\,du
+=-\frac{x}3\cos3x+\frac13\int\cos3x\,dx
+=-\frac{x}3\cos3x+\frac13\cdot\frac13\sin 3x+C_1.$$
+Now we insert this last result into our original computation:
+\begin{align*}
+\int x^2\cos3x\,dx&=\frac{x^2}3\sin3x-\frac23\left[-\frac{x}3\cos3x
+           +\frac19\sin3x+C_1\right]\\
+  &=\frac{x^2}3\sin3x+\frac{2}{9}x\cos3x-\frac2{27}\sin3x+C.\end{align*}
+\eex
+
+Several lessons can be gleaned from the example above.  (1)
+it is very important for proper ``bookkeeping,'' as these
+problems can beget several ``subproblems,'' and the proper
+placement of resulting terms is crucial to getting the correct answer;
+(2) it is not unknown to use integration by parts more
+than once in a problem; (3) if we can take as many 
+antiderivatives of a function $f(x)$ as we like
+(i.e., the antiderivative, the antiderivative of the
+antiderivative, etc.), then for an integral
+$\int x^nf(x)\,dx$ we can let $u=x^n$, and integration
+by parts will yield a second integral with a reduction
+in the power of $x$, namely 
+\begin{equation}
+\int x^nf(x)\,dx=x^nF(x)-\int nx^{n-1}F(x)\,dx\end{equation}
+where $F'=f$. 
+
+Other cases concern choices of $u$ where we choose a 
+function whose derivative we know, but whose antiderivative
+might not be standard knowledge for the average student.
+\bex Compute $\ds{\int(x^2+1)\ln x\,dx}$.
+
+\underline{Solution}: We cannot let $dv=\ln x\,dx$, since
+as yet we do not know the antiderivative of $\ln x$.
+(Even if we did, such a choice for $dv$ would not be advantageous,
+as Example~\ref{ComputingIntLnXExample} helps to show.)
+So we have little choice but to let $\ln x$ be $u$.
+\begin{alignat*}{3}
+u&=\ln x&&\qquad\qquad&dv&=(x^2+1)\,dx\\
+du&=\frac1x\,dx&&&v&=\frac{x^3}3+x\end{alignat*}
+\begin{align*}
+\int(x^2+1)\ln x\,dx&=uv-\int v\,du\\
+                    &=(\ln x)\left(\frac{x^3}3+x\right)
+                     -\int\left(\frac{x^3}3+x\right)\frac1x\,dx\\
+               &=\frac13(\ln x)(x^3+3x)-\int\left(\frac{x^2}3+1\right)\,dx\\
+            &=\frac13(x^3+3x)\ln x-\frac19x^3-\frac13x+C.
+                   \end{align*}
+\label{IntPoly*LnExample}\eex
+
+
+
+
+
+\subsection{A Simple Twist on the Method}
+Here we show how to find antiderivatives of interesting functions
+whose derivatives we already know.  
+\bex Compute $\ds{\int \ln x\,dx}$.
+
+\underline{Solution}: Here we cannot let $dv=\ln x\,dx$, for
+computing $v=\int dv$ would be the same as computing the whole,
+original integral.  As in Example~\ref{IntPoly*LnExample},
+we also note that placing $\ln x$ in the $u$-term makes for
+a simpler derivative.  Thus we write
+\begin{alignat*}{3}
+u&=\ln x&&\qquad\qquad&dv&=dx\\
+du&=\frac1x\,dx&&&v&=x,\end{alignat*}
+so that
+\begin{align*}
+\int \ln x\,dx&=uv-\int v\,du\\
+              &=(\ln x)(x)-\int(x)\left(\frac1x\,dx\right)\\
+              &=x\ln x-\int 1\,dx\\
+              &=x\ln x-x+C.\end{align*}
+\label{ComputingIntLnXExample}\eex
+In fact the same type of computation will be used for 
+finding antiderivatives of arctrigonometric functions.
+
+\bex Compute $\ds{\int\sin^{-1}x\,dx}$.
+
+\underline{Solution}: Again we have no choice but to let $u=\sin^{-1}x$,
+$dv=dx$.
+\begin{alignat*}{3}
+u&=\sin^{-1}x&&\qquad\qquad&dv&=dx\\
+du&=\frac1{\sqrt{1-x^2}}\,dx&&&v&=x\end{alignat*}
+For brevity, we will begin to label the desired integral $\I$,
+so here $\I=\int\sin^{-1}x\,dx$.
+(The second interval is computed ``by inspection.'')
+\begin{align*}
+\I=uv-\int v\,du&=x\sin^{-1}x-\int\frac{x}{\sqrt{1-x^2}}\,dx\\
+                &=x\sin^{-1}x+\left(1-x^2\right)^{1/2}+C.\end{align*}
+
+\eex
+
+
+\newpage
+\subsection{An Indirect Method}
+The following method, which we describe in the end, is
+useful in surprisingly many settings.
+\bex Compute $\ds{\int e^{2x}\cos3x\,dx=\I}$.
+
+\underline{Solution}: Here we again name the desired integral
+$\I$ for brevity in later steps.
+
+It should be obvious (especially after a
+few attempts) that simple substitution methods will not work.
+So we attempt an integration by parts.
+\begin{description}
+\item[Step 1.]  We will let the trigonometric function be part of $dv$:
+\begin{alignat*}{3}
+u&=e^{2x}&&\qquad\qquad&dv&=\cos3x\,dx\\
+du&=2e^{2x}\,dx&&&v&=\frac13\sin3x
+\end{alignat*}
+So far, after some rearrangement and simplifying, we have
+\begin{align}\I&=uv-\int v\,du\notag\\
+&=\frac13e^{2x}\sin3x-\frac23
+\underbrace{\int e^{2x}\sin 3x\,dx}_{\II}.\label{(I)Step1}\end{align}
+This does not seem any easier than the first integral, so 
+perhaps we might continue, but this time let the trigonometric 
+function
+be $u$ and the exponential (along with $dx$) be contained in $dv$.
+\item[Step 2.] Compute $\II=\int e^{2x}\sin3x\,dx$ 
+ in light of the comments at the end of the first step.
+\begin{alignat*}{3}
+u&=\sin3x&&\qquad\qquad&dv&=e^{2x}\,dx\\
+du&=3\cos3x\,dx&&&v&=\frac12e^{2x}\end{alignat*}
+$$\II=uv-\int v\,du=\frac12e^{2x}\sin3x-\frac32\int e^{2x}\cos3x\,dx.$$
+Combining this with the conclusion (\ref{(I)Step1}) of Step 1 gives us:
+\begin{align*}
+\I&=\frac13e^{2x}\sin3x-\frac23\left[
+        \frac12e^{2x}\sin3x-\frac32\int e^{2x}\cos3x\,dx\right]\\
+  &=\frac13e^{2x}\sin3x-\frac13e^{2x}\sin3x+\int e^{2x}\cos3x\,dx\\
+  &=\int e^{2x}\cos3x\,dx.
+\end{align*}
+\end{description}
+Unfortunately that puts us right back where we started.
+However, a minor change in our effort above will eventually lead us to 
+the solution.  While keeping Step 1,
+our next step towards a solution is to replace Step 2
+by the same strategy as used in Step 1, namely that we 
+use the exponential function for $u$ and the trigonometric with  $dv$.
+\begin{description}
+\item[Step 2---Second Attempt] Again we compute $\II=\int e^{2x}\sin3x\,dx$:
+\begin{alignat*}{3}
+u&=e^{2x}&&\qquad\qquad&dv&=\sin3x\,dx\\
+du&=2e^{2x}\,dx&&&v&=-\frac13\cos3x\end{alignat*}
+\begin{align}
+\II&=uv-\int v\,du\notag\\
+   &=-\frac13e^{2x}\cos3x+\frac23\int e^{2x}\cos3x\,dx.
+   \label{(II)Step2'}\end{align}
+It may seem that (\ref{(II)Step2'}) is also a dead end,
+since it contains the original integral. But this
+attempt is different. In fact,
+when we combine (\ref{(II)Step2'}) with (\ref{(I)Step1}) we get
+\begin{align*}
+\I&=\frac13e^{2x}\sin3x-\frac23\II\\
+  &=\frac13e^{2x}\sin3x-\frac23\left[-\frac13e^{2x}\cos3x
+                                 +\frac23\int e^{2x}\cos3x\,dx\right]\\
+  &=\frac13e^{2x}\sin3x+\frac29e^{2x}\cos3x-\frac49
+\underbrace{\int e^{2x}\cos3x\,dx}_{\I},
+\end{align*}
+which we can summarize by the following equation:
+\begin{equation}
+\I=\frac13e^{2x}\sin3x+\frac29e^{2x}\cos3x-\frac49\I.
+\label{EquationToBeSolvedToFindI}
+\end{equation}
+Now we are ready to derive $\I$, not by another calculus computation,
+but in fact by simple algebra.
+\item[Step 3.] Solve (\ref{EquationToBeSolvedToFindI}) for $\I$.
+First we add $\frac49\I$ to both sides.
+$$\frac{13}{9}\I=\frac13e^{2x}\sin3x+\frac29e^{2x}\cos3x+C_1.$$
+Here we add $C_1$ because in fact each $\I$ in 
+(\ref{EquationToBeSolvedToFindI}) represents
+all antiderivatives which of course differ from eachother by
+additive constants.  Now (\ref{EquationToBeSolvedToFindI})
+makes sense because of the fact that there are additive constants on both
+sides of that equation (though on the right side they are 
+mulitplied by $-\frac49$, but that still yields additive constants).\footnote{%
+%%% FOOTNOTE
+In fact, two simlutaneous appearances of $\I$ do not have to have
+the same additive constants, so $\I-\I=C_2$, not zero.%
+%%%% END FOOTNOTE
+}  
+Solving for $\I$ we now have
+\begin{align}
+\I&=\frac9{13}\left[\frac13e^{2x}\sin3x+\frac29e^{2x}\cos3x+C_1\right]\notag\\
+&=\frac3{13}e^{2x}\sin3x+\frac2{13}e^{2x}\cos3x+C,
+\end{align}
+where $C=\frac9{13}C_1$.
+\end{description}
+\label{ExampleIntEx(2x)Sin3x;SolveFor(I)}\eex
+
+What is important to understand about the example above is that sometimes,
+though we cannot perhaps directly compute a particular integral, it may
+happen that an indirect method gives us the answer.  Here we found an
+equation, namely (\ref{EquationToBeSolvedToFindI}), which our desired
+integral satisfies, and for which it could be solved algebraically.
+We must be open to the possibility of finding a desired quantity
+by indirect methods, as well as direct computations.
+
+It should be pointed out that we could have computed the integral
+in Example~\ref{ExampleIntEx(2x)Sin3x;SolveFor(I)} by instead
+letting $u$ be the trigonometric function, and $dv=e^{2x}\,dx$
+in {\it both} steps.  In fact it is usually best to pick similar
+choices for $u$ and $dv$ when an integration by parts will take
+more than one step.  (Recall the discussion for $\int x^nf(x)\,dx$.)
+
+The method of Example~\ref{ExampleIntEx(2x)Sin3x;SolveFor(I)},
+namely solving for $\I$ after an integration by parts step, 
+is available perhaps more often than one would think.
+
+\bex Compute $\ds{\int \sin^2x\,dx=\I}$.
+
+\underline{Solution}:
+\begin{alignat*}{3}
+u&=\sin x&&\qquad\qquad&dv&=\sin x\,dx\\
+du&=\cos x\,dx&&&v&=-\cos x
+\end{alignat*}
+$$\I=\int uv-\int v\,du=-\sin x\cos x+\int\cos^2x\,dx.$$
+We could perform the same integration by parts with the second
+integral, but instead we will use the fact that $\cos^2x=1-\sin^2x$:
+\begin{align*}\I&=-\sin x\cos x+\int(1-\sin^2x)\,dx\\
+                &=-\sin x\cos x+x-\int\sin^2x\,dx\\
+                &=x-\sin x\cos x-\I.\end{align*}
+Here we see that we can add $\I$ to both sides, divide by $2$ and get
+$$\I=\frac12(x-\sin x\cos x)+C.\footnotemark$$
+\footnotetext{%%
+%%%% FOOTNOTE
+The intermediate step would be 
+  $2\I=x-\sin x\cos x+C_1$.  See the discussion
+for Example~\ref{ExampleIntEx(2x)Sin3x;SolveFor(I)},
+page~\pageref{ExampleIntEx(2x)Sin3x;SolveFor(I)}.
+
+In fact many textbooks do not bother writing the $C_1$ term, preferring
+to remind the student at the end that an indefinite integral problem 
+necessitates a ``$+C.$''%
+%%% END FOOTNOTE
+}\label{FirstPartsIntegrationOfSinSquaredX}
+\eex
+
+The example above can be computed directly if we use the trigonometric fact
+that $\sin^2x=\frac12(1-\cos 2x)$, giving
+\begin{align*}\int\sin^2x\,dx&=\int\frac12(1-\cos2x)\,dx\\
+        &=\frac12x-\frac14\sin2x+C\\
+        &=\frac12x-\frac14\cdot2\sin x\cos x+C,\end{align*}
+which is the same as before.  
+For the last step we used the (double-angle)
+trigonometric identity $\sin2x=2\sin x\cos x$.
+In Section~\ref{TrigIntsSection} we will opt for
+this alternative method, and indeed will make quite an
+effort to exploit the algebraic properties of the trignometric
+functions wherever possible, but some integrals there will
+also {\it require} integration by parts.
+
+
+
+
+
+
+\subsection{Miscellaneous Considerations}
+First we look at a definite integral arising from integration by
+parts.  It should be pointed out that the general formula
+will look like the following:\footnotemark
+\begin{equation}
+\int_{x=a}^{x=b}u\,dv=\left.\vphantom{\frac11}uv\right|_{x=a}^{x=b}
+-\int_{x=a}^{x=b}v\,du.\label{PartsForDefIntsEq}\end{equation}
+\footnotetext{%
+%%% FOOTNOTE
+Some texts leave out the ``$x=$'' parts, assuming they are 
+understood, but we will continue to use the convention that,
+unless otherwise stated, the ``limits of integration''
+should match the differential's variable.  Another popular way
+to write (\ref{PartsForDefIntsEq}) avoids the issue:
+$$\int_a^b u(x)v'(x)\,dx=\left.\vphantom{\frac11}u(x)v(x)\right|_a^b
+   -\int_a^bv(x)u'(x)\,dx.$$
+%%% END FOOTNOTE
+}
+\bex Compute $\ds{\int_{-\pi}^{\pi}x\sin x\,dx}$.
+
+\underline{Solution}:
+(Note how the negative signs cancel in the parts formula step.)
+\begin{alignat*}{3}
+u&=x&&\qquad\qquad&dv&=\sin x\,dx\\
+du&=dx&&&v&=-\cos x\end{alignat*}
+\begin{align*}
+\int_{-\pi}^{\pi}x\sin x\,dx
+  &=\left.\vphantom{X_X^X}(-x\cos x)\right|_{-\pi}^{\pi}
+    +\int_{-\pi}^{\pi}\cos x\,dx\\
+  &=[-\pi\cos\pi]-[-(-\pi)\cos(-\pi)]+\left.
+   \vphantom{\frac11}\sin x\right|_{-\pi}^{\pi}\\
+  &=(-\pi)(-1)-(\pi)(-1)+\sin\pi-\sin(-\pi)\\
+  &=\pi+\pi+0-0\\
+  &=2\pi.\end{align*}
+\eex
+
+In the example above,
+We could also have  noticed that $\int_{-\pi}^{\pi}\cos x\,dx$
+is zero because we are integrating over a whole period 
+$[-\pi,\pi]$ of $\cos x$, and both $\sin x$ and $\cos x$
+have definite integral zero over any full period.
+
+It is typical to compute that part $\left.\vphantom{\frac22}
+  u(x)v(x)\right|_{z}^b$ separately, but one could instead and
+separately compute the entire antiderivative, and then 
+evaluate at the two limits and take the difference:
+$$\int_{-\pi}^{\pi} x\sin x\,dx
+=\left.\vphantom{\frac11}\left(-x\cos x+\sin x\right)\right|_{-\pi}^{\pi}.$$
+Which method to use is a matter of bookkeeping preferences,
+and perhaps whether or not part of the 
+right-hand side of (\ref{PartsForDefIntsEq}) is particularly simple.
+
+
+The next example gives us several options along the way, though
+in each the original choices of $u$ and $dv$ are the same.
+\bex Compute $\ds{\int x\tan^{-1}x\,dx=\I}$.
+
+\underline{Solution}: Again we have little choice on our selection of
+$u$ and $dv$.
+\begin{alignat*}{3}
+u&=\tan^{-1}x&&\qquad\qquad&dv&=x\,dx\\
+du&=\frac1{x^2+1}\,dx&&&v&=\frac12x^2
+\end{alignat*}
+\begin{align*}
+\I&=uv-\int v\,du\\
+  &=\frac12x^2\tan^{-1}x-\frac12\int\frac{x^2}{x^2+1}\,dx.\end{align*}
+Now this last integral can be found by rewriting
+the integrand using either polynomial long division, or 
+by a little cleverness:
+$$\frac{x^2}{x^2+1}=\frac{x^2+1-1}{x^2+1}=\frac{x^2+1}{x^2+1}
+                       -\frac1{x^2+1}=1-\frac1{x^2+1}.$$
+Thus
+\begin{align*}
+\I&=\frac12x^2\tan^{-1}x-\frac12\int\left(1-\frac1{x^2+1}\right)\,dx\\
+ &=\frac12x^2\tan^{-1}x-\frac12x+\frac12\tan^{-1}x+C.\end{align*}
+
+Though our choice of $u$ and $dv$ was limited, 
+our choice of $v$ was not as limited.  Recall that we could have
+chosen any $v=\frac12x^2+C_1$.  In this particular integral, 
+we could have saved ourselves some effort if we had chosen
+$v$ more strategically:
+\begin{alignat*}{3}
+u&=\tan^{-1}x&&\qquad\qquad&dv&=x\,dx\\
+du&=\frac1{x^2+1}\,dx&&&v&=\frac12\left(x^2+1\right)\end{alignat*}
+This gives
+\begin{align*}
+\I&=uv-\int v\,du\\
+  &=\frac12\left(x^2+1\right)\tan^{-1}x-\int\frac{\frac12(x^2+1)}{x^2+1}\,dx\\
+  &=\frac12\left(x^2+1\right)\tan^{-1}x-\int\frac12\,dx\\
+  &=\frac12\left(x^2+1\right)\tan^{-1}x-\frac12x+C,
+\end{align*}
+as before (though rearranged).
+\eex
+Though rare, and not crucial, strategically adding a particular constant
+to the natural choice for $v$ can on occasion make for easier computations.
+
+
+
+
+\newpage
+\begin{center}
+\underline{\Large{\bf Exercises}}\end{center}
+
+\begin{multicols}{2}
+
+Compute the following integrals.
+\begin{enumerate}
+\item $\ds{\int x\sin x\,dx}$
+\item $\ds{\int x\cos x\,dx}$
+\item $\ds{\int x\sec x\tan x\,dx}$
+\item $\ds{\int x\sec^2x\,dx}$
+\item $\ds{\int x\ln x\,dx}$
+\item $\ds{\int x\tan^{-1}x\,dx}$
+\item $\ds{\int x\sec^{-1}x\,dx}$, $x>1$.
+\item $\ds{\int x\sec^{-1}x\,dx}$, $x<1$.
+\item $\ds{\int x\sqrt{1-x}\,dx}$.
+\item $\ds{\int\frac{x}{\sqrt{1-x}}\,dx}$
+\item $\ds{\int xe^x\,dx}$
+\item $\ds{\int x\sin5x\,dx}$
+\item $\ds{\int x e^{x/2}\,dx}$
+\item $\ds{\int x^3e^{x^2}\,dx}$
+\item $\ds{\int x^5\sin x^3\,dx}$
+\item $\ds{\int x^2e^{3x}\,dx}$
+\item $\ds{\int \ln x\,dx}$
+\item $\ds{\int \tan^{-1}x\,dx}$
+\item $\ds{\int\sin^{-1}x\,dx}$
+\item $\ds{\int x\sqrt{1-x^2}\ \sin^{-1}x\,dx}$
+\item $\ds{\int\sin^2x\,dx}$
+\item $\ds{\int\cos^25x\,dx}$
+\item $\ds{\int e^{5x}\cos2x\,dx}$
+\end{enumerate}
+\end{multicols}
+\newpage
+\section{Trigonometric Integrals\label{TrigIntsSection}}
+We have already looked at two basic types of trigonometric
+integrals:  those arising from the derivatives of the
+trigonometric functions (Subsection~\ref{FirstTrigRulesSubsection}, 
+page~\pageref{FirstTrigRulesSubsection}), and those of the elementary
+substitution types in Section~\ref{SecondTrigRules}.
+In this section we are mainly interested in
+computing integrals
+where the integrands are combinations of powers of
+trigonometric functions.  In such cases, the 
+angles of each trigonometric function appearing are all the same.
+Another important topic considered here is how to deal
+with trigonometric combinations where the angles differ,
+and we will examine how to deal with several of those cases.
+
+In the first examples where the angles agree, 
+we rearrange the terms in the integrand  and use 
+the three basic trigonometric identities to write the
+entire integral as function of one trigonometric function,
+and its differential as the final factor.  A substitution
+step then leads to one or more power rules.  Unfortunately
+this  only leads to a solution  if the combinations of powers 
+are of a few simple forms.  Still, these combinations occur
+often enough to warrant study.
+
+After we look at those simplest forms, we look at 
+other combinations of powers where the angles agree.  
+Techniques include other
+algebraic manipulations, as well as integration by parts.
+
+In the final forms, where the angles do not agree, we look
+at several trigonometric identities which help us to 
+rewrite the integrals in simpler forms.
+
+\subsection{Simplest Examples}
+
+These first three examples illustrate an approach we
+develop in Subsections~\ref{OddSineOrCosine},
+\ref{EvenSecant/OddTangent} and \ref{EvenCosecant/OddCotangent}.
+
+
+\bex Compute $\ds{\int\tan^2x\,dx}$.
+
+\underline{Solution}: 
+$\ds{\int\tan^2x\,dx=\int(\sec^2x-1)\,dx=\tan x-x+C.}$
+\eex
+The example above used the facts that 
+$\tan^2x=\sec^2x-1$, and that we know
+the antiderivative of $\sec^2x$ (where we
+might not have known the antiderivative of 
+$\tan^2x$ immediately).  The integral above does
+not in itself contain a general method.  Indeed there
+is no general method, but there are ways to 
+rewrite many trigonometric integrals to make their
+computations more elementary.
+\bex 
+Compute  $\ds{\int\sin^6x\,\cos^5x\,dx}$.
+
+\underline{Solution}: Here we will use the fact that 
+$\cos^2x=1-\sin^2x$, and so $\cos^{2k}x=\left(1-\sin^2x\right)^k$.
+Eventually  we will take $u=\sin x$, implying $du=\cos x\,dx$:
+\begin{align*}
+\int\sin^6x\,\cos^5x\,dx&=\int\sin^6x\,\cos^4x\,\cos x\,dx\\
+                     &=\int\sin^6x\left(1-\sin^2x\right)^2\cos x\,dx\\
+                  &=\int u^6\left(1-u^2\right)^2\,du
+                     =\int u^6\left(1-2u^2+u^4\right)\,du\\
+                  &=\int\left[u^6-2u^8+u^{10}\right]\,du\\
+                  &=\frac{u^7}7-\frac{2u^9}9+\frac{u^{11}}{11}+C\\
+                  &=\frac17\sin^7x-\frac29\sin^9x+\frac1{11}\sin^{11}x+C.
+\end{align*}
+\eex
+
+\bex Compute $\ds{\int\sec^5x\,\tan^3x\,dx}$.
+
+\underline{Solution}: Here we will borrow a factor of secant,
+and another of tangent, to form the functional part of $du$,
+where $u=\sec x$:
+
+\begin{align*}
+\int\sec^5x\,\tan^3x\,dx&=\int\sec^4x\,\tan^2x\,\sec x\tan x\,dx\\
+&=\int\sec^4x\left(\sec^2x-1\right)\sec x\tan x\,dx\\
+&=\int u^4\left(u^2-1\right)\,du\\
+&=\int\left[u^6-u^4\right]\,du\\
+&=\frac{u^7}7-\frac{u^5}5+C\\
+&=\frac17\sec^7x-\frac15\sec^5x+C.
+\end{align*}
+\eex
+
+Now we look at these three specific techniques more closely
+and generalize them.
+
+\subsection{Odd Powers of Sine or Cosine\label{OddSineOrCosine}}
+Here we are interested in the cases of integrals
+\begin{equation}\int\sin^m\theta\,\cos^n\theta\,d\theta.\label{SineCosForm1}
+\end{equation}
+where either $m$ or $n$ is odd.  Suppose, for example, that
+$m$ is odd, so that we can write $m=2k+1$ for some integer $k$.
+Then we rewrite the form (\ref{SineCosForm1}) as 
+$$\int\sin^m\theta\,\cos^{2k+1}\theta\,d\theta
+  =\int\sin^m\theta\,\cos^{2k}\theta\,\cos\theta\,d\theta.$$
+The $\cos\theta$ term which we ``peeled away'' becomes the functional
+part of the $du$, where $u=\sin\theta$ (so $du=\cos\theta\,d\theta$).
+We then write the rest of the integral in terms of $u=\sin\theta$.
+To do so we use
+\begin{alignat*}{2}
+&&\sin^2\theta+\cos^2\theta&=0\\
+&\iff&\qquad\cos^2\theta&=1-\sin^2\theta\\
+&\implies&\cos^{2k}\theta&=\left(1-\sin^2\theta\right)^k.\end{alignat*}
+Using this fact in the integral above, and setting $u=\sin\theta$, we get
+\begin{align*}
+\int\sin^m\theta\,\cos^{2k+1}\theta\,d\theta
+ & =\int\sin^m\theta\,\cos^{2k}\theta\,\cos\theta\,d\theta\\
+ &=\int\sin^m\theta\left(1-\sin^2\theta\right)^k\cos\theta\,d\theta\\
+ &=\int u^m\left(1-u^2\right)^k\,du.\end{align*}
+This yields a polynomial integrand, which
+we may then wish to expand before computing (with a sequence of power
+rules).
+
+Simliarly, if there is an odd power of the sine, we can
+use the fact that $\sin^2\theta=1-\cos^2\theta$,
+and eventually using $u=\cos\theta$, to 
+rewrite such an integral
+\begin{align*}
+\int\sin^{2k+1}\theta\,\cos\theta\,d\theta&=\int\sin^{2k}\theta\,\cos\theta
+                       \sin\theta\,d\theta\\
+  &=\int\left(1-\cos^2\theta\right)^k\cos^n\theta\,\sin\theta\,d\theta\\
+  &=\int\left(1-u^2\right)u^n(-du)\\
+  &=-\int\left(1-u^2\right)u^n\,du.
+\end{align*}
+
+In both of these it was crucial that we had an odd number of
+factors of either the sine or cosine, since ``peeling off''
+one factor then leaves an even number, which can be
+easily written in terms of the other trigonometric function.
+The peeled off factor is then the functional part of the differential
+after substitution.
+
+Note that while
+any even power of a sine or cosine function can be written
+entirely in terms of  the other, this is not the
+case with odd powers.\footnote{%%
+%%% FOOTNOTE
+Consider the trigonometric identity $\sin^2\theta+\cos^2\theta=1$.
+When solved for either the sine or cosine function, we
+get one of the following:
+\begin{align*}
+\sin\theta&=\pm\sqrt{1-\cos^2\theta},\\
+\cos\theta&=\pm\sqrt{1-\sin^2\theta}.\end{align*}
+We see the ambiguity in the $\pm$, and the introduction of a radical
+which itself can very much complicate an integral.
+However, when we raise these to 
+even powers the radicals {\it and} the $\pm$ both 
+disappear, and we are left with sums of nonnegative, integer powers.
+%%% END FOOTNOTE
+}
+This technique works because
+removing a factor from an odd power of sine or cosine,
+both provides the functional part of $du$ and leaves an even power,
+which we write in terms of the other function which is then $u$
+in the substitution.
+
+\bex Compute $\ds{\int\sin^5x\,\cos^4x\,dx}$.
+
+\underline{Solution}: Here we see an odd number of sine factors,
+as so we peel one away to be part of the differential term,
+and write the entire integral in terms of the cosine:
+\begin{align*}
+\int\sin^5x\,\cos^4x\,dx&=\int\sin^4x\,\cos^4x\,\sin x\,dx\\
+                      &=\int\left(\sin^2x\right)^2\cos^4x\,\sin x\,dx\\
+                      &=\int\left(1-\cos^2x\right)^2\cos^4x\,\sin x\,dx.
+\end{align*}
+(In most future computations we will skip the second line above.)
+Now we take
+\begin{alignat*}{2}
+&&u&=\cos x\\
+&\implies& du&=-\sin x\,dx\\
+&\iff&    -du&=\sin x\,dx.
+\end{alignat*}
+With the substitution we will have a polynomial to integrate.
+To summarize and finish the problem, we have:
+\begin{align*}
+\int\sin^5x\,\cos^4x\,dx&=\int\left(1-\cos^2x\right)^2\cos^4x\,\sin x\,dx\\
+      &=\int\left(1-u^2\right)^2u^4(-du)\\
+      &=-\int\left(1-2u^2+u^4\right)u^4\,du\\
+      &=-\int\left(u^4-2u^6+u^8\right)\,du\\
+      &=-\frac15\,u^5+\frac27\,u^7-\frac19\,u^9+C\\
+      &=-\frac15\cos^5x+\frac27\cos^7x-\frac19\cos^9x+C.
+\end{align*}
+\eex
+
+It should be clear that one cannot easily differentiate the final
+answer and immediately recognize the original integrand.  This is because
+some trigonometric identities were used to get an integrand form
+which was computable using these methods.  Indeed, it is best
+to check the validity of the steps from the beginning, rather
+than to differentiate a tentative answer.  However, it is an
+interesting exercise---left to the interested reader---in 
+trigonometric identities to 
+perform the differentiation, and then validate that the
+answer there is the original integrand.
+
+
+It is not necessary that the angle is always $x$.
+However, for this technique we do require the angles inside
+the trigonometric functions to always match, and for the
+approximate differential of the variable of substitution to be present.
+
+\bex Compute $\ds{\int\sin^45x\,\cos^35x\,dx}$.
+
+\underline{Solution}: Here there is an odd number of cosine terms, and
+we act accordingly.
+\begin{align*}
+\int\sin^45x\,\cos^35x\,dx
+  &=\int\sin^45x\,\cos^25x\,\cos5x\,dx\\
+  &=\int\sin^45x\left(1-\sin^25x\right)\cos5x\,dx.\end{align*}
+Here we have
+\begin{alignat*}{2}
+&&u&=\sin5x\\
+&\implies& du&=5\cos5x\,dx\\
+&\iff&    \frac15\,du&=\cos5x\,dx.
+\end{alignat*}
+Now we begin again, incorporating this new information into 
+our computation:
+\begin{align*}
+\int\sin^45x\,\cos^35x\,dx
+&=\int\sin^45x\left(1-\sin^25x\right)\cos5x\,dx\\
+&=\int u^4\left(1-u^2\right)\cdot\frac15\,du\\
+&=\frac15\int\left(u^4-u^6\right)\,du\\
+&=\frac15\cdot\frac15\,u^5-\frac15\cdot\frac17\,u^7+C\\
+&=\frac1{25}\sin^55x-\frac1{35}\sin^75x+C.
+\end{align*}
+\eex
+
+The technique works even if only one of the trigonometric
+functions sine or cosine appears, as long as it is to an odd
+power.
+
+\bex Compute $\ds{\int\sin^37x\,dx}$.
+
+\underline{Solution}:  Here we can still peel off a sine factor
+to be the functional part of our differential, and then
+write the remaining factors in terms of the cosine.
+
+\begin{align*}
+\int\sin^37x\,dx&=\int\sin^27x\,\sin7x\,dx\\
+                &=\int\left(1-\cos^27x\right)\sin7x\,dx.
+\end{align*}
+Using the substitution $u=\cos7x$, so $du=-7\sin7x\,dx$,
+implying $-\frac17\,du=\sin7x\,dx$, we get
+\begin{align*}
+\int\sin^37x\,dx&=
+\int\left(1-\cos^27x\right)\sin7x\,dx\\
+              &=\int\left(1-u^2\right)\cdot\frac{-1}7\,du\\
+              &=-\frac17\left[u-\frac13\,u^3\right]+C\\
+              &=-\frac17\cos7x+\frac1{21}\cos^37x+C.
+\end{align*}
+\eex
+
+Furthermore, not all the powers need to be positive integer powers,
+as long as one is odd.
+
+\bex Compute $\ds{\int\frac{\cos^7x}{\sqrt{\sin x}}\,dx}$.
+
+\underline{Solution}:  Here we have an odd number of cosine terms,
+so we will peel one off to be the functional part of our differential.
+That is, we will have $u=\sin x$, so $du=\cos x\,dx$. Thus
+\begin{align*}
+\int\frac{\cos^7x}{\sqrt{\sin x}}\,dx
+&=\int\frac{\cos^6x}{\sqrt{\sin x}}\,\cos x\,dx\\
+&=\int\frac{\left(1-\sin^2x\right)^3}{\sqrt{\sin x}}\,\cos x\,dx\\
+&=\int\frac{\left(1-u^2\right)^3}{\sqrt{u}}\,du\\
+&=\int\frac{1-3u^2+3u^4-u^6}{u^{1/2}}\,du\\
+&=\int\left[u^{-1/2}-3u^{3/2}+3u^{7/2}-u^{11/2}\right]\,du\\
+&=2u^{1/2}-3\cdot\frac25\,u^{5/2}+3\cdot\frac29\,u^{9/2}-\frac2{13}\,u^{13/2}
+          +C\\
+&=2u^{1/2}\left[1-\frac35u^2+\frac13u^4-\frac1{13}u^6\right]+C\\
+&=2\sqrt{\sin x}\left[1-\frac35\sin^2x+\frac13\sin^4x-\frac1{13}\sin^6x\right]
+   +C.
+\end{align*}
+\eex
+
+It is possible that both powers are odd, and either
+function can be peeled off, and the integral written in terms of the
+other.  However, if one of these odd powers is greater than the other,
+it is more efficient to peel off a factor from the lower power, as the
+next example demonstrates.
+
+\bex Compute $\ds{\int\sin^3x\,\cos^7x\,dx}$.
+
+\underline{Solution}:  We will consider both methods for computing
+this antiderivative.  First we peel off a sine to be part of
+the differential, and let $u=\cos x$.
+\begin{align*}
+\int\sin^3x\,\cos^7x\,dx&=\int\sin^2x\,\cos^7x\,\sin x\,dx\\
+                      &=\int\left(1-\cos^2x\right)\cos^7x\,\sin x\,dx\\
+                      &=\int\left(1-u^2\right)u^7(-\,du)\\
+                      &=-\int\left(u^7-u^9\right)\,du\\
+                      &=-\frac18\,u^8+\frac1{10}\,u^{10}+C\\
+                      &=-\frac18\cos^8x+\frac1{10}\cos^{10}x+C.
+\end{align*}
+Next we instead peel off a cosine factor, and let $w=\sin x$.
+\begin{align*}
+\int\sin^3x\,\cos^7x\,dx&=\int\sin^3x\,\cos^6x\,\cos x\,dx\\
+        &=\int\sin^3x\left(1-\sin^2x\right)^3\cos x\,dx\\
+        &=\int w^3\left(1-w^2\right)^3\,dw\\
+        &=\int w^3\left(1-3w^2+3w^4-w^6\right)\,dw\\
+        &=\int\left(w^3-3w^5+3w^7-w^9\right)\,dw\\
+        &=\frac14\,w^4-\frac36\,w^6+\frac38\,w^8-\frac1{10}\,w^{10}+C\\
+        &=\frac14\sin^4x-\frac12\sin^6x+\frac38\sin^8x-\frac1{10}\sin^{10}x+C.
+\end{align*}
+\eex
+
+As we see in the above example, there can be different valid choices for
+some integrals.  The answers may look very different, but 
+that is a reflection of the wealth of trigonometric identities 
+available.  In fact, the antiderivatives, excluding the arbitrary
+constants, need not be equal, but the difference should be 
+accounted for in the constants.\footnote{%%%
+%%% FOOTNOTE
+Recall the integral $\int2\sin x\cos x\,dx$, for which one
+can let either $u=\sin x$ or $u=\cos x$, yielding
+\begin{align*}
+\int2\sin x\cos x\,dx&=\sin^2x+C_1,\qquad\text{or}\\
+\int2\sin x\cos x\,dx&=-\cos^2x+C_2.\end{align*}
+Since these differ by a constant, specifically
+$\sin^2x=-\cos^2x+1$, both are valid.  But clearly
+$\sin^2x\ne\cos^2x$.
+%%% END FOOTNOTE
+}
+
+
+
+
+\subsection{Even Powers of Secant or Odd Powers of Tangent
+\label{EvenSecant/OddTangent}}
+This technique of peeling off some factors of a trigonometric
+function to be part of the $du$ (after substitution) has
+two workable versions for integrals of the type
+\begin{equation}
+\int\sec^m\,\theta\tan^n\theta\,d\theta.\label{SecantTangentForm1}
+\end{equation}
+These rely upon the following facts from trigonometry and calculus:
+\begin{alignat*}{3}
+\tan^2\theta+1&=\sec^2\theta,&\qquad\qquad
+            \frac{d}{d\theta}\tan\theta&=\sec^2\theta,\\
+\sec^2\theta-1&=\tan^2\theta,&\qquad\frac{d}{d\theta}
+        \sec\theta&=\sec\theta\tan\theta.\end{alignat*}
+
+The techniques we will employ are as follow:
+\begin{enumerate}
+\item If an integral of the form (\ref{SecantTangentForm1})
+contains an odd power of tangent, we peel off a factor
+$\sec\theta\tan\theta$ to be the functional part of the differential.
+This leaves an even power of tangent, which can be written as
+a power of $\left(\sec^2\theta-1\right)$.
+\item If an integral of the form (\ref{SecantTangentForm1})
+contains an even power of secant, we peel off a factor
+$\sec^2\theta$ to be the functional part of the differential.
+The remaining even power of secant is then written as 
+a power of $\left(\tan^2\theta+1\right)$.
+\end{enumerate}
+
+\bex Compute $\ds{\int\sec^6x\,\tan^8x\,dx}$.
+
+\underline{Solution}  Here we have an even number of secant factors,
+and so we can peel off two.  Eventually we will let $u=\tan x$,
+implying $du=\sec^2x\,dx$.
+\begin{align*}
+\int\sec^6x\,\tan^8x\,dx
+ &=\int\sec^4x\,\tan^8x\,\sec^2x\,dx\\
+ &=\int\left(\tan^2x+1\right)^2\tan^8x\,\sec^2x\,dx\\
+ &=\int\left(u^2+1\right)^2u^8\,du\\
+ &=\int\left(u^4+2u^2+1\right)u^8\,du\\
+ &=\int\left(u^{12}+2u^{10}+u^8\right)\,du\\
+ &=\frac1{13}\,u^{13}+\frac2{11}\,u^{11}+\frac19\,u^9+C\\
+ &=\frac1{13}\tan^{13}x+\frac2{11}\tan^{11}x+\frac19\tan^9x+C.
+\end{align*}
+\label{SecEvenTanEven1}\eex
+
+\bex Compute $\ds{\int\sec^72x\tan^52x\,dx}$
+
+\underline{Solution}:
+Here we have an odd number of tangent factors, so we peel off a 
+$\sec2x\tan2x$ factor to be the functional part of the differential.
+Eventually we then have $u=\sec2x$, giving $du=2\sec2x\tan2x\,dx$
+and thus $\frac12\,du=\sec2x\tan2x\,dx$.
+\begin{align*}
+\int\sec^72x\,\tan^52x\,dx
+ &=\int\sec^62x\,\tan^42x\,\sec2x\tan2x\,dx\\
+ &=\int\sec^62x\left(\sec^22x-1\right)^2\sec2x\tan2x\,dx\\
+ &=\int u^6\left(u^2-1\right)^2\cdot\frac12\,du\\
+ &=\frac12\int u^6\left(u^4-2u^2+1\right)\,du\\
+ &=\frac12\int\left(u^{10}-2u^8+u^6\right)\,du\\
+ &=\frac12\left[\frac1{11}\,u^{11}-\frac29\,u^9+\frac17\,u^7\right]+C\\
+ &=\frac1{22}\sec^{11}2x-\frac19\sec^92x+\frac1{14}\sec^72x+C.
+\end{align*}
+\eex
+In fact this last example could be computed by first rewriting
+the integral in terms of cosines and sines:
+\begin{align*}
+\int\frac{\sin^52x}{\cos^{12}2x}\,dx
+&=\int\frac{\sin^42x}{\cos^{12}2x}\sin2x\,dx
+=\int\frac{\left(1-\cos^22x\right)^2}{\cos^{12}2x}\sin2x\,dx\\
+&=\int\frac{\left(1-u^2\right)^2}{u^{12}}\cdot\frac{-1}2\,du
+=-\frac12\int u^{-12}\left(1-2u^2+u^4\right)\,du,\text{ etc.}
+\end{align*}
+Thus, the relationships involving the secant and tangent are
+not required in this last example.  However, rewriting
+the integral in the previous problem, Example~\ref{SecEvenTanEven1},
+in terms of sines and cosines would not yield either to an odd
+power.  Thus  Example~\ref{SecEvenTanEven1} illustrates
+an integral which does benefit from the extra structure
+(algebraic and calculus) of the secant-tangent relationship.
+
+\bex Compute $\ds{\int\tan^4x\,dx}$.
+
+\underline{Solution}:  Here we look at two solutions.
+In the first, instead of exploiting the fact that there are an even
+number of factors of secant (namely zero) present here,
+we will repeatedly use the fact that $\tan^2\theta+1=\sec^2\theta$.
+(In the second line, we let $u=\tan x$.)
+\begin{align*}
+\int\tan^4x\,dx&=\int\tan^2x\left(sec^2x-1\right)\,dx\\
+               &=\int\underbrace{\tan^2x}_{u^2}\underbrace{\sec^2x}_{du}
+                 \,dx -\int\tan^2x\,dx\\
+               &=\frac13\tan^3x-\int\tan^2x\,dx\\
+               &=\frac13\tan^3x-\int\left(\sec^2x-1\right)\,dx\\
+               &=\frac13\tan^3x-\tan x+x+C.\end{align*}
+Of course the other method is to ``peel off'' a factor of $\sec^2x$, which
+we do even
+though it does not really appear.  To have it appear, we will
+multiply and divide the integrand by $\sec^2x$.  Then
+we will let $u=\tan x$.
+A long division will give us the sum of powers in our final integral
+below.
+\begin{align*}
+\int\tan^4x\,dx&=\int\frac{\tan^4x}{\sec^2x}\sec^2x\,dx\\
+               &=\int\frac{\tan^4x}{\tan^2x+1}\sec^2x\,dx\\
+               &=\int\frac{u^4}{u^2+1}\,du\\
+               &=\int\left(u^2-1+\frac1{u^2+1}\right)\,du\\
+               &=\frac13\,u^3-u+\tan^{-1}u+C_1\\
+               &=\frac13\tan^3x-\tan x+\tan^{-1}(\tan x)+C_1\\
+               &=\frac13\tan^3x-\tan x+x+C.
+\end{align*}
+Here we did have the extra complication of long division.
+Furthermore, to see that the two answers were the same we
+had to notice
+$\tan^{-1}(\tan x)=x+n\pi$, where $n\in\mathbb{Z}$, i.e., $n$ is
+an integer.\footnote{
+%%% FOOTNOTE
+Recall knowing $\tan x$ does not mean we know
+the angle $x$, but we do know it to an integer multiple of $\pi$,
+which is the period of tangent.  Recall also that
+tangent is one-to-one in each such period. (Of course the
+integral is only defined on each period individually,
+separated by the discontinuities---in fact vertical 
+asymptotes---of the integrand.)  Furthermore, the arctangent
+function only outputs angles in the period $-\pi/2<\theta<\pi/2$,
+so $\tan^{-1}(\tan x)\in(-\pi/2,\pi/2)$, where $x$ is not so restricted.
+Eventually, this is all taken care of by the arbitrary nature
+of the constant $C$.%
+%%% END FOOTNOTE
+}  Thus the final constant $C$ takes into account $C_1-n\pi$, still
+a constant.
+\eex
+
+\subsection{Even Powers of Cosecant or Odd Powers of Cotangent
+\label{EvenCosecant/OddCotangent}}
+
+Here we just point out that a similar relationship 
+exists between the cosecant and cotangent, as exists
+between the secant and tangent.  We briefly look
+at two examples to illustrate this.   The integral type
+is 
+\begin{equation}
+\int\csc^m\theta\,\cot^n\theta\,d\theta.\label{CosecantCotangentForm1}
+\end{equation}
+We begin with  the following facts from trigonometry and calculus:
+\begin{alignat*}{3}
+\cot^2\theta+1&=\csc^2\theta,&\qquad\qquad
+            \frac{d}{d\theta}\cot\theta&=-\csc^2\theta,\\
+\csc^2\theta-1&=\cot^2\theta,&\qquad\frac{d}{d\theta}
+        \csc\theta&=-\csc\theta\cot\theta.\end{alignat*}
+
+The techniques we will employ mirror those used for
+the secant-tangent integrals:
+\begin{enumerate}
+\item If an integral of the form (\ref{CosecantCotangentForm1})
+contains an odd power of cotangent, we peel off a factor
+$\csc\theta\cot\theta$ to be the functional part of the differential.
+This leaves an even power of cotangent, which can be written as
+a power of $\left(\csc^2\theta-1\right)$.
+\item If an integral of the form (\ref{CosecantCotangentForm1})
+contains an even power of cosecant, we peel off a factor
+$\csc^2\theta$ to be the functional part of the differential.
+The remaining even power of cosecant is then written as 
+a power of $\left(\cot^2\theta+1\right)$.
+\end{enumerate}
+
+\bex Compute $\ds{\int\csc^8x\,\cot^2x\,dx}$.
+
+\underline{Solution}: We see an even number of cosecants, so
+we peel off two to be part of the differential.
+\begin{align*}
+\int\csc^8x\,\cot^2x\,dx&=\int\csc^6x\,\cot^2x\,\csc^2x\,dx\\
+    &=\int\left(\csc^2x\right)^3\cot^2x\,\csc^2x\,dx\\
+    &=\int\left(\cot^2x+1\right)^3\cot^2x\,\csc^2x\,dx.
+\end{align*} 
+Taking $u=\cot x$, giving $du=-\csc^2x\,dx$, so $-du=\csc^2x\,dx$,
+we get
+\begin{align*}
+\int\csc^8x\,\cot^2x\,dx&\int\left(\cot^2x+1\right)^3\cot^2x\,\csc^2x\,dx\\
+         &=\int\left(u^2+1\right)^3u^2(-du)\\
+         &=-\int\left(u^6+3u^4+3u^2+1\right)u^2\,du\\
+         &=-\int\left(u^8+3u^6+3u^4+u^2\right)\,du\\
+         &=-\frac19\,u^9-\frac37\,u^7-\frac35\,u^5-\frac13\,u^3+C\\
+         &=-\frac19\cot^9x-\frac37\cot^7x-\frac35\cot^5x-\frac13\cot^3x+C.
+\end{align*}
+\eex
+%\newpage
+\bex Compute $\ds{\int\csc^3\frac{x}2\,\cot^3\frac{x}2\,dx}$.
+
+\underline{Solution}: Here the cotangent appears to an odd
+power, so we will peel of one cosecant and one cotangent.
+\begin{align*}
+\int\csc^3\frac{x}2\,\cot^3\frac{x}2\,dx
+  &=\int\csc^2\frac{x}2\,\cot^2\frac{x}2\,\csc\frac{x}2\,\cot\frac{x}2\,dx\\
+  &=\int\csc^2\frac{x}2\left(\csc^2\frac{x}2-1\right)
+          \csc\frac{x}2\cot\frac{x}2\,dx.
+\end{align*}
+Now we let $u=\csc\frac{x}2$, implying
+$du=-\csc\frac{x}2\cot\frac{x}2\cdot\frac12\,dx$,
+whence
+$-2\,du=\csc\frac{x}2\cot\frac{x}2\,dx$.
+Our integral then becomes
+\begin{align*}
+\int\csc^3\frac{x}2\,\cot^3\frac{x}2\,dx
+ &=\int\csc^2\frac{x}2\left(\csc^2\frac{x}2-1\right)
+          \csc\frac{x}2\cot\frac{x}2\,dx\\
+ &=\int u^2\left(u^2-1\right)(-2)\,du\\
+ &=-2\int\left(u^4-u^2\right)\,du\\
+ &=-\frac25\,u^5+\frac23\,u^3+C\\
+ &=-\frac25\csc^5\frac{x}2+\frac23\csc^3\frac{x}2+C.
+\end{align*}
+\eex
+
+\subsection{Even Powers of Sine and Cosine}
+Now we turn our attention to the question of integration
+when both powers of sine and cosine are even.  There
+are two standard methods for handling this:
+integration by parts, and ``half-angle formulas.''
+The former is more useful when the powers are small
+than when they are large, and the latter is perhaps
+more general.\footnote{%
+%%% FOOTNOTE
+In today's calculus texts, integration by parts is less
+prominently presented for such integrals, while half-angle
+methods are more popular among authors.  We present
+both here for the lower powers, as some of the phenomena 
+found in the integration by parts 
+for such integrals are found later in this section.%
+%%%% END FOOTNOTE
+}
+
+\bex Compute $\ds{\int\sin^2x\,dx}$ using integration by parts.
+
+\underline{Solution}: This exact computation was performed
+in
+Example~\ref{FirstPartsIntegrationOfSinSquaredX},
+page~\pageref{FirstPartsIntegrationOfSinSquaredX}.
+So that it is in front of us here, we summarize that 
+computation:
+\begin{align*}
+\I&=\int\underbrace{\sin x}_{u}\underbrace{\sin x\,dx}_{dv}
+   =\underbrace{(\sin x)}_v\underbrace{(-\cos x)}_{v}
+         -\int\underbrace{(-\cos x)}_v\underbrace{\cos x\,dx}_{du}
+   =-\sin x\cos x+\int\cos^2x\,dx\\
+  &=-\sin x\cos x+\int\left(1-\sin^2x\right)\,dx
+   =-\sin x\cos x+x-\int\sin^2x\,dx\\
+  &=x-\sin x\cos x-\I.
+\end{align*}
+At this point we add $\I=\int\sin^2x\,dx$ to both sides to get
+\begin{align*}
+2\int\sin^2x\,dx&=x-\sin x\cos x+C_1\\
+\implies
+\int\sin^2x\,dx&=\frac12\left(x-\sin x\cos x\right)+C.\end{align*}
+\label{IntOfSineSquaredForTrigIntegrals}\eex
+
+The method above works well for integrating
+$\sin^2x$ or $\cos^2x$, but higher, even powers
+become more cumbersome.  For this reason it is 
+common to opt for alternatives involving 
+slightly more sophisticated trigonometric identities.
+There is some redundancy in the list below, as 
+(\ref{SineIsOdd}), (\ref{CosineIsEven}),
+(\ref{Sine(A+B)}) and (\ref{Cosine(A+B)}) together imply 
+the others.
+\begin{align}
+\sin(-\theta)&=-\sin\theta,\label{SineIsOdd}\\
+\cos(-\theta)&=\cos\theta,\label{CosineIsEven}\\
+\sin(A+B)&=\sin A\cos B+\sin B\cos A\label{Sine(A+B)}\\
+\sin(A-B)&=\sin A\cos B-\sin B\cos A\label{Sine(A-B)}\\
+\cos(A+B)&=\cos A\cos B-\sin A\sin B\label{Cosine(A+B)}\\
+\cos(A-B)&=\cos A\cos B+\sin A\sin B\label{Cosine(A-B)}\\
+\sin 2A&=2\sin A\cos A\label{Sine2A}\\
+\cos 2A&=\cos^2A-\sin^2A\label{Cosine2A-Version1}\\
+\cos 2A&=2\cos^2A-1\label{Cosine2A-Version2}\\
+\cos 2A&=1-2\sin^2A.\label{Cosine2A-Version3}
+\end{align}
+It is left for the exercises to show that 
+\begin{enumerate}
+\item (\ref{Sine(A-B)})
+follows from replacing $B$ with $-B$ in (\ref{Sine(A+B)}),
+\item Similarly, (\ref{Cosine(A-B)})
+follows from (\ref{Cosine(A+B)}).
+\item (\ref{Sine2A}) follows from (\ref{Sine(A+B)}), if we let $B=A$.
+\item Similarly (\ref{Cosine2A-Version1}) follows from (\ref{Cosine(A+B)}).
+\item (\ref{Cosine2A-Version2}) and (\ref{Cosine2A-Version3})
+      follow from (\ref{Cosine2A-Version1}) and the identity
+      $\sin^2A+\cos^2A=1$.
+\end{enumerate}
+Now (\ref{Cosine2A-Version2}) and (\ref{Cosine2A-Version3}) can 
+be rewritten as follow:
+\begin{align*}
+\cos2A+1&=2\cos^2A,\\
+2\sin^2A&=1-\cos2A.\end{align*}
+Replacing $A$ with $\theta$, we can divide these by 2 to get
+so-called half-angle formulas:\footnote{%
+%%% FOOTNOTE
+Equations (\ref{Half-AngleForCosineSquared}) 
+and (\ref{Half-AngleForSineSquared})
+are called half-angle formulas because the 
+angle $\theta$ on the left is half of the angle $2\theta$ on the
+right.  In fact, knowing the location of the terminal side of an
+angle does not tell us where its half is located.
+Indeed, $90^\circ$ and $450^\circ$ are coterminal, but 
+their half angles, $45^\circ$ and $225^\circ$ are not.
+This is reflected in what are given as ``half-angle'' formulas
+in most trigonometry texts (compare to
+(\ref{Half-AngleForCosineSquared}) and (\ref{Half-AngleForSineSquared})):
+\begin{align*}
+\cos\frac{\alpha}2&=\pm\sqrt{\frac{1+\cos\alpha}2}\\
+\sin\frac{\alpha}2&=\pm\sqrt{\frac{1-\cos\alpha}2}.\end{align*}
+However, knowing where an angle terminates does determine where
+twice the angle terminates, as is reflected in 
+(\ref{Sine2A})--(\ref{Cosine2A-Version3}).
+%%% END FOOTNOTE
+}
+\begin{align}
+\cos^2\theta&=\frac12\left(1+\cos2\theta\right),
+              \label{Half-AngleForCosineSquared}\\
+\sin^2\theta&=\frac12\left(1-\cos2\theta\right).
+             \label{Half-AngleForSineSquared}
+\end{align}
+Using (\ref{Half-AngleForSineSquared}), we see
+$$\int\sin^2x\,dx=\int\frac12(1-\cos2x)\,dx
+=\frac12\left[x-\frac12\sin2x\right]+C.$$
+For reasons which will be clear in the next section, it is
+often desirable that the angle in the final answer agree
+with the original angle, in this case $x$.
+For that we use the double-angle formula (\ref{Sine2A}),
+to get
+\begin{align*}\int\sin^2x\,dx&=\frac12\left[x-\frac12\sin2x\right]+C
+ =\frac12\left[x-\frac12\cdot2\sin x\cos x\right]+C\\
+ &=\frac12x-\frac12\sin x\cos x+C.\end{align*}
+This agrees with the answer we obtained through
+integration by parts, in 
+Example~\ref{IntOfSineSquaredForTrigIntegrals},
+page~\pageref{IntOfSineSquaredForTrigIntegrals}.
+
+\newpage
+\bex Compute $\ds{\int\sin^4x\,dx}$.
+
+\underline{Solution}: Here we use the half-angle formulas 
+repeatedly, until our integral has no positive, even powers of sine or cosine:
+\begin{align*}
+\int\sin^4x\,dx&=\int\left(\sin^2x\right)^2\,dx
+                =\int\left[\frac12\left(1-\cos2x\right)\right]^2\,dx\\
+               &=\frac14\int\left(1-2\cos2x+\cos^22x\right)\,dx\\
+               &=\frac14\int\left[1-2\cos2x+\frac12(1+\cos4x)\right]\,dx\\
+               &=\frac14\int\left[\frac32-2\cos2x+\frac12\cos4x\right]\,dx\\
+          &=\frac14\left[\frac32\,x-\sin2x+\frac12\cdot\frac14\sin4x\right]+C\\
+        &=\frac38x-\frac14\sin2x+\frac1{32}\sin4x+C.
+\end{align*}
+This answer is correct, but if we want to match the angles to the
+original ($x$), we can use some double-angle formulas
+(\ref{Sine2A}) and (\ref{Cosine2A-Version1}):
+\begin{align*}
+\int\sin^4x\,dx&=\frac38x-\frac14\sin2x+\frac1{32}\sin4x+C\\
+&=\frac38\,x-\frac14\cdot2\sin x\cos x+\frac1{32}\cdot2\sin2x\cos2x+C\\
+&=\frac38\,x-\frac12\sin x\cos x+\frac1{16}(2\sin x\cos x)(\cos^2x-\sin^2x)+C,
+\end{align*}               
+which can again be simplified and rewritten in several ways.
+\eex
+
+\bex Compute $\ds{\int\sin^23x\,\cos^23x\,dx}$.
+
+\underline{Solution}: 
+\begin{align*}
+\int\sin^23x\,\cos^23x\,dx
+ &=\int\frac12(1-\cos6x)\cdot\frac12(1+\cos6x)\,dx
+  =\frac14\int\left(1-\cos^26x\right)\,dx\\
+ &=\frac14\int\left[1-\frac12(1+\cos12x)\right]\,dx
+  =\frac14\int\left[\frac12-\frac12\cos12x\right]\,dx\\
+ &=\frac14\left[\frac{x}2-\frac12\cdot\frac1{12}\sin12x\right]+C
+  =\frac{x}8-\frac1{96}\sin12x+C.
+\end{align*}
+(We could have used $1-\cos^26x=\sin^26x$ after the first line.)
+As before, if we would like to have our answer in terms of the
+original angle, we need to utilize the double angle formulas
+(\ref{Sine2A}) and (\ref{Cosine2A-Version1}):
+\begin{align*}
+\int\sin^23x\,\cos^23x\,dx
+  &=\frac{x}8-\frac1{96}\sin12x+C\\
+  &=\frac{x}8-\frac1{96}\cdot2\sin6x\cos6x+C\\
+  &=\frac{x}8-\frac1{48}(2\sin3x\cos3x)(\cos^23x-\sin^23x)+C\\
+  &=\frac{x}8-\frac1{24}\sin3x\cos3x(\cos^23x-\sin^23x)+C.
+\end{align*}
+\eex
+
+\subsection{Miscellaneous Problems and Methods}
+There are many trigonometric integrals that
+either do not fit one of the above categories, or
+for which those methods are unwieldy.  We
+will look at several such here.  The reader should 
+realize, however, that we cannot exhaust all
+possibilities here, and a particular problem may have
+a particularly clever solution which does not generalize
+well to other problems.
+
+The methods of the earlier subsections are all standard and any
+successful calculus student is expected to know them.
+The first few examples here are of this class also, in
+that the better students should be able to handle these
+without resorting to references.  We will, however, 
+eventually have methods in this subsection
+which such a student should be
+aware of, but is understandably less likely to be able to 
+recite from memory.
+All are derivable, but again, the latter are somewhat more 
+obscure and even an excellent students might prefer to use 
+a reference.  It is important, however,  that all students
+be aware of these latter classes of problems, 
+and the available methods of solution,
+regardless of whether a reference is used ultimately.
+
+\bex Compute $\ds{\int\sec^3x\,dx}$.
+
+\underline{Solution}: Here we have an odd number of secants,
+and an even (zero) number of tangents.  Unfortunately our
+ealier methods called for an even number of secants or
+an odd number of tangents.  We could notice that the integrand
+represents an odd number ($-3$) of cosines, and
+then with $u=\sin x$, we could write
+$$\int\sec^3x\,dx=\int\frac1{\cos^3x}\,dx=\int\frac1{\cos^4x}\,\cos x\,dx
+                 =\int\frac1{\left(1-\sin^2x\right)^2}\cos x\,dx
+                 =\int\frac1{\left(1-u^2\right)^2}\,du,$$
+but in fact we have yet to discuss how to integrate that final
+form. (We will in Section~\ref{PartialFracSection},
+and while it will be somewhat long, it will be a straightforward computation
+there).
+Instead we will next try integration by parts.  
+Since the integrand contains an easily integrated $\sec^2x\,dx$ factor, we will
+let that be $dv$:
+\begin{alignat*}{3}
+u&=\sec x&&\qquad\qquad&dv&=\sec^2x\,dx\\
+du&=\sec x\tan xdx&&&v&=\tan x 
+\end{alignat*}
+$$\int\sec^3x\,dx=uv-\int v\,du=\sec x\tan x-\int \sec x\tan^2x\,dx.$$
+Now it is tempting to do another parts step, with $dv=\sec x\tan x\,dx$,
+but---as happened in some previous examples---we would then have
+our original integral on the left, and the same on the right.
+What works here is to instead use one of the basic trigonometric 
+identities at this step:
+\begin{align*}
+\int\sec^3x\,dx&=\sec x\tan x-\int\sec x \tan^2x\,dx\\
+           &=\sec x \tan x-\int\sec x\left(\sec^2x-1\right)+C\\
+       &=\sec x\tan x -\int\sec^3 x\,dx +\int\sec x\,dx\\
+       &=\sec x\tan x+\ln|\sec x+\tan x|-\int\sec^3x\,dx.
+\end{align*}
+Adding $\int\sec^3x\,dx$ to both sides gives
+\begin{align*}
+2\int\sec^3x\,dx&=\sec x\tan x+\ln|\sec x+\tan x|+C_1\\
+\implies
+\int\sec^3x\,dx&=\frac12(\sec x\tan x+\ln|\sec x+\tan x|)+C.
+\end{align*}
+\eex
+
+When integrating arbitrary integer powers of the trigonometric
+functions, a common technique is to make use of so-called
+{\it reduction formulas}.  These are derived using integration
+by parts, often incorporating the kind of computation 
+above.  For instance, let us consider the general problem of
+integrating $\sec^nx$, where $n\ge3$.  Such an  integral contains
+within its integrand
+the factor $\sec^2x$, which we use in the $dv$ term.
+Integration by parts can proceed as follows:
+\begin{alignat*}{3}
+u&=\sec^{n-2} x&&\qquad\qquad&dv&=\sec^2x\,dx\\
+du&=(n-2)\sec^{n-3}x\,\sec x \cdot\tan x\,dx&&&v&=\tan x\\
+du&=(n-2)\sec^{n-2}x\,\tan x\,dx 
+\end{alignat*}
+giving us
+\begin{align*}
+\int\sec^nx\,dx
+&=\int\underbrace{\sec^{n-2}x}_{u}\underbrace{\sec^2x\,dx}_{dv}\\
+&=\sec^{n-2}x\,\tan x-\int(n-2)\sec^{n-2}x\,\tan^2x\,dx\\
+&=\sec^{n-2}x\,\tan x-\int(n-2)\sec^{n-2}x\left(\sec^2x-1\right)\,dx\\
+&=\sec^{n-2}x\,\tan x-(n-2)\int\sec^nx\,dx+(n-2)\int\sec^{n-2}x\,dx\\
+\implies
+(n-1)\int\sec^nx\,dx&=\sec^{n-2}x\,\tan x+(n-2)\int\sec^{n-2}x\,dx.
+\end{align*}
+Now we can divide by $(n-1)$ to get a general reduction formula
+\begin{equation}
+\int\sec^nx\,dx=\frac1{n-1}\,\sec^{n-2}x\,\tan x+\frac{n-2}{n-1}\int
+\sec^{n-2}x\,dx.\label{ReductionFormulaForSecant}\end{equation}
+This is called a reduction formula because the resulting integral
+is of a lower power of secant.  A quick inspection reveals that
+this formula is valid for $n=2$ as well, so it is if fact valid
+for $n\ge2$.  
+
+\bex Compute $\ds{\int\sec^5x\,dx}$.
+
+\underline{Solution}: Here we will invoke the formula twice:
+once for $n=5$, and then again for $n=3$ to deal with the
+resulting integral.  That will give an integral of secant
+to the first power, which is one which should be already
+memorized.
+\begin{alignat*}{2}
+\int\sec^5x\,dx&=\frac14\sec^3x\,\tan x+\frac{3}{4}\int\sec^3x\,dx
+ &\qquad&\text{($n$=5 in (\ref{ReductionFormulaForSecant}))}\\
+ &=\frac14\sec^3x\,\tan x+\frac34\left[\frac12\sec x\tan x+\frac12
+              \int\sec x\,dx\right]&
+        &\text{($n$=3 in (\ref{ReductionFormulaForSecant}))}\\
+ &=\frac14\sec^3x\,\tan x+\frac38\sec x\tan x+\frac38
+         \ln|\sec x+\tan x|+C.\end{alignat*}
+\eex
+
+Other reduction formulas which can be arrived at similarly
+include
+\begin{align}
+\int\sin^nx\,dx&=-\frac{\sin^{n-1}x\,\cos x}{n}
+       +\frac{n-1}n\int\sin^{n-2}x\,dx,
+        \label{ReductionFormulaForSine}\\
+\int\cos^nx\,dx&=\frac{\cos^{n-1}x\,\sin x}{n}
+       +\frac{n-1}n\int\cos^{n-2}x\,dx.
+        \label{ReductionFormulaForCosine}
+\end{align}
+
+\bex Compute $\ds{\int\cos^65x\,dx}$.
+
+\underline{Solution}: Here we cannot use the formula
+(\ref{ReductionFormulaForCosine}) directly, because our angle does
+not match our differential.  To compensate, we will
+perform a substitution step first.  Specifically, we will
+let $u=5x$, so $du=5dx$ and thus $\frac15\,du=dx$, giving
+\begin{alignat*}{2}
+\int\cos^65x\,dx&=\int\cos^6u\cdot\frac15\,du\\
+&=\frac15\int\cos^6u\,du\\
+&=\frac15\left[\frac{\cos^5u\,\sin u}6+\frac56\int\cos^4u\,du\right]
+        &\qquad&\text{($n=6$ in (\ref{ReductionFormulaForCosine}))}\\
+&=\frac{\cos^5u\,\sin u}{30}+\frac16\left[\frac{\cos^3u\,\sin u}{4}
+           +\frac34\int\cos^2u\,du\right]
+          &&\text{($n=4$ in (\ref{ReductionFormulaForCosine}))}\\
+&=\frac{\cos^5u\,\sin u}{30}+\frac{\cos^3u\,\sin u}{24}
+           +\frac18\left[\frac{\cos u\sin u}2+\frac12\int 1\,du\right]
+          &&\text{($n=2$ in (\ref{ReductionFormulaForCosine}))}\\
+&=\frac{\cos^5u\,\sin u}{30}+\frac{\cos^3u\,\sin u}{24}
+           +\frac{\cos u\sin u}{16}+\frac1{16}\,u+C\\
+&=\frac{\cos^55x\,\sin5x}{30}+\frac{\cos^35x\,\sin 5x}{24}
+           +\frac{\cos 5x\sin 5x}{16}+\frac{5x}{16}+C.
+\end{alignat*}
+\eex
+
+Clearly reduction formulas can be very useful.  Indeed they 
+provide an iterative method for reducing an integral computation,
+step by step, until---hopefully---a manageable integral appears.
+In fact in 
+both examples above, we used the reduction formula for one more step
+than necessary, because it was easier than 
+recomputing $\int\sec^3x\,dx$ or $\int\cos^2u\,du$ as before.
+Furthermore, many of the technical details for finding these
+integrals are built into the reduction formulas.
+
+As useful as the reduction formulas are, they have a couple of
+minor drawbacks.  First, when the angle does not match the differential,
+some substitution needs to be performed to compensate.
+Second---and more serious---is that any attempt to memorize these is likely
+to result in error.  Thus the student of calculus needs to learn
+the earlier methods and be able to perform such calculations
+unaided, and also know that these reduction formulas (and others)
+are available and know how to use them.\footnote{%
+%%% FOOTNOTE
+Such formulas can be found in most engineering/science calculus
+texts, as well as books containing tables of integration formulas
+such as the {\it CRC Standard Mathematical Tables and Formulae}.
+%%% END FOOTNOTE
+}
+
+Now we consider integrals of following three forms, where $m\ne n$:
+$$\int\sin mx\,\sin nx\,dx,
+\qquad\qquad
+\int\sin mx\,\cos nx\,dx,
+\qquad\qquad
+\int\cos mx\,\cos nx\,dx.$$
+What distinguishes these is that the angles of the trigonometric functions
+do not agree.  There are two methods for computing these:
+integration by parts, and utilizing the following trigonometric identities:
+\begin{align}
+\sin A\cos B&=\frac12\left[\sin(A-B)+\sin(A+B)\right],\label{SinACosB}\\
+\sin A\sin B&=\frac12\left[\cos(A-B)-\cos(A+B)\right],\label{SinASinB}\\
+\cos A\cos B&=\frac12\left[\cos(A-B)+\cos(A+B)\right].\label{CosACosB}
+\end{align}
+For obvious reasons, these are called {\it product-sum formulas}.
+These follow from adding or subtracting
+(\ref{Sine(A+B)}), (\ref{Sine(A-B)}), (\ref{Cosine(A+B)}),
+and (\ref{Cosine(A-B)}), which we repeat here for reference:
+\begin{align*}
+\sin(A+B)&=\sin A\cos B+\sin B\cos A,\\
+\sin(A-B)&=\sin A\cos B-\sin B\cos A,\\
+\cos(A+B)&=\cos A\cos B-\sin A\sin B,\\
+\cos(A-B)&=\cos A\cos B+\sin A\sin B.\end{align*}
+For instance, (\ref{SinACosB}) follows from adding the
+first two of these and solving for $\sin A\cos B$.  All
+three, (\ref{SinACosB})--(\ref{CosACosB}), are left 
+to the exercises.
+
+\bex Compute $\ds{\int\sin2x\cos5x\,dx}$.
+
+\underline{Solution}: Here we use (\ref{SinACosB}),
+with $A=2x$ and $B=5x$:
+\begin{align*}
+\int\sin2x\cos5x\,dx&=\int\frac12[\sin(2x-5x)+\sin(2x+5x)]\,dx\\
+                    &=\int\frac12[\sin(-3x)+\sin7x]\,dx\\
+                    &=\int\frac12[-\sin3x+\sin7x]\,dx\\
+                    &=\frac13\cos3x-\frac17\cos7x+C.\end{align*}
+\eex
+
+The method above has the drawback that the solution does not
+contain the same angles as the integrand. One can
+get back to the original angles using the formulas
+\begin{align*}
+\cos3x&=\cos(5x-2x)=\cos5x\cos2x+\sin5x\sin2x,\\
+\cos7x&=\cos(5x+2x)=\cos5x\cos2x-\sin5x\sin2x.\end{align*}
+Alternatively, an integration by parts argument leaves intact
+the angles.  It requires two integration by parts steps,
+and we need to solve for the integral.  Furthermore, 
+we have to make the analogous substitution for $u$ both
+times, and for $dv$ both times.  By analogous, here
+we mean using the same angle, $2x$ or $5x$, as the argument
+of the trigonometric function both times.
+If we always let the $u$-term have angle $2x$,
+and the $dv$-term have angle $5x$, 
+eventually the solution there will be
+$$\int\sin2x\cos5x\,dx
+  =\frac5{21}\sin2x\sin5x+\frac2{21}\cos2x\cos5x+C.$$
+\newpage
+\begin{center}
+\underline{\Large{\bf Exercises}}\end{center}
+
+\begin{multicols}{2}
+Evaluate the following integrals.
+\begin{enumerate}
+\item $\ds{\int\sin x\cos x\,dx}$
+\item $\ds{\int\sin^2x\cos x\,dx}$
+\item $\ds{\int\sin x\cos^2x\,dx}$
+\item $\ds{\int\sin^3x\cos^2x\,dx}$
+\item $\ds{\int\sin^4x\cos^5x\,dx}$
+\item $\ds{\int\frac{\sin^3x}{\cos^2x}\,dx}$
+\item $\ds{\int\frac{\sin^3x}{\cos^2x+1}\,dx}$
+\item $\ds{\int \sin^4x\cos^5x\,dx}$
+\item $\ds{\int\sin^32x\cos^{15}2x\,dx}$
+\item $\ds{\int\frac{\sin^2x}{\cos x}\,dx}$
+
+
+
+
+\item $\ds{\int\sin^3x\ln|\sin x|\,dx}$
+\item $\ds{\int\cos^3x\ln|\sin x|\,dx}$
+\end{enumerate}
+\end{multicols}
+
+
+\newpage
+\section{Trigonometric Substitution\label{TrigSubSection}}
+In this section we explore how integrals can sometimes be
+solved by making some clever substitutions involving
+trigonometric functions, even though the original integrals
+themselves do not involve such functions.  
+Before developing the general mechanics, the example below
+is offered for motivation:
+
+\bex Compute $\ds{\int\frac{\sqrt{1-x^2}}x\,dx}$.
+
+\underline{Solution}:  Note first that this integral will not
+simply yield to earlier techniques.  (The reader is welcome to 
+try, to see where those methods eventually fall short.)
+
+Note also that, due to the square root, 
+we require $-1\le x\le 1$.  In fact we also cannot have $x=0$, but
+that constraint will be consistent with our new integral upon substitution.
+In fact it is the radical which is giving us the most difficulty here.
+
+The solution to that problem is to realize that $[-1,1]$ is exactly
+the range of the function $\sin\theta$.  Moreover, if we
+allow $\theta\in[-\pi/2,\pi/2]$, then we have the mappings
+from $\theta$ to $x$ and back as follows:
+
+\begin{center}
+\begin{pspicture}(-6,-.5)(6,.5)
+\rput(-5,0){$\ds{\left[-\frac{\pi}2,\frac{\pi}2\right]}$}
+\psline{|->}(-4,0)(-1,0)
+\rput(-2.5,.3){$\sin\theta$}
+\rput(0,0){$[-1,1]$}
+\psline{|->}(1,0)(4,0)
+\rput(5,0){$\ds{\left[-\frac{\pi}2,\frac{\pi}2\right]}$}
+\rput(2.5,.3){$\sin^{-1}x$}
+\end{pspicture}
+\end{center}
+
+We will use the substitution $x=\sin\theta$ in the integral above,
+with the understanding that $\theta\in[-\pi/2,\pi/2]$ (excluding zero
+due to the denominator).  As usual, it is also crucial to write 
+the differential in terms of the new variable:
+\begin{align*}
+x&=\sin\theta\\
+\implies dx&=\cos\theta\,d\theta.\end{align*}
+Thus
+$$\int\frac{\sqrt{1-x^2}}x\,dx
+=\int\frac{\sqrt{1-\sin^2\theta}}{\sin\theta}\,\cos\theta\,d\theta.$$
+Since we have chosen the range $\theta\in[-\pi/2,\pi/2]$ to get
+our range for $x\in[-1,1]$ (again excluding zero), we have
+angles in the first and fourth quadrants.  In those quadrants, in
+fact, the cosine is nonnegative.  Thus
+$$\theta\in\left[-\frac{\pi}2,\frac{\pi}2\right]
+\implies\sqrt{1-\sin^2\theta}=\sqrt{\underbrace{\cos^2\theta}_{\ge0}}
+=\cos\theta.$$
+Summarizing our work so far, and then continuing, we get
+\begin{align*}
+\int\frac{\sqrt{1-x^2}}x\,dx
+&=\int\frac{\sqrt{1-\sin^2\theta}}{\sin\theta}\,\cos\theta\,d\theta
+=\int\frac{\cos\theta}{\sin\theta}\cos\theta\,d\theta\\
+&=\int\frac{\cos^2\theta}{\sin\theta}\,d\theta
+=\int\frac{1-\sin^2\theta}{\sin\theta}\,d\theta
+=\int\left[\csc\theta-\sin\theta\right]\,d\theta\\ \vphantom{\int}
+&=\ln|\csc\theta-\cot\theta|+\cos\theta+C.
+\end{align*}
+Now we have a trigonometric form of the antiderivative, but of course
+the original integral was in $x$ and not $\theta$.  While we will
+develop a more visual method in the subsections, here we will note that
+$\sin\theta=x$, and $\cos\theta=\sqrt{1-\sin^2\theta}=\sqrt{1-x^2}$.
+Of course once we have the sine and cosine functions, we have all
+the trigonometric functions.  Summarizing again, but this time
+adding the final substitution in $x$, we have
+$$\int\frac{\sqrt{1-x^2}}x\,dx
+=\ln|\csc\theta-\cot\theta|+\cos\theta+C
+=\ln\left|\frac1x-\frac{\sqrt{1-x^2}}x\right|+\sqrt{1-x^2}+C.$$
+\eex
+
+The technique in this section---assuming the original
+variable of integration is $x$---can be somewhat summarized, though
+the details are rather sophisticated.  A summary could be
+written as
+follows:
+\begin{enumerate}
+\item Use an appropriate {\it trigonometric substitution}, i.e., 
+let $x$ be in terms of some trigonometric function of an
+angle $\theta$.  Substitution for $dx$ follows.
+\item Simplify the trigonometric expression in the resulting 
+integral.  In particular, if there were radicals
+in the original integral they should usually not be present in the 
+simplified trigonometric integral.
+\item Solve the trigonometric integral.  The solution will be
+in terms of $\theta$.
+\item Substitute back in terms of $x$, as dictated by the 
+original substitution where $x$-terms were replaced by $\theta$-terms.
+\end{enumerate}
+
+It should be noted at the outset that the trigonometric integrals
+which arise here may require some re-writing before they succumb to 
+our trigonometric integral methods of Section~\ref{TrigIntsSection}.
+Furthermore, a problem which naturally gives rise to trigonometric
+substitution (as in the previous example) may or may not
+yield a simple trigonometric integral.  However, all trigonometric
+integrals we will encounter here are of classes we considered
+in Section~\ref{TrigIntsSection}, so ultimately those techniques
+equipped us for our work here.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\section{Partial Fractions and Integration\label{PartialFracSection}}
+In this section we are interested in techniques for computing
+integrals of the form
+\begin{equation}
+\int\frac{P(x)}{Q(x)}\,dx,\label{GeneralRationalForPFD}
+\end{equation}
+where $P(x)$ and $Q(x)$ are polynomials. 
+This is not in general a simple problem, unless 
+the integral in (\ref{GeneralRationalForPFD}) is from
+very particular classes.  However, with the techniques
+we explore here, we can break $\frac{P(x)}{Q(x)}$ into
+simpler fractions whose integrals are relatively easy.
+To see an advantage of such an approach, consider the following example.
+\bex Compute $\ds{\int\frac{5x-1}{x^2-x-2}\,dx}$.
+
+\underline{Solution}: Note that the numerator is not a 
+simple (constant number)
+multiple of the derivative of the denominator, so 
+substitution will not give a simple $\int\frac1u\,du$-form.
+
+However, it  happens that
+\begin{equation}\frac{5x-1}{x^2-x-2}
+  =\frac{5x-1}{(x-2)(x+1)}
+  =\frac2{x+1}+\frac3{x-2}.\label{FirstPFDExamplePFD}
+\end{equation}
+Thus
+\begin{align*}
+\int\frac{5x-1}{x^2-x-2}\,dx
+ & =\int\left(\frac2{x+1}+\frac3{x-2}\right)\,dx\\
+ & =2\ln|x+1|+3\ln|x-2|+C\\
+ & =\ln\left|(x+1)^2(x-2)^3\right|+C.\end{align*}
+\eex
+
+In this section we will develop the methods needed to 
+find expansions of fractions such as 
+in (\ref{FirstPFDExamplePFD}). The idea is to reverse
+the high school
+algebra exercises, which would have us {\it combine} 
+sums or differences of fractions into a single fraction.  For 
+purposes of integral calculus, it is almost always
+better to instead deal with several, simpler fractions than
+their combination into a single, more complicated fraction.
+
+A significant amount of our work in this section will be
+algebraic, specifically, developing the method of decomposing
+a fraction $P(x)/Q(x)$ into simpler, ``partial fractions.''
+In order for the method to work, we will require $P(x)$ to
+have lower degree $Q(x)$. (If the degree of $P$ is at least
+that of $Q$, we can use long division to write the function
+as a polynomial plus $r(x)/Q(x)$, where the degree of $r$ is
+less than that of $Q$.)
+
+
+Though not crucial for the calculus, we will spend the next subsection 
+looking roughly at the theory behind the general
+form of these partial
+fraction decompositions (PFD's), in hopes it will help
+reinforce the rules themselves.  
+In Subsection~\ref{RulesForPDFSubsection} we will 
+definitively write the
+rules for PFD's without reference to integrals.
+Finally, we will see how to solve for the coefficients 
+of a particular PFD, in the context of computing antiderivatives
+of these.
+
+\subsection{Theory Behind the Forms of PFD's (Optional)}
+The argument here is usually omitted from calculus texts,
+and instead left to linear algebra courses.  However, the basic intuition 
+is not difficult so we include it here, though the real work
+is in later subsections.  In all of these we
+are looking at functions
+\begin{equation}
+\frac{P(x)}{Q(x)},\qquad \text{$P$ and $Q$ polynomials, degree $P$ $<$
+                                 degree $Q$}.
+\label{DegP<DegQ}\end{equation}
+Before stating the general rules for PFD's, we look at several examples
+illustrating the underlying theory.
+
+\bex For this example, we will argue in steps.
+\begin{enumerate}
+\item Consider all functions of the form 
+\begin{equation}\frac{a x+b}{(x+1)(x-2)}.\label{Ex1ForProofOfPFD-Together}
+\end{equation}
+\item Now there are two linearly independent\footnotemark
+functions, specifically $\frac{x}{(x+1)(x-2)}$
+and $\frac1{(x+1)(x-2)}$ which---with linear combinations---can give us
+any such function (\ref{Ex1ForProofOfPFD-Together}).  Indeed,
+$$\frac{ax+b}{(x+1)(x-2)}=a\cdot\left[\frac1{(x+1)(x-2)}\right]
+                         +b\cdot\left[\frac{x}{(x+1)(x-2)}\right].$$
+In a linear-algebraic sense, we would say the functions of the
+form (\ref{Ex1ForProofOfPFD-Together}) form a 2-dimensional space
+(or 2-dimensional {\it vector space}), because to specify such
+a function requires two constants, $a$ and $b$.
+
+\item Now instead consider another 2-dimensional space of functions
+given by linear combinations of the form
+\begin{equation}
+\frac{A}{x+1}+\frac{B}{x-2}
+=A\cdot\left[\frac1{x+1}\right]+B\cdot\left[\frac1{x-2}\right].
+\label{Ex1ForProofOfPFD-Apart}
+\end{equation}
+\item 
+The functions $\frac1{x+1}$ and $\frac{1}{x-2}$ are indeed also linearly
+independent, so the set of all functions of the form
+(\ref{Ex1ForProofOfPFD-Apart}) also forms a 2-dimensional
+vector space; to specify any such function requires
+specifying two constants, $A$ and $B$.
+
+\item Now notice that 
+$$\frac{A}{x+1}+\frac{B}{x-2}
+=\frac{A(x-2)+B(x+1)}{(x+1)(x-2)}
+=\frac{(A+B)x+(-2A+B)}{(x+1)(x-2)},$$
+which is of form (\ref{Ex1ForProofOfPFD-Together})
+with $a=A+B$ and $b=-2A+B$.  In other words, any function of the
+form (\ref{Ex1ForProofOfPFD-Apart}) can also be written in the 
+from (\ref{Ex1ForProofOfPFD-Together}).
+\item This tells us that the two-dimensional space
+of functions $\frac{A}{x+1}+\frac{B}{x-2}$ is contained in the
+two-dimensional space of functions $\frac{ax+b}{(x+1)(x-2)}$.
+It is a fact of linear algebra that the only way for a
+two-dimensional space to be contained in another two-dimensional
+space is for them to be the same spaces.  (Think about 
+a plane being contained in another plane, and realize that
+they must then be the same plane.)
+
+\item Finally, since (by 6 above) the space of all functions
+of the form $\frac{ax+b}{(x+1)(x-2)}$ is the {\bf same} as the 
+space of all functions of the form
+$\frac{A}{x+1}+\frac{B}{x-2}$, it follows that
+any function of the form $\frac{ax+b}{(x+1)(x-2)}$
+can also be written in the form $\frac{A}{x+1}+\frac{B}{x-2}$.
+\end{enumerate}
+\eex
+\footnotetext{We call functions $f_1,f_2,\cdots,f_n$ 
+{\it linearly independent} if and only if 
+it is impossible to write any of these as linear combinations
+of the others. In other words, we {\it exclude} cases where there
+exist {\it constants} $a_1,\cdots,a_{k-1},\ a_{k+1},\cdots,a_n\in\Re$
+such that
+\begin{align*}
+f_k&=a_1f_1+a_2f_2+\cdots+a_{k-1}f_{k-1}+a_{k+1}f_{k+1}+\cdots+a_nf_n,\qquad
+i.e.,\\
+(\forall x)[\qquad f_k(x)&=a_1f_1(x)+a_2f_2(x)+\cdots+
+          a_{k-1}f_{k-1}(x)+
+          a_{k+1}f_{k+1}(x)+\cdots+a_{n}f_{n}(x)\qquad].
+\end{align*}
+}
+
+Notice that functions of the form (\ref{Ex1ForProofOfPFD-Together})
+are indeed also of the form $P(x)/Q(x)$ where $P$ is of degree
+less than $Q$, since the degree of $P$ is at most 1 (zero if $a=0$) and the
+degree of $Q$ is 2.
+
+The argument above guarantees that a PFD such as 
+(\ref{FirstPFDExamplePFD}) exists.  It is more desirable
+for integration purposes to have form (\ref{Ex1ForProofOfPFD-Apart})
+than (\ref{Ex1ForProofOfPFD-Together}).
+
+\bex An argument similar to that of the previous example shows that
+the following forms give exactly the same functions:
+\begin{equation}\frac{ax^2+bx+c}{(x+1)(x+2)(x+3)}=\frac{A}{x+1}+
+\frac{B}{x+2}+\frac{C}{x+3}.\label{Ex2ForProofOfPFD-Both}
+\end{equation}
+Of course $a,b,c$ are likely to differ from $A,B,C$.  Here the
+underlying sets of linearly independent functions are, respectively,
+\begin{align*}U&=\left\{\frac{x^2}{(x+1)(x+2)(x+3)}, 
+           \frac{x}{(x+1)(x+2)(x+3)},
+           \frac{1}{(x+1)(x+2)(x+3)}\right\},\\
+              V&=\left\{\frac1{x+1},\frac1{x+2},\frac1{x+3}\right\}.
+\end{align*}
+Both sets of vectors span\footnote{%%%
+%%% FOOTNOTE
+The noun form of {\bf span} has a precise technical meaning.  The {\it span}
+of ``vectors'' $v_1,v_2,\cdots,v_n$ is the set of all possible
+linear combinations of those vectors.  Thus for example
+$$\text{Span}\left\{\frac1{x+1},\frac1{x+2},\frac1{x+3}\right\}
+=\left\{\left.a\cdot\left[\frac1{x+1}\right]+b\cdot\left[\frac1{x+2}\right]
+        +c\cdot\left[\frac1{x+3}\right]\ \right| \ a,b,c\in\Re\right\}.$$
+
+We would then say that the functions (vectors, in the linear algebra sense)
+$\frac1{x+1},\frac1{x+2},\frac1{x+3}$, taken together, {\it span} 
+the set described above.
+%%% END FOOTNOTE
+} 3-dimensional spaces.
+It is not hard to see that functions on the right-hand side of
+(\ref{Ex2ForProofOfPFD-Both}) can also be in the form on the left.
+Indeed, if we combine the fractions on the right, we get
+$$\frac{A}{x+1}+\frac{B}{x+2}+\frac{C}{x+3}
+=\frac{\overbrace{A(x+2)(x+3)}^{\text{degree }\le2}+
+        \overbrace{B(x+1)(x+3)}^{\text{degree }\le2}
+        +\overbrace{C(x+1)(x+2)}^{\text{degree }\le2}}
+      {(x+1)(x+2)(x+3)},$$
+which gives us a polynomial in the numerator with degree
+at most 2, as on the left-hand side of (\ref{Ex2ForProofOfPFD-Both}).
+Here we have the span of $V$ contained in the span of $U$,
+though they are both 3-dimensional spaces.  Thus they must be
+the same spaces (we have one 3-dimensional space inside of another,
+so they must be the same!), so in fact, anything written like
+the left-hand side of (\ref{Ex2ForProofOfPFD-Both})
+can be written like the right-hand side.  (In a later subsection
+we will show how to find $A,B,C$ given $a,b,c$.)
+
+It should be clear that integrating a function written like the
+right-hand side of (\ref{Ex2ForProofOfPFD-Both}) is likely much simpler 
+than integrating one in the form on the left.
+\eex
+
+\bex Next we argue that the following forms describe the same (space of)
+functions:
+\begin{equation}
+\frac{ax^2+bx+c}{(x+7)^3}
+  =\frac{A}{x+7}+\frac{B}{(x+7)^2}+\frac{C}{(x+7)^3}.
+\label{Ex3ForProofOfPFD-Both}
+\end{equation}
+The underlying sets of linearly independent functions are, 
+respectively,
+$\left\{\frac{x^2}{(x+7)^3},\frac{x}{(x+7)^3},\frac1{(x+7)^3}\right\}$
+and
+$\left\{\frac1{x+7},\frac1{(x+7)^2},\frac1{(x+7)^3}\right\}$,
+both spanning 3-dimensional spaces.  To show they are the same
+spaces, we note that
+$$\frac{A}{x+7}+\frac{B}{(x+7)^2}+\frac{C}{(x+7)^3}
+  =\frac{A(x+7)^2+B(x+7)+C}{(x+7)^3},$$
+which eventually simplifies to the form on the left-hand side of 
+(\ref{Ex3ForProofOfPFD-Both}). Arguing as before, the underlying
+sets of linearly independent functions must span the same
+3-dimensional spaces, so anything of the form on the left-hand side
+of (\ref{Ex3ForProofOfPFD-Both}) can be written also in the
+form on the right-hand side.
+\eex
+
+\bex For our last example, we claim the following
+forms give the same functions:
+\begin{equation}
+\frac{ax^4+bx^3+cx^2+dx+e}{x^3(x^2+1)}
+=\frac{A}x+\frac{B}{x^2}+\frac{C}{x^3}+\frac{Dx+E}{x^2+1}.
+\label{Ex4ForProofOfPFD-Both}
+\end{equation}
+Here the spanning sets of linearly independent functions are respectively
+\begin{align*}
+U&=\left\{\frac{x^4}{x^3(x^2+1)},\ \frac{x^3}{x^3(x^2+1)},\ 
+\frac{x^2}{x^3(x^2+1)},\ \frac{x}{x^3(x^2+1)},\ \frac{1}{x^3(x^2+1)}\right\},\\
+V&=\left\{\frac1x,\ \frac1{x^2},\ \frac1{x^3},\ \frac{x}{x^2+1},\ \frac1{x^2+1}
+   \right\}.
+\end{align*}
+Again, the form on the right of (\ref{Ex4ForProofOfPFD-Both})
+can be rewritten as below, simplifying into the form on the left-hand
+side of (\ref{Ex4ForProofOfPFD-Both}) as
+$$\frac{Ax^2(x^2+1)+Bx(x^2+1)+C(x^2+1)+(Dx+E)(x^2+1)}{x^3(x^2+1)}.$$
+(Note that this  has numerator of degree at most 4.)
+Because both sides of 
+(\ref{Ex4ForProofOfPFD-Both}) must therefore
+describe exactly the same functions
+in a 5-dimensional vector space, it follows that anything
+written in the form on the left of (\ref{Ex4ForProofOfPFD-Both})
+can also be written in the form on the right.
+\eex
+
+In the next subsection we generalize the logic of
+the examples above to write exact rules for the 
+form of a PFD based upon the original fraction's denominator.  
+Then in Subsection~\ref{SubsecForFindingIntsWPFD's}
+we look at three methods of finding
+the coefficients, $A$, $B$, $C$, etc., of the PFD expansion,
+and immediately apply the methods to problems of computing integrals of
+such functions.
+\newpage
+\subsection{Partial Fraction Decompositions: The Rules
+\label{RulesForPDFSubsection}}
+
+It is a fact of algebra (corollary to the Fundamental
+Theorem of Algebra) that any polynomial with real coefficients can be 
+factored uniquely---up to rearrangement of 
+multiplicative constants---into powers of linear terms $(ax+b)^n$
+and powers of irreducible quadratic\footnote{%%%
+%%% FOOTNOTE
+It is easy to see when a quadratic term is ``irreducible
+over the real numbers,'' meaning we cannot write
+it as $(ex+f)(gx+h)$, where $e,f,g,h\in\Re$, the latter being
+equivalent to there being real numbers $\alpha,\beta$
+such that the polynomial is zero there
+(i.e., at $\alpha=-f/e$, $\beta=-h/g$). Using the quadratic formula,
+it is plain that no such real solutions to the quadratic being
+zero occur if and only if $b^2-4ac<0$ (i.e., when the term under the
+radical in the quadratic formula is negative).}
+%%% END FOOTNOTE
+terms $(ax^2+bx+c)^m$ with real coefficients.  So for instance, 
+$$x^3-x^2+x-1=(x-1)(x^2+1),$$
+and there is no other way to factor it, except for 
+instance $2(x-1)(\frac12x^2+\frac12)$, etc.
+With that in mind, the rules for partial fraction decompositions
+follow.
+
+First, we are given a rational function $\frac{P(x)}{Q(x)}$,
+where $P$ and $Q$ are polynomials.
+\begin{enumerate}\setcounter{enumi}{-1}
+\item In 1 and 2 below we assume deg $P <$ deg $Q$.
+      If the deg $P \ge$ deg $Q$, then first we apply
+      poynomial long division to achieve
+      $$\frac{P(x)}{Q(x)}=p(x)+\frac{r(x)}{Q(x)},$$
+      where $p,r$ are polynomials and deg $r <$ deg $Q$.
+      Then the following rules apply to $\frac{r(x)}{Q(x)}$.
+\item If $(ax+b)^n$, where $a\ne0$ occurs as a factor in $Q(x)$, then
+      the partial fraction decomposition (PFD) of $\frac{P(x)}{Q(x)}$
+      will contain terms
+      $$\frac{A_1}{ax+b}+\frac{A_2}{(ax+b)^2}+\cdots+\frac{A_n}{(ax+b)^n}.$$
+\item If $ax^2+bx+c$ is an irreducible quadratic, and
+      $(ax^2+bx+c)^m$ occurs as a factor in $Q(x)$, then
+      the PFD of  $\frac{P(x)}{Q(x)}$ will contain terms
+      $$\frac{A_1x+B_1}{ax^2+bx+c}
+          +\frac{A_2x+B_2}{(ax^2+bx+c)^2}
+          +\cdots+\frac{A_mx+B_m}{(ax^2+bx+c)^m}.$$
+\end{enumerate}
+
+The application of these rules can be somewhat confusing at first,
+so we will look at several examples before proceeding to 
+solve for the coefficients $A_1, B_1$, etc.  
+For the second case, we will mostly be interested in 
+irreducible quadratics of the form $x^2+k^2$, where $k>0$.
+Note that
+we will usually use letters without subscripts, such as
+$A,B,C$, and so on for our PFD coefficients (to be found later).
+
+\bex Write the partial fraction decompositions for the given 
+rational functions:
+\begin{itemize}
+\item $\ds{\frac{3x^5-11x^3+15x-2}{(x+1)^2(x-3)^4}
+  =\frac{A}{x+1}+\frac{B}{(x+1)^2}+\frac{C}{x-3}
+    +\frac{D}{(x-3)^2}+\frac{E}{(x-3)^3}+\frac{F}{(x-3)^4}}$.
+\item $\ds{\frac1{(x+1)^2(x-3)^4}
+=\frac{A}{x+1}+\frac{B}{(x+1)^2}+\frac{C}{x-3}
+    +\frac{D}{(x-3)^2}+\frac{E}{(x-3)^3}+\frac{F}{(x-3)^4}}$.
+\end{itemize}
+In both cases, we had a polynomial of degree less than
+6 divided by a polynomial of degree 6, so ``Rule 0''
+is not invoked.  We also had two factors of $x+1$
+in the denominator, so we needed a constant over the
+first power, plus another constant over the second power,
+of $x+1$.  With $(x-3)$ appearing to the third power in 
+the denominator, we needed a constant over each of the
+first, second, and third powers of $x+3$. (Of course the
+choice of constants  $A,B,C,D,E$ will be different for these
+two functions above, but the form of their PFD's is the same.) 
+\eex
+
+We do not want to be redundant in our PFD's, so if $Q(x)$
+contains the factor $(x-3)^4$ but does not contain $(x-3)^5$,
+for instance, we require constants divided by
+$(x-3)$, $(x-3)^2$, $(x-3)^3$ and $(x-3)^4$ (but not $(x-3)^5$).
+Now one could say that
+such a $Q(x)$ also contains $(x-3)^2$, but we do not then
+require in our PFD constants divided by $(x-3)$ and $(x-3)^2$ {\it again},
+since these are already taken care of by those required by
+the factor $(x-3)^4$ in $Q(x)$.
+
+To rephrase the rules in light of the last paragraph,
+if exactly $n$ factors of $(ax+b)$ appear in $Q(x)$, then
+the PFD  contains terms 
+$\frac{A_1}{ax+b}+\cdots+\frac{A_n}{(ax+b)^n}$.
+If exactly  $m$ factors of $(ax^2+bx+c)$ appear, with $b^2-4ac<0$,
+then the PFD contains terms
+$\frac{A_1x+B_1}{ax^2+bx+c}+\cdots+\frac{A_mx+B_m}{(ax^2+bx+c)^m}$.
+\bex Here are more PFD expansion forms.  (We do not solve for the 
+     coefficients yet.)
+\begin{itemize}
+\item $\ds{\frac{x^4+x+1}{x^3(x^2+9)^2}
+     =\frac{A}x+\frac{B}{x^2}+\frac{C}{x^3}
+      +\frac{Dx+E}{x^2+9}+\frac{Fx+G}{(x^2+9)^2}}$.
+\item $\ds{\frac1{(x^2+1)(x^2+4)}=\frac{Ax+B}{x^2+1}+\frac{Cx+D}{x^2+4}}$.
+\item $\ds{\frac{x^5-8}{x(2x+1)^2(9-x)^3}
+ =\frac{A}x+\frac{B}{2x+1}+\frac{C}{(2x+1)^2}
+   +\frac{D}{9-x}+\frac{E}{(9-x)^2}+\frac{F}{(9-x)^3}}$.
+\item $\ds{\frac2{x^2-5}=\frac2{\left(x-\sqrt5\right)\left(x+\sqrt5\right)}
+     =\frac{A}{x-\sqrt5}+\frac{B}{x+\sqrt5}}$.
+\item $\ds{\frac1{x^4-1}=\frac1{(x^2-1)(x^2+1)}
+       =\frac1{(x+1)(x-1)(x^2+1)}
+       =\frac{A}{x+1}+\frac{B}{x-1}+\frac{Cx+D}{x^2+1}}$.
+\end{itemize}
+\eex
+
+The last two PFD's above required us to factor the denominators before
+we started to implement the rules.  Note that we must be careful
+to identify factors which are truly distinct.  Consider the following:
+$$\frac1{x(x-3)(3x-9)}=\frac1{3x(x-3)^2}
+=\frac{A}x+\frac{B}{x-3}+\frac{C}{(x-3)^2}.$$
+The factors $(x-3)$ and $(3x-9)$ were not really distinct factors,
+but were constant multiples of eachother.  If we do not notice this
+we will find ourselves attempting a PFD 
+with $\frac{A}{x}+\frac{B}{x-3}+\frac{C}{3x-9}$, but
+the ``$B$'' and ``$C$'' terms are not independent, so we will miss
+one dimension of possibilities for our PFD.  
+Note also that the
+factor $\frac13$ can be included in the first PFD term
+(i.e., we could replace $\frac{A}x$ with $\frac{A}{3x}$, of course giving
+a different ``$A$''), or its influence absorbed into the $A$, $B$ and $C$
+terms.  We will usually opt for the latter approach (as we did above).
+
+\subsection{Finding the Coefficients for PFD's
+\label{SubsecForFindingIntsWPFD's}}
+There are two main methods, and one auxiliary method, for finding
+the coefficients $A$, $B$, etc., for a PFD.  The most efficient
+method for a particular PFD is usually a mixture of the two 
+main methods; perhaps the first method can be used to find $A$
+and $C$, and the second to find $B$, for instance.
+Efficiently 
+computing the coefficients is thus somewhat of an art.\footnote{%%%
+%%% FOOTNOTE
+In fact either method is---strictly 
+speaking---sufficient, and indeed there are textbooks which
+teach only one or the other method.  However, trying to fit a particularly
+complicated PFD into any single method will make for much more difficult
+computations than are necessary. That said, for computer programming one
+would likely choose one method and let the computer calculate the coefficients
+by ``brute force.''} 
+%%% END FOOTNOTE
+
+The methods are based upon some properties of polynomials.  
+Consider two polynomials 
+\begin{align*}
+ f(x)&=a_nx^n+a_{n-1}x^{n-1}+\cdots+a_2x^2+a_1x+a_0,\\
+ g(x)&=b_mx^m+b_{m-1}x^{m-1}+\cdots+b_2x^2+b_1x+b_0.\end{align*}
+The statement that  $f(x)=g(x)$ is an ``equality of polynomials,'' i.e., 
+that $f(x)$ and $g(x)$ are the {\it same} polynomial is
+equivalent to each of the following two conditions (separately):\footnotemark
+%%% FOOTNOTE
+\footnotetext{Some texts use the notation $f(x)\equiv g(x)$, read
+``$f(x)$ is identically equal to $g(x)$.''  In other words, 
+$f(x)$ and $g(x)$ are the same functions.
+The word {\it identically}
+is in the spirit of, for instance, trigonometric identities,
+so one could write for example $\sin^2\theta+\cos^2\theta\equiv1$.
+Of course we have a different use of the symbol ``$\equiv$,''
+and will thus refrain from using it in this context, but the
+reader should be aware of this common alternative use of the
+symbol.} 
+%%% END FOOTNOTE
+\begin{enumerate}
+\item $(\forall x\in\Re)[f(x)=g(x)]$.  In other words, $f$ and $g$
+      are the same functions.
+\item $(\forall i\in\{1,2,\cdots,\max\{m,n\}\})[a_i=b_i]$, that is, all the
+      coefficients are the same.  (Note that it is possible, for 
+      instance, that $m<n$, in which case we just take 
+      $b_{m+1},\cdots,b_n=0$.)
+
+\end{enumerate}
+Furthermore, if $f(x)$ and $g(x)$ are the same polynomials, then
+$f'(x)=g'(x)$, $f''(x)=g''(x)$, $f'''(x)=g'''(x)$ $\cdots$, in the 
+sense of being the same polynomials, and so 1 and 2 from above
+apply to these derivatives as well.
+
+Our first method will exploit 1, the second 2, and the auxiliary
+method will make use of
+final observation about derivatives. The first method
+essentially ``probes'' the two polynomials at different points,
+usually chosen strategically, to get some quick information
+out of a polynomial equality, and is often called an
+``evaluation method.''  The  second method is often referred to
+as ``comparing coefficients,'' and can also be useful for finding
+quick information.  The auxiliary method exploits the fact that
+the first methods can be applied to the derivatives (of any
+order) of $f$ and $g$ to get further information quickly.
+
+\bex Compute the integral $\ds{\int\frac1{x^2-5x+6}\,dx}$.
+
+\underline{Solution}:  Here we have a degree-0 polynomial
+divided by a degree-2 polynomial,
+so the PFD rules apply.  Now one usually writes the PFD form of the 
+integrand, complete with the unknown coefficients, before
+proceeding to the methods of computing the coefficients.  In
+other words, our first step would be to write:
+$$\int\frac1{x^2-5x+6}\,dx
+ =\int\frac1{(x-2)(x-3)}\,dx
+ =\int\left[\frac{A}{x-2}+\frac{B}{x-3}\right]\,dx.$$
+The next two lines can be skipped with practice, though
+the first time one works this section they are worth writing
+so the mechanics of the method can be understood and reinforced.
+First we write the algebraic step (PFD) which was contained in the
+rewriting of the integrands above:
+$$\frac1{(x-2)(x-3)}=\frac{A}{x-2}+\frac{B}{x-3}.$$
+This came from the fact that we have $x-2$ as a factor in the
+denominator, but only once, and the same for $x-3$.
+Next we multiply both sides by {\bf the denominator on the left}:
+$$(x-2)(x-3)\left[\frac1{(x-2)(x-3)}\right]
+  =(x-2)(x-3)\left[\frac{A}{x-2}+\frac{B}{x-3}\right].$$
+On the left, the whole denominator cancels and we have the
+numerator of the original fraction.  On the right we 
+have to distribute the $(x-2)(x-3)$ across the sum in the
+brackets.  For the ``$A$'' term the $(x-2)$ cancels, while
+for the ``$B$'' term the $(x-3)$ cancels, giving us an
+equality of polynomials:
+%\newpage
+\begin{equation}1=A(x-3)+B(x-2).\label{PolyEqualityForPFD1}
+\end{equation}
+Because this is an equality of polynomials ($f(x)=g(x)$ where 
+$f(x)=1$ and $g(x)=A(x-3)+B(x-2)$), it must be true for any 
+$x\in\Re$.  Now we choose two values of $x$ strategically.
+\begin{alignat*}{2}
+\underline{x=3}:\qquad&& 1&=A(3-3)+B(3-2)\implies\boxed{1=B}\\
+\underline{x=2}:\qquad&& 1&=A(2-3)+B(2-2)\\
+              &&\implies 1&=-A\implies\boxed{A=-1}.\end{alignat*}
+Now we summarize what we have so far, and compute the desired integral:
+\begin{align*}
+\int\frac1{x^2-5x+6}&=\int\left[\frac{-1}{x-2}+\frac{1}{x-3}\right]\,dx\\
+                    &=-\ln|x-2|+\ln|x-3|+C\\
+                    &=\ln\left|\frac{x-3}{x-2}\right|+C.
+\end{align*}
+(The last step is not necessary, but for reasons of style
+many textbooks combine logarithmic terms into a single logarithm.)
+\eex
+
+Because (\ref{PolyEqualityForPFD1}) was an equality of polynomials
+(meaning the polynomial on the left is {\it the same polynomial}
+as that on the right\footnotemark), we could substitute
+any number for $x$ in (\ref{PolyEqualityForPFD1})
+and still have a true statement.
+Fortunately, there were choices which could eliminate 
+an unknown, leaving an equation in the other unknown
+which is easily solved.
+
+
+%%% FOOTNOTE
+\footnotetext{It should be pointed out that when
+we write a PFD, for instance
+$$\frac1{(x-2)(x-3)}=\frac{A}{x-2}+\frac{B}{x-3},$$
+we mean that these are the same functions as well, so once
+we find $A$ and $B$, the right-hand side would simplify to become the
+left-hand side. To find $A$ and $B$ we actually solve the
+{\it polynomial} equality (\ref{PolyEqualityForPFD1})
+for $A$ and $B$.
+
+Note also the distinction between ``equations'' such as $2x-1=5$,
+which is true only for $x=3$, and ``equalities'' such as
+$(x+1)^2=x^2+2x+1$, true for all $x$, meaning the function
+$(x+1)^2$ is the same as the function $x^2+2x+1$.
+%%%
+%%% END FOOTNOTE
+}
+
+The second method for finding $A$ and $B$ (not preferred here
+but not terribly difficult here either) is to look at the
+coefficients of the polynomials on the left-hand side and
+right-hand side of (\ref{PolyEqualityForPFD1}),
+and realize that the coefficients of the
+various powers of $x$ must agree for these to be
+the {\it same} polynomials.  Though perhaps not necessary for
+this simple case, one sometimes expands the right-hand side
+and collects like terms 
+$$1=(A+B)x+(-3A-2B).$$
+From this or just reading from (\ref{PolyEqualityForPFD1}),
+we can in turn set equal the coefficients of the $x^1$ terms
+and the constant (some
+say $x^0$) terms to get the following system of two
+equations in two unknowns:
+\begin{equation}\left\{\begin{array}{rcrcr}
+ 0&=&A&+&B\hphantom{.}\\
+ 1&=&-3A&-&2B.\end{array}\right.\label{PolyEqualityForCompCoeffForPFD1}
+\end{equation}
+The first equation came from the fact that there is no $x^1$-term
+on the left-hand side of (\ref{PolyEqualityForCompCoeffForPFD1}),
+or alternatively, the $x^1$-term is $0x^1$ on the left.
+To solve such a system one might add three times the
+first equation to the second, to get $B=1$, and
+use that information in the first to get $A=-1$, as before.
+
+Whenever the denominator of our function $P(x)/Q(x)$ has
+a linear factor $(ax+b)$, evaluating the associated {\it polynomial}
+equality---such as (\ref{PolyEqualityForPFD1})---at that
+$x$-value which makes this linear factor zero (namely 
+$x=-b/a$) will
+quickly yield one of the coefficients, since all but one
+term in the polynomial equation will have $(ax+b)$ as a factor,
+and therefore vanish at $x=-b/a$.
+Thus this first method should always be employed to find that
+coefficient if the
+denominator $Q$ has a linear factor.  If the denominator 
+has all linear terms to the first power, then this ``evaluation''
+method will quickly yield all coefficients.
+
+\bex Compute $\ds{\int\frac{2x^2-3x+2}{x(x+5)(2x+1)}\,dx}$.
+
+\underline{Solution} It is important to notice that the numerator
+is degree 2, and the denominator degree 3, so the PFD rules do apply.
+$$\int\frac{2x^2-3x+2}{x(x+5)(2x+1)}\,dx
+ =\int\left[\frac{A}x+\frac{B}{x+5}+\frac{C}{2x+1}\right]\,dx.$$
+Eventually we will cease writing the next two lines, but to be
+sure we will include them here so that the logic is clear:
+\begin{alignat*}{2}
+&&\frac{2x^2-3x+2}{x(x+5)(2x+1)}&=\frac{A}x+\frac{B}{x+5}+\frac{C}{2x+1}
+   \\
+&\implies
+  &x(x+5)(2x+1)\left[\frac{2x^2-3x+2}{x(x+5)(2x+1)}\right]
+    &=x(x+5)(2x+1)\left[\frac{A}x+\frac{B}{x+5}+\frac{C}{2x+1}\right]\\ \\
+&\implies&2x^2-3x+2&=A(x+5)(2x+1)+Bx(2x+1)+Cx(x+5).
+\end{alignat*}
+Into this last line we can now enter values for $x$ which will
+quickly yield the coefficients.
+
+\begin{alignat*}{2}
+\underline{x=0}:\qquad&& 2&=A(5)(1)\implies\boxed{A=\frac25}\\
+\underline{x=-5}:\qquad&& 20+15+2&=B(-5)(-9)\\
+              &&\implies 37&=45B\implies\boxed{B=\frac{37}{45}}.\\
+\underline{x=-\frac12}:\qquad&&
+              2\cdot\frac14-3\cdot\left(-\frac12\right)+2
+                &=C\left(-\frac12\right)\left(-\frac12+5\right)\\
+              &&\implies \frac12+\frac32+2&=C\left(-\frac12\right)
+                    \left(\frac92\right)\\
+              &&\implies4&=-\frac94C\implies
+                       \boxed{C=-\frac{16}9}.
+              \end{alignat*}
+Putting this together with our original integral, we get
+\begin{align*}
+\int\frac{2x^2-3x+2}{x(x+5)(2x+1)}\,dx
+&=\int\left[\frac{2/5}x+\frac{37/45}{x+5}+\frac{-16/9}{2x+1}\right]\,dx\\
+&=\frac25\ln|x|+\frac{37}{45}\ln|x+5|-\frac{16}9\cdot\frac12\ln|2x+1|+C\\
+&=\frac25\ln|x|+\frac{37}{45}\ln|x+5|-\frac89\ln|2x+1|+C.
+\end{align*}
+\eex
+Next we look at an example where all factors of $Q(x)$ are linear, 
+but one of these linear factors appears to the second power.
+
+\bex Compute $\ds{\int\frac{x+1}{x^2(x-5)(x+4)}\,dx}$.
+
+\underline{Solution}: This time we will describe but
+omit the explicit multiplication
+step in the PFD.\footnote{%%%
+%%% FOOTNOTE
+The pattern of cancellation, when we multiply the PFD by the original
+denominator $Q(x)$, should become second nature with a small amount
+of practice. That said, it is important to remember what we are doing
+(multiplying by $Q(x)$) to get from the PFD to the polynomial equality,
+and how the various factors cancel (or do not cancel) in that multiplication.
+%%% END FOOTNOTE
+}
+$$\int\frac{x+1}{x^2(x-5)(x+4)}\,dx
+  =\int\left[\frac{A}x+\frac{B}{x^2}+\frac{C}{x-5}+\frac{D}{x+4}\right]\,dx,$$
+where 
+$$\frac{x+1}{x^2(x-5)(x+4)}
+=\frac{A}x+\frac{B}{x^2}+\frac{C}{x-5}+\frac{D}{x+4}.$$
+Multiplying by $x^2(x-5)(x+4)$ then gives us
+\begin{equation}x+1=Ax(x-5)(x+4)+B(x-5)(x+4)+Cx^2(x+4)+Dx^2(x-5).
+  \label{PolyEqualityForPFD3}\end{equation}
+With this equation, choosing $x=0,5,-4$ will yield three of the
+four coefficients.
+\begin{alignat*}{2}
+\underline{x=0}:&\qquad&1&=B(-5)(4)\implies\boxed{B=-\frac1{20}}\\
+\underline{x=5}:&&6&=C(5^2)(9)\\
+          &&\implies\frac{2\cdot3}{5^2\cdot3\cdot3}
+                   &=C\implies\boxed{C=\frac2{75}}\\
+\underline{x=-4}:&\qquad&-3&=D((-4)^2)(-9)\\
+              &&\implies-3&=D[-16\cdot9]\\
+              &&\implies 3&=D\cdot16\cdot3\cdot3\implies
+                     \boxed{D=\frac1{48}} 
+\end{alignat*}
+This exhausts the evaluations which give equations in one coefficient.
+Next we have several methods for finding $A$.
+\begin{description}
+\item[Method 1.] Compare coefficients.  In particular, we look at the
+highest-order $x$-terms which appear---at least initially---in 
+the polynomial equality,
+which for (\ref{PolyEqualityForPFD3}) means the $x^3$-terms.
+Here we have no $x^3$-terms on the left, and on the right,
+even without a complete expansion, we can see that 
+the $x^3$-terms will be $A+C+D$.  (The middle-order terms are more
+difficult to read from (\ref{PolyEqualityForPFD3}).)  Fortunately
+we already know the values of $C$ and $D$, so we have enough
+information to find $A$:
+\begin{alignat*}{2}
+\underline{x^3\text{-term}}:&\qquad&0&=A+C+D\\
+                      &&\implies0&=A+\frac2{75}+\frac1{48}
+                                  =A+\frac2{3\cdot5^2}+\frac1{2^4\cdot3}\\
+                      &&\iff0&=A+\frac{2\cdot2^4+1\cdot5^2}{3\cdot5^2\cdot2^4}
+                              =A+\frac{32+25}{3\cdot5^2\cdot2^4}\\
+                      &&\iff-\frac{57}{1200}&=A\implies
+                                \boxed{A=-\frac{19}{400}}
+\end{alignat*}
+
+From this we can complete the integration:
+\begin{align*}\int\frac{x+1}{x^2(x-5)(x+4)}\,dx
+&=\int\left[\frac{-\frac{19}{400}}{x}+\frac{-\frac1{20}}{x^2}
+     +\frac{\frac2{75}}{x-5}+\frac{\frac1{48}}{x+4}\right]\,dx\\
+&=-\frac{19}{400}\ln|x|-\frac1{20}\cdot\frac{-1}{x}+\frac2{75}\ln|x-5|
+       +\frac1{48}\ln|x+4|+C.
+\end{align*}
+\item[Method 2.] One can instead evaluate the polynomial 
+equality (\ref{PolyEqualityForPFD3}) at still another $x$-value,
+though no such value will produce $A$ alone:
+$$\underline{x=1}:\qquad 2=A(1)(-4)(5)
+                     +B(-4)(5)+C(1)^2(5)+D(1)^2(-4).$$
+Since we already know $B$, $C$ and $D$, we can insert that information
+and solve for $A$. 
+\item[Method 3.] This will be more useful later, but this method
+(referred to earlier as the {\rm auxiliary} method) certainly applies.
+The idea is that we apply $\frac{d}{dx}$ to both sides
+of (\ref{PolyEqualityForPFD3}), which is valid because the left-hand
+side and right-hand side of (\ref{PolyEqualityForPFD3})
+are the same {\rm functions}.
+
+In order to use this method, it is useful to recall the generalized
+product rule.  For three functions $u(x)$, $v(x)$ and $w(x)$, for instance,
+we have
+$$(uvw)'=u'vw+uv'w+uvw'.$$
+For reference we recall (\ref{PolyEqualityForPFD3}), from which we then
+compute the derivatives. Equation (\ref{PolyEqualityForPFD3}) reads:
+$$x+1=Ax(x-5)(x+4)+B(x-5)(x+4)+Cx^2(x+4)+Dx^2(x-5).$$
+\begin{align*}
+\underline{\frac{d}{dx}}:\qquad\qquad1&=A[(1)(x-5)(x+4)+x(1)(x+4)+x(x-5)(1)]\\
+  &\qquad+B[(1)(x+4)+(x-5)(1)]\\
+  &\qquad\qquad+C[(2x)(x+4)+x^2(1)]\\
+  &\qquad\qquad\qquad+D[(2x)(x-5)+x^2(1)].\end{align*}
+Now when we evaluate this at $x=0$, we see that we get
+$$1=A[(1)(-5)(4)]+B[(1)(4)+(-5)(1)]+0+0.$$
+This gives us $1=-20A-B$, so then $A=(1+B)/(-20)=(19/20)/(-20)=-19/400$,
+as before.
+\end{description}
+\eex
+
+A simple principle buried in the third method is the following:
+\begin{theorem}
+If $(x-a)^m$, where $m>1$ is a factor of a polynomial $f(x)$,
+             then $(x-a)^{m-1}$ is a factor of $f'(x)$.
+\label{DerivLowersPowerOf(X-A)Theorem} 
+\end{theorem}
+For a proof, we note that $(x-a)^m$ being a factor of $f(x)$
+is equivalent to $f(x)=(x-a)^mg(x)$, where $g(x)$ is another 
+polynomial.  Thus
+$$f'(x)=(x-a)^mg'(x)+m(x-a)^{m-1}(1)g(x)
+=(x-a)^{m-1}\underbrace{\left[(x-a)g'(x)+mg(x)\right]}_{\text{polynomial}},$$
+so indeed $(x-a)^{m-1}$ is a factor of $f'(x)$.
+
+
+Now evaluating both sides of (\ref{PolyEqualityForPFD3}) at $x=0$
+caused  those terms with $x$ and $x^2$ factors to vanish,
+leaving an equation with $B$ only.  When we differentiate 
+(\ref{PolyEqualityForPFD3}), those terms with $x^2$ factors
+{\it still vanish}---because one power of $x$ remains---leaving 
+only the $B$-term (as before) 
+and the $A$-term (which had a factor $x$ but not $x^2$).
+Already knowing $B$, we could solve for $A$.
+
+
+A few guidelines for efficiently finding the PFD coefficients
+should be made at this point.
+
+\begin{enumerate}
+\item When linear factors are present in $Q(x)$, it is best
+      to exhaust this method for finding some of the coefficients
+      easily. This means evaluating the relevant polynomial equality
+      at each value for which $Q(x)=0$.
+\item When those values are exhausted, we should next 
+      compare coefficients of the
+      powers of $x$, particuarly the highest power which occurs
+      on the right-hand side.
+\item If $(ax+b)^m$ is a factor of $Q(x)$, where $m>1$, 
+      and the first two methods fail to get all coefficients,
+      then differentiation of the polynomial equality may
+      yield more coefficients.
+\item If there are still coefficients to be found, then further
+      evaluations, differentiations, or coefficient comparisons
+      should be implemented.
+\end{enumerate}
+\bex Compute $\ds{\int\frac{5x^3-17x^2+19x-13}{(x+1)(x-2)^3}\,dx}$.
+
+\underline{Solution}: As usual we start with the PFD.
+$$\frac{5x^3-17x^2+19x-13}{(x+1)(x-2)^3}
+=\frac{A}{x+1}+\frac{B}{x-2}+\frac{C}{(x-2)^2}+\frac{D}{(x-2)^3}$$
+\begin{equation}
+5x^3-17x^2+19x-13
+ =A(x-2)^3+B(x+1)(x-2)^2+C(x+1)(x-2)+D(x+1)
+\label{PolyEqualityForPFD4}\end{equation}
+\begin{alignat*}{2}
+\underline{x=-1}:&\qquad&-5-17-19-13&=A(-27)\\
+                 &&\implies-54&=-27A\implies\boxed{A=2}\\
+\underline{x=2}:&\qquad&5(8)-17(4)+19(2)-13&=D(3)\\
+                &&\implies-3&=3D\implies\boxed{D=-1}\\
+\underline{x^3\text{-term}:}&&5&=A+B\\
+                &&\implies 5&=2+B\implies\boxed{B=3}.
+\end{alignat*}
+While we could perform another evaluation ($x=0$ comes to mind),
+or look at another coefficient (prone to error), instead we will
+differentiate (\ref{PolyEqualityForPFD4}):
+\begin{align*}
+15x^2-34x+19&=A[3(x-2)^2(1)]\\
+             &\qquad+B[(1)(x-2)^2+(x+1)\cdot2(x-2)(1)]\\
+             &\qquad\qquad+C[(1)(x-2)+(x+1)(1)]\\
+             &\qquad\qquad\qquad+D(1).\end{align*}
+Now we evaluated at $x=2$:
+\begin{align*}
+15(4)-34(2)+19&=C(3)+D\\\implies 11&=3C-1\implies \boxed{C=4}.
+\end{align*}
+Thus
+\begin{align*}
+\int\frac{5x^3-17x^2+19x-13}{(x+1)(x-2)^3}\,dx
+&=
+\int\left[\frac2{x+1}+\frac3{x-2}+\frac4{(x-2)^2}-\frac1{(x-2)^3}\right]\,dx\\
+&=2\ln|x+1|+3\ln|x-2|-\frac4{x-2}-\frac1{-2}\cdot\frac1{(x-2)^2}+C\\
+&=\ln\left|(x+1)^2(x-2)^3\right|-\frac4{x-2}+\frac1{2(x-2)^2}+C.
+\end{align*}
+
+
+\eex
+
+A quick corollary to our Theorem~\ref{DerivLowersPowerOf(X-A)Theorem} 
+is that if
+$(x-a)^m$ is a factor of a polynomial $f(x)$, then for $k<m$ we have
+$(x-a)^{m-k}$ is a factor of $f^{(k)}(x)=\frac{d^k}{dx^k}f(x)$.
+This follows from repeated applications of the theorem, which 
+can be paraphrased as saying that we lose at most one factor of $(x-a)$
+for each derivative we take, until we run out of factors of
+$(x-a)$.  If our latest example had $(x-2)^4$ in the denominator,
+we could have taken a second derivative of the corresponding
+polynomial equation, and then those terms with 
+$(x-2)^3$ or $(x-2)^4$ will stil be zero at $x=2$, but the 
+other terms would likely be nonzero.\footnote{%%%
+%%% FOOTNOTE
+Note that it is quite possible that $x-a$ is not a factor of 
+a polynomial $f(x)$, but {\it is} a factor of $f'(x)$.  
+That is the case when $x=a$ is a {\it critical point} of
+$f(x)$. For example, $x-1$ is not a factor of $f(x)=x^2-2x+21$,
+but is a factor of $f'(x)=2x-2=2(x-1)$.
+
+Note also that the theorem applies to any linear factor $ax+b$,
+where $a\ne0$, since $ax+b=a\left(x+\frac{b}a\right)$.
+Thus if $x^m$ is a factor of a polynomial $f(x)$, 
+the $x^{m-1}$ is a factor of $f'(x)$, etc., as is the 
+case if we replace $x^m$ with $(ax+b)^m=a^m\left(x+\frac{b}a\right)$.
+%%% END FOOTNOTE
+}
+
+
+Now we turn our attention to PFD's where the denominators contain
+irreducible quadratic factors.\footnote{%%
+%%% FOOTNOTE
+ Until the next section, we will
+not be able to integrate the general case where we have an 
+irreducible quadratic factor to a power greater than 1,
+with some exceptional cases.  
+%%% END FOONTOTE
+}
+One problem with such factors is that they are nonzero for 
+any $x\in\Re$,\footnote{%%%
+%%% FOOTNOTE
+Recall that if $f(x)$ is a polynomial of degree $\ge1$,
+then $f(a)=0\iff (x-a)$ is a factor of $f(x)$.
+%%% END FOOTNOTE
+}
+so the evaluation method's usefulness is limited in these cases.
+For such PFD's, we will need to rely more upon the coefficient
+comparison method to find our coefficients.
+
+\bex Compute $\ds{\int\frac{4x^3-7x^2+31x-38}{x^4+13x^2+36}\,dx}$.
+
+\underline{Solution}:
+PFD rules apply since the degree of the numerator is less than that
+of the denominator.
+We need to begin by factoring the denominator of the integrand,
+after which we can write the general form of the PFD.
+$$
+\int\frac{4x^3-7x^2+31x-38}{x^4+13x^2+36}\,dx
+=\int\frac{4x^3-7x^2+31x-38}{(x^2+4)(x^2+9)}\,dx
+=\int\left[\frac{Ax+B}{x^2+4}+\frac{Cx+D}{x^2+9}\right]\,dx.$$
+Now taking the second equation, we underlying PFD becomes
+the polynomial equality
+\begin{equation}4x^3-7x^2+31x-38=(Ax+B)(x^2+9)+(Cx+D)(x^2+4).
+\label{PolyEqualityForPFD5}
+\end{equation}
+Now we look at the coefficients.\footnote{%%%
+%%% FOOTNOTE
+Note that the constant (``$x^0$'') term equation is what we 
+would get if we evaluated (\ref{PolyEqualityForPFD5}) at $x=0$.
+It is easy to see that this is always the case.%%%
+%%% END FOOTNOTE
+}
+\begin{alignat*}{2}
+\underline{x^3\text{-term}}:&&\qquad 4&=A+C\\
+\underline{x^2\text{-term}}:&&-7&=B+D\\
+\underline{x^1\text{-term}}:&&31&=9A+4C\\
+\underline{x^0\text{-term}}:&&-38&=9B+4D.
+\end{alignat*}
+Though this looks like (and is) four equations in four
+unknowns, in fact it ``decouples'' into two systems,
+each with two unknowns, since the first and third
+equations have only $A$ and $C$, and the second and fourth have
+$B$ and $D$ only.  We solve these in turn.
+$$\begin{array}{rcrcr}
+4&=&A&+&C\\
+31&=&9A&+&4C\end{array}
+\qquad\qquad
+\begin{array}{rcrcr}
+-7&=&B&+&D\\
+-38&=&9B&+&4D\end{array}$$
+For the first system, we multiply the first equation by $-9$ and add
+to the second, to get $-5=0A-5C\implies C=1$. From that we have
+the original first equation giving $A=4-C=4-1=3$.
+
+For the second system, we do the same, that is, mutliply the first
+equation by $-9$ and add to the second, giving $63-38=-5D
+\implies25=-5D\implies-5=D$.  From the original first equation
+in that system, we then get $B=-7-D=-7+5=-2$.
+
+Now we compute the integral, noting that it is easier if we
+break the PFD into four distinct terms:
+\begin{align*}
+\int\frac{4x^3-7x^2+31x-38}{(x^2+4)(x^2+9)}\,dx
+&=\int\left[\frac{3x}{x^2+4}-\frac{2}{x^2+4}
+              +\frac{x}{x^2+9}-\frac5{x^2+9}\right]\,dx\\
+&=\frac32\ln(x^2+4)-\frac22\tan^{-1}\frac{x}2+\frac12\ln(x^2+9)
+        -\frac53\tan^{-1}\frac{x}3+C\\
+&=\ln\sqrt{(x^2+4)^3(x^2+9)}-\tan^{-1}\frac{x}2
+         -\frac53\tan^{-1}\frac{x}3+C.
+\end{align*}
+\eex
+
+In the example above, we used the following common integration formula,
+which is particularly useful in problems encountered in this section.
+It is derivable with the usual substitution methods, and not too difficult
+to verify by differentiation.  The formula is the following:
+\begin{equation}
+\int\frac1{x^2+a^2}\,dx=\frac1a\tan^{-1}\frac{x}a+C.
+\label{Int1/(x^2+a^2)}\end{equation}
+We also used 
+$$\int\frac{x}{x^2+k^2}\,dx=\frac12\ln(x^2+k^2)+C,$$
+assuming $k\ne0$.  Note that we do not need absolute values
+inside the logarithm since $x^2+k^2\ge k^2>0$.
+
+When we have irreducible quadratic factors in the denominator
+$Q(x)$, it is likely that we will need to compare coefficients.\footnote{%%%
+%%% FOOTNOTE
+Or something equivalent to comparing coefficients.  For instance,
+$x=0$ gives $-38=9B+4D$, and one derivative of (\ref{PolyEqualityForPFD5})
+gives 
+$$12x^2-14x+31=(A)(x^2+9)+(Ax+B)(2x)+(C)(x^2+4)+(Cx+D)(2x),$$
+which, when we consider the datum $x=0$ gives
+$31=9A+4C$.  Both of these we had before.  More derivatives,
+evaluated at $x=0$,  give
+multiples of the other two equations in our system (four equations in four
+unknowns).%%
+%%% END FOOTNOTE
+}
+Afterall, there are no real numbers which will make all but
+one of those coefficients vanish.  (We can make two vanish with $x=0$,
+but that still leaves two.)  If linear terms are also present, however,
+the evaluation method will yield one or more of the coefficients quickly.
+
+\bex Compute $\ds{\int\frac{12x^4+190x^2+13x-6}{(2x-1)(x^2+16)}\,dx}$.
+
+\underline{Solution}: First we note that the numerator has degree
+which is not less than the denominator, so we must use long division.
+To do so we need to expand the denominator:
+$(2x-1)(x^2+16)=2x^3-x^2+32x-16$.
+
+Now through polynomial long division we get
+\begin{equation}
+\frac{12x^4+190x^2+13x-6}{(2x-1)(x^2+16)}
+ =\frac{12x^4+190x^2+13x-6}{2x^3-x^2+32x-16}
+ =6x+3+\frac{x^2+13x+42}{2x^3-x^2+32x-16}.\end{equation}
+Refactoring our denominator, our integral now becomes
+$$\int\left[6x+3+\frac{x^2+13x+42}{(2x-1)(x^2+16)}\right]\,dx
+=\int\left[6x+3+\frac{A}{2x-1}+\frac{Bx+C}{x^2+16}\right]\,dx.$$
+The first two terms are easy enough.  For our PFD, we need only
+concern ourselves with the remaining fraction:
+$$\frac{x^2+13x+42}{(2x-1)(x^2+16)}=
+\frac{A}{2x-1}+\frac{Bx+C}{x^2+16}.$$
+The corresponding polynomial equation is then
+\begin{equation}
+x^2+13x+42=A(x^2+16)+(Bx+C)(2x-1).
+\label{PolyEqualityForPFD6}\end{equation}
+We begin with an evalutation, followed by a coefficient comparison.
+\begin{alignat*}{2}
+\underline{x=\frac12}:&\qquad&\frac14+\frac{13}2+42&=
+              A\left(\frac14+16\right)\\
+       &&\implies \frac{1+26+168}{4}&=\frac{65}4A\\
+       &&\implies {195}&=65A\implies\boxed{A=3}\\
+\underline{x^2\text{-term}}:
+           &&1&=A+2B\\
+           &&\implies1&=3+2B\implies\boxed{B=-1}.
+\end{alignat*}
+Perhaps the simplest next step is to find $C$ by evaluation of
+(\ref{PolyEqualityForPFD6}) at,
+say, $x=0$:
+\begin{align*}
+\underline{x=0}:\qquad 42&=16A-C\\
+                  \implies42&=16(3)-C\\
+                  \implies C&=16(3)-33=48-16\implies \boxed{C=6}.
+\end{align*}
+Thus our original integral, including the polynomial terms, becomes
+\begin{align*}
+\int\frac{12x^4+190x^2+13x-6}{(2x-1)(x^2+16)}\,dx
+&=\int\left[6x+3+\frac{3}{2x-1}-\frac{x}{x^2+16}+\frac{6}{x^2+16}
+  \right]\,dx\\
+&=3x^2+3x+\frac32\ln|2x-1|-\frac12\ln(x^2+16)+\frac64\tan^{-1}\frac{x}4
++C\\&=3x(x+1)+3\ln\sqrt{|2x-1|}-
+\ln\sqrt{x^2+16}+\frac32\tan^{-1}\frac{x}4
++C.\end{align*}
+The second from the last line was complete; the last line just gives
+some alternative styles for the particular terms.
+\eex
+
+Of course with any new technique, we have to be sure that
+we do not neglect the earlier methods.
+
+
+\section{Miscellaneous Methods}
+
+In this section we will use completing the square, and other
+methods to rewrite several types of integrals into forms
+where we can more easily use either partial fractions
+or trigonometric substitution.  We will also look at examples
+where a substitution will bring us to such forms.  Finally, we
+will consider the use of integration tables, which 
+can be found in numerous publications, but which require
+some sophistication to be used properly.
+
+
+
+
+
+
+
+\newpage
+
+

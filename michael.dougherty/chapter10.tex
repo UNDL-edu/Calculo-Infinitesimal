@@ -1,0 +1,886 @@
+%\setcounter{page}{1100}
+\chapter{Series of Constants\label{FirstSeriesChapter}}
+In this chapter we consider ``infinite sums,'' such as
+\begin{equation}
+\sum_{n=1}^\infty a_n=\underbrace{a_1}_{n=1}+\underbrace{a_2}_{n=1}
+  +\underbrace{a_3}_{n=3}+\cdots.
+\label{SeriesFirstIntroducedEquation}\end{equation}
+The ``sum'' above begins with $a_1$, but we will often begin
+with a term $a_0$, or $a_2$, etc.  It is not the beginning
+terms which determine if we can in fact compute such a
+sum, but rather it is the infinite ``tail'' of the series.
+This is reasonable because we can always, in principle, 
+add as many terms together as we like, so long as there are
+finitely many of them.  As with other calculus concepts,
+the tool which breaks the finite/infinite barrier is limit.
+Indeed, to make sense of a sum such as (\ref{SeriesFirstIntroducedEquation}),
+we consider the $N$th {\it partial sum},
+\begin{equation}
+S_N=\sum_{n=1}^na_n=a_1+a_2+\cdots+a_{N-1}+a_N,
+\label{PartialSumFirstIntroducedEquation}\end{equation}
+and then look at the {\it sequence} $S_1,S_2,S_3,\cdots$,
+i.e.,
+\begin{align*}
+S_1&=a_1,\\
+S_2&=a_1+a_2,\\
+S_3&=a_1+a_2+a_3,\\
+S_4&=a_1+a_2+a_3+a_4,\end{align*}
+and so on.  To determine if (\ref{SeriesFirstIntroducedEquation})
+makes sense is then considered (by definition) equivalent
+to determining the behavior of the sequence $\left\{S_N\right\}_{N=1}^\infty$.
+We say the series (\ref{SeriesFirstIntroducedEquation})
+{\it converges} to $L\in\Re$ if and only if $S_N\longrightarrow L$
+as $N\to\infty$.
+
+In a few cases we will actually be able to compute a simple
+formula for $S_N$, and thus be able to compute the 
+series by taking $N\to\infty$.  However, in many cases
+we cannot find a compact formula for $S_N$.  In those cases
+we have to develop other methods for determining if
+the series converges at all, and if so, how to approximate
+the value of the series with as much precision as we require,
+by determining how large we require $N$ to be so that
+we can approximate the full series by $S_N$.
+
+In this text we will take more steps than most other texts in developing
+the theory of series, since this topic is the source of much
+confusion for students.  Indeed we devote this entire chapter
+to the topic of series of constant terms, leaving nonconstant
+terms for their own chapter.  The concepts are 
+intuitive---perhaps deceptively so---but require practice so that,
+for example, one can recognize when and where to apply a particular
+test of convergence or divergence.
+
+In the next chapter
+we will look at functions defined by series
+$$f(x)=\sum_{n=0}^\infty a_n(x-a)^n
+  =a_0+a_1(x-a)+a_2(x-a)^2+\cdots.$$
+In fact most functions we have dealt  with in this text can be written
+in the form above, at least on some open intervals, so such functions are
+very important theoretically. In fact
+these functions also have use in applications, when we do not know
+any other method of representing a particular function arising
+from a particular application except by such a series.
+
+
+\newpage
+\section{Series and Partial Sums}
+As mentioned in the introduction to this chapter, the convergence
+of a series is defined  as equivalent to the convergence of its 
+partial sums.  
+For convenience, we will define the $N$th partial sum
+to be the sum of all terms of the underlying sequence up to
+the term whose subscript is $N$.  Thus if the sequence is
+series is $\sum_{n=k}^\infty a_n$, with
+underlying sequence $\left\{a_n\right\}_{n=k}^\infty$, then
+\begin{equation}
+S_N=\sum_{n=k}^N a_n=a_k+a_{k+1}+\cdots+a_N.\end{equation}
+So for a series $a_0+a_1+a_2+\cdots$, the partial
+sum $S_N=a_0+a_1+\cdots+a_N$ would actually have $N+1$ terms,
+though we will still call it the $N$th partial sum. (Of course
+if $N<k$ we do not define an $N$th partial sum.)
+
+\bex Consider the series
+$$\sum_{n=1}^\infty \frac{(-1)^n}{n^2+1}.$$
+Find the first five partial sums.
+
+\underline{Solution}: We do this directly:
+\begin{alignat*}{3}
+S_1&=\sum_{n=1}^1\frac{(-1)^n}{n^2+1}
+  &&=\frac{(-1)^1}{1^2+1}&&=\frac{-1}2\\
+S_2&=\sum_{n=1}^2\frac{(-1)^n}{n^2+1}
+  &&=\frac{(-1)^1}{1^2+1}+\frac{(-1)^2}{2^2+1}
+  &&=\frac{-1}2+\frac1{5}=-\frac{3}{10}=0.3\\
+S_3&=\sum_{n=1}^3\frac{(-1)^n}{n^2+1}
+  &&=\frac{(-1)^1}{1^2+1}+\frac{(-1)^2}{2^2+1}+\frac{(-1)^3}{3^2+1}
+    &&=-\frac{3}{10}+\frac{-1}{10}=\frac2{10}=0.2\\
+S_4&=\sum_{n=1}^4\frac{(-1)^n}{n^2+1}
+  &&=\frac{(-1)^1}{1^2+1}+\frac{(-1)^2}{2^2+1}+\frac{(-1)^3}{3^2+1}
+         +\frac{(-1)^4}{4^2+1}
+  &&=S_3+\frac{1}{17}=\frac{44}{170}\approx0.2588235294\\
+S_5&=\sum_{n=1}^5\frac{(-1)^n}{n^2+1}&&
+    =S_4+\frac{(-1)^5}{5^2+1}
+   &&=\frac{44}{170}+\frac{-1}{26}\approx0.220361991.
+\end{alignat*}
+\eex
+Note we used the simple recursion relationship for partial sums
+of a series: given a series
+$\ds{\sum_{n=k}^\infty a_n}$, and $N\ge k$ we have
+\begin{equation}
+S_{N+1}=S_N+a_{N+1},\label{RecursionSn+1=Sn+An+1}
+\end{equation}
+that is,
+\begin{align*}
+S_{N+1}&=\sum_{n=k}^{N+1}a_n=\underbrace{a_k+a_{k+1}+\cdots+a_N}_{S_N}
+                +a_{N+1}=\sum_{n=k}^Na_n+a_{N+1}\\
+       &=S_N+a_{N+1},\text{ q.e.d.}\end{align*}
+In a later section 
+we will see that the series in the above example does in fact
+converge, though we can only approximate its exact value
+by computing $S_N$ for large values of $N$.
+
+\subsection{Telescoping Series}
+Telescoping series do occur on occasion, but the main reason
+they are included in most calculus textbooks is that their
+partial sums simplify in nice ways, leaving us able to compute
+their limits and thus the whole series.  Indeed, the behavior
+of telescoping series is unusually ``nice''---rivaled only by
+that of the much more important
+geometric series we will see later in this section---and therefore
+well-suited for early examples of the general notion of series.
+
+
+The simplest type of telescoping series is one in which
+the terms added are themselves sums of two terms, constructed
+in such a way that there is cancellation such as the following:
+\begin{align}
+\sum_{n=1}^\infty a_n&=\sum_{n=1}^\infty
+\left[b_n-b_{n-1}\right]\label{SimpleAbstractTelescopingSeries}\\
+&=\left(b_1-b_0\right)+\left(b_2-b_1\right)+\left(b_3-b_2\right)
++\left(b_4-b_3\right)+\cdots.\notag\end{align}
+After a careful examination of the terms which appear in 
+(\ref{SimpleAbstractTelescopingSeries}), it seems that
+all cancel except for $-b_0$. However we must be even more
+careful since there are infinitely many terms we are claiming
+we can cancel.  The correct approach is to carefully examine the partial 
+sums:
+\begin{align*}
+S_1&=b_1-b_0,\\
+S_2&=\not{b_1}-b_0+b_2-\not{b_1}=b_2-b_0,\\
+S_3&=\not{b_1}-b_0+\not{b_2}-\not{b_1}+b_3-\not{b_2}=b_3-b_0,\\
+S_4&=\not{b_1}-b_0+\not{b_2}-\not{b_1}+\not{b_3}-\not{b_2}
+   +b_4-\not{b_3}=b_4-b_0,\end{align*}
+and so on, whereby we can conclude that, for this simplest type
+of example (\ref{SimpleAbstractTelescopingSeries}), we have
+\begin{equation}
+S_n=b_n-b_0.\label{SnForSimpleAbstractTelescopingSeries}
+\end{equation}
+Now such a series will therefore converge if and 
+only if $\left\{b_n\right\}_{n=1}^\infty$ converges.
+If $b_n\longrightarrow B\in\Re$ as $n\to\infty$, then
+by (\ref{SnForSimpleAbstractTelescopingSeries}) we have
+$S_n\longrightarrow B-b_0$, whence
+$\sum_{n=1}^\infty\left[b_n-b_{n-1}\right]=B-b_0$.
+
+More complicated telescoping series also occur, though the
+basic idea is that the partial sums can be written
+in such a way that all but a few terms found in the partial sums
+eventually cancel,
+and where we can compute the limits of those terms which do not.\footnote{%%%
+%%% FOOTNOTE
+It is interesting to visualize why the term {\it telescoping}
+is used to describe such a series.  
+One of the {\it Webster's} dictionaries defines 
+the intransitive verb form of {\it telescope} as follows:
+\begin{quote}
+{\it to slide together, or into something else, in the manner of the
+tubes of a jointed telescope.}\end{quote}
+For another example, a ``telescoping antenna'' comes to mind.
+The reader should keep such images in mind as we consider 
+so-called telescoping series.
+%%% END FOOTNOTE
+} Rather than memorizing the sample telescoping
+forms (\ref{SimpleAbstractTelescopingSeries})
+and (\ref{SnForSimpleAbstractTelescopingSeries}), it is better to 
+consider each example separately, writing out the terms of $S_N$
+for enough values of $N$ that the pattern emerges.
+\bex Consider the series $\ds{\sum_{n=1}^\infty\left[\frac1{n+1}-\frac1n\right]
+}$.  Compute the form of each partial sum $S_N$ (as a function of $N$), and
+the value of the series if it converges.
+
+\underline{Solution}: We will write out a few partial sums longhand, 
+from which the pattern will emerge.
+Indeed, all but two terms will cancel in each of the following.
+\begin{alignat*}{2}
+S_1&=\left[\frac12-1\right]&&=\frac12-1,\\
+S_2&=\left[\frac12-1\right]+\left[\frac13-\frac12\right]
+     &&=\frac13-1,\\
+S_3&=\left[\frac12-1\right]+\left[\frac13-\frac12\right]
+   +\left[\frac14-\frac13\right]&&=\frac14-1,\\
+S_4&=\left[\frac12-1\right]+\left[\frac13-\frac12\right]
+   +\left[\frac14-\frac13\right]+\left[\frac15-\frac14\right]
+   &&=\frac15-1.
+\end{alignat*}
+From this we do indeed see a pattern in which 
+$$S_N=\frac1{N+1}-1.$$
+Taking $N\to\infty$, we see $S_N=\frac1{N+1}-1\longrightarrow0-1=-1$,
+and so we conclude that the series converges to $-1$, i.e.,
+$$\sum_{n=1}^\infty\left[\frac1{n+1}-\frac1n\right]=-1.$$
+\eex
+
+Sometimes we need to do a little more work to detect a
+telescoping series, and its formula for $S_N$.
+Note that the general term of the added sequence terms,
+namely $\left[\frac1{n+1}-\frac1n\right]$,
+in our series above looks like a partial fraction decomposition
+if the variable is $n$.  For that reason, when
+the general term can be written in a PFD, the series may 
+in fact be telescoping.  This is the case with the following 
+example. 
+
+\bex Consider the series $\ds{\sum_{n=2}^\infty\frac1{n^2-1}}$.
+Compute a general formula for the $N$th partial sum $S_N$,
+and compute its limit, if $S_N$ converges, thereby computing the series.
+
+\underline{Solution}: Note first that there is no $S_1$ here.
+That said, the technique which we will use for this
+is to first look at the partial fraction decomposition (PFD)
+for $\frac1{n^2-1}$.  Of course we need the denominator factored,
+giving us the form
+$$\frac1{n^2-1}=\frac1{(n+1)(n-1)}=\frac{A}{n+1}+\frac{B}{n-1}.$$
+Multiplying by $(n+1)(n-1)$ in the second equation then gives us
+$$1=A(n-1)+B(n+1).$$
+Now we use the usual methods for computing the coefficients $A$ and $B$:
+\begin{alignat*}{2}
+\underline{n=1}:&\qquad &1&=B(2)\implies\boxed{B=\frac12}\\
+\underline{n=-1}:&\qquad&1&=A(-2)\implies\boxed{A=-\frac12}.
+\end{alignat*}
+From this we can rewrite our series
+$$\sum_{n=2}^\infty
+ \left[\frac{-1/2}{n+1}+\frac{1/2}{n-1}\right]
+ =\sum_{n=2}^\infty\left[\frac12\left(\frac{-1}{n+1}+\frac1{n-1}\right)\right].
+$$
+There is no $S_1$, so we begin with $S_2$.
+\begin{alignat*}{2}
+S_2&=\frac12\left(\frac{-1}{3}+1\right)
+       &&=\frac12\left(\frac{-1}{3}+1\right),\\
+S_3&=\frac12\left(\frac{-1}{3}+1\right)
+       +\frac12\left(\frac{-1}4+\frac12\right)
+       &&=\frac12\left(\frac{-1}{3}+1+\frac{-1}4+\frac12\right),\\
+S_4&=\frac12\left(\frac{-1}{3}+1\right)
+       +\frac12\left(\frac{-1}4+\frac12\right)
+       +\frac12\left(\frac{-1}5+\frac13\right)
+       &&=\frac12\left(1+\frac12-\frac14-\frac15\right),\\
+S_5&=S_4+\frac12\left(\frac{-1}6+\frac14\right)
+       &&=\frac12\left(1+\frac12-\frac15-\frac16\right),\\
+S_6&=S_5+\frac12\left(\frac{-1}7+\frac15\right)
+       &&=\frac12\left(1+\frac12-\frac16-\frac17\right),\\
+S_7&=S_6+\frac12\left(\frac{-1}8+\frac16\right)
+       &&=\frac12\left(1+\frac12-\frac17-\frac18\right)
+\end{alignat*}
+By this point a pattern has clearly  emerged:
+$$S_N=\frac12\left(1+\frac12-\frac1N-\frac1{N+1}\right),$$
+and so 
+$S_N\longrightarrow \frac12\left[1+\frac12-0-0\right]=\frac12\cdot\frac32
+         =\frac34$ as $N\to\infty$.
+We can thus conclude that
+$$\sum_{n=2}^\infty\frac1{n^2-1}
+  =\sum_{n=2}^\infty
+         \left[\frac12\left(\frac{-1}{n+1}+\frac1{n-1}\right)\right]
+  =\frac34.$$
+\eex
+\bex Find $S_N$ and discuss the convergence (or divergence)
+     of the series
+$$\sum_{n=0}^\infty\left[\sqrt{n+1}-\sqrt{n}\right].$$
+
+\underline{Solution}:
+\begin{alignat*}{2}
+S_0&=\left[\sqrt1-\sqrt0\right]&&=\sqrt1-\sqrt0,\\
+S_1&=\left[\sqrt1-\sqrt0\right]+\left[\sqrt2-\sqrt1\right]&&=\sqrt2-\sqrt0,\\
+S_2&=\left[\sqrt1-\sqrt0\right]+\left[\sqrt2-\sqrt1\right]
+   +\left[\sqrt3-\sqrt2\right]&&=\sqrt3-\sqrt0,\\
+S_3&=\left[\sqrt1-\sqrt0\right]+\left[\sqrt2-\sqrt1\right]
+   +\left[\sqrt3-\sqrt2\right]+\left[\sqrt4-\sqrt3\right]
+   &&=\sqrt4-\sqrt0,
+\end{alignat*}
+and so on, so that 
+$$S_N=\sqrt{N+1}-\sqrt0=\sqrt{N+1}\longrightarrow\infty
+\text{ as }N\to\infty.$$
+Thus the series diverges (to infinity, to be more descriptive).
+\eex
+Note that we could simplify our earlier expressions for $S_N$,
+since for instance $\sqrt0=0$, $\sqrt1=1$ and $\sqrt4=2$, but
+to do so would more likely obscure the pattern of cancellation.
+
+\subsection{Geometric Series}
+The class of series considered  here is arguably the most important
+we will encounter.  Many important series analyses
+depend upon how a particular series compares to, or mimics the
+behavior of, an appropriately chosen geometric series.
+As with the telescoping series, the geometric series
+is one for which we can actually compute a general formula
+for $S_N$, from which we can tell if the series converges,
+and if so compute its sum.
+
+What makes a series $\sum a_n$ geometric is that there exists a constant 
+$r\in\Re-\{0\}$ such that
+\begin{equation}
+(\forall n)\left[\frac{a_{n+1}}{a_n}=r\right].\label{RForGeometricSeries}
+\end{equation}
+In other words, such a series can be defined recursively
+by $a_{n+1}=r\cdot a_n$.  (Note that this is equvialent to 
+$a_n=r\cdot a_{n-1}$, so long as $a_{n-1}$ is defined.)
+Put more colloquially, a geometric series is one in which
+the next term added is a constant multiple of the
+term immediately prior to it.  Examples of geometric series follow:
+\begin{itemize}
+\item $\ds{\sum_{n=0}^\infty\left(\frac12\right)^n
+   =1+\frac12+\frac14+\frac18+\cdots}$ \qquad($r=1/2$),
+\item $\ds{\sum_{n=2}^\infty \frac6{5^n}=\frac6{25}
+          +\frac6{125}+\frac6{625}+\frac6{3125}+
+       \cdots}$ \qquad($r=1/5$),
+\item $\ds{\sum_{n=1}^\infty\frac{2(-1)^n}{3^n}
+   =-\frac23+\frac29-\frac2{27}+\frac2{81}-\cdots}$\qquad
+     ($r=-1/3$),
+\item $\ds{\sum_{n=1}^\infty\frac1{3^{2n}}
+   =\frac19+\frac1{81}+\frac1{729}+\frac1{6561}+\cdots}$
+   \qquad($r=1/9$).
+\end{itemize}
+Note that this last series can be 
+rewritten $\sum_{n=1}^\infty\frac1{9^n}$,
+or even $\sum_{n=0}^\infty\left[\frac19\cdot\left(\frac19\right)^n\right]$.
+In fact, unlike the
+telescoping series, every geometric series can be written in the 
+same form, namely\footnote{%%
+%%% FOOTNOTE
+With geometric series, it is understood that ``$r^0$'' represents
+$1$, even though technically this is only correct if $r>0$.
+In each general setting in which we follow the convention
+that $r^0$ is defined to be $1$ (regardless of the sign of $r$), 
+we will remark on this point.
+%%% END FOOTNOTE
+}
+\begin{equation}
+\sum_{n=0}^\infty \alpha r^n
+  =\alpha+\alpha r+\alpha r^2+\alpha r^3+\cdots,
+\label{GeneralGeometricSeries}
+\end{equation}
+where
+\begin{align}
+&\alpha\text{ is the {\it first term} of the series, and}\\
+&r\text{ is the {\it constant ratio}, } a_{n+1}/a_n.
+\end{align}
+In the examples above, the first terms
+are $\alpha=1,6/25,-2/3,1/9$ respectively.
+Each of the series above can be rewritten
+in $\Sigma$-notation in the form (\ref{GeneralGeometricSeries}),
+starting with $n=0$.
+For instance, the third series above can be rewritten,
+using $\alpha=-2/3$ and $r=-1/3$, as
+$$
+\sum_{n=1}^\infty\frac{2(-1)^n}{3^n}
+   =-\frac23+\frac29-\frac2{27}+\frac2{81}-\cdots
+   =\sum_{n=0}^\infty \frac{-2}3\left(\frac{-1}3\right)^n.
+$$
+In fact, once we know a series is geometric (that is,
+that $a_{n+1}=r\cdot a_n$ for each $n$), all we need
+to do is to identify $\alpha$ and $r$, and we can write
+the series in the exact $\Sigma$-notation form 
+(\ref{GeneralGeometricSeries}).
+
+\bex Write the series $4+\frac23+\frac19+\frac1{54}+\frac1{324}+\cdots$
+in the form (\ref{GeneralGeometricSeries}).
+
+\underline{Solution}: Though perhaps not immediately obvious,
+in fact each successive term is $\frac16$ times its immediate
+predecessor.  The first term is $4$.  We translate these two facts as
+$\alpha=4$ and $r=\frac16$, and so
+this series is the same as the series 
+$$\sum_{n=0}^\infty 4\cdot\left(\frac16\right)^n.$$
+\eex
+
+As with telescoping series, a geometric series
+allows for a simple formula for $S_N$.
+To use the formula, however, we need to make two assumptions:
+\begin{enumerate}
+\item that the series is already written in the form
+      $\ds{\sum_{n=0}^\infty\alpha r^n=\alpha+\alpha r+\alpha r^2+
+                 \alpha r^3+\cdots}$, and
+\item that $r\ne1$.
+\end{enumerate}
+As we have seen, the first requirement is easy enough to accomplish: we 
+need only identify $\alpha$ (the first term in the geometric 
+series) and $r$.  The second requirement is for technical reasons
+we will encounter momentarily.  We do not loose much
+in assuming $r\ne1$, since in the case $r=1$ 
+the series is simply $\alpha+\alpha+\alpha+\cdots$,
+which is clearly a divergent series if $\alpha\ne0$, and trivial if
+$\alpha=0$.\footnote{%%%
+%%% FOOTNOTE
+We will not generally consider the case $\alpha=0$ because
+it is trivial, and because we cannot identify a unique $r$.
+Indeed, if $\alpha=0$, then any geometric recursion is valid,
+but our original method of defining $r$, namely (\ref{RForGeometricSeries})
+on page~\pageref{RForGeometricSeries}, is undefined if 
+$\alpha=0$.
+%%% END FOOTNOTE
+}
+Now we state our theorem.
+\begin{theorem} For a geometric series $\ds{\sum_{n=0}^\infty\alpha r^n
+=\alpha+\alpha r+\alpha r^2+\alpha r^3+\cdots}$, 
+assuming $r\ne1$, we have
+\begin{equation}
+S_N=\frac{\alpha\left(1-r^{N+1}\right)}{1-r}.\label{SnForGeometric}
+\end{equation}
+\end{theorem}
+\begin{proof}
+The usual method of proof of (\ref{SnForGeometric}) is to exploit
+the geometric nature of the series in the following way:
+$$\begin{array}{lccccccccccc}
+&S_N&=&\alpha&+&\alpha r&+&\alpha r^2&+&\cdots&+&\alpha r^N\\
+\implies
+&r\cdot S_N&=&\alpha r&+&\alpha r^2&+&\alpha r^3&+&\cdots&+&\alpha r^{N+1}\\
+\hline
+\implies&(1-r)S_N&=&\alpha&+&0&+&0&+&0&-&\alpha r^{N+1}\end{array}$$
+In the first line we wrote the definition of $S_N$.  In the next
+line we multiplied that equation by $r$.  In the third line,
+the second line is subtracted from the first. In doing so,
+the terms $\alpha r,\alpha r^2,\cdots,\alpha r^{N}$ cancel,
+leaving only $\alpha-\alpha r^{N+1}$ on the right-hand side. 
+This gives us
+$$(1-r)S_N=\alpha\left(1-r^{N+1}\right).$$
+Since we are assuming $r\ne1$, we can divide by $1-r$ and get
+(\ref{SnForGeometric}), as desired.
+\end{proof}
+
+To utilize (\ref{SnForGeometric}), one needs to know $\alpha$, $r$ and $N$.
+Note that $N$ is not the number of terms, but the highest power
+of $r$ which occurs.  In fact there are $N+1$ terms added
+to arrive at $S_N$, since the first is $\alpha r^0$.
+
+\bex Consider the series $1+\frac12+\frac14+\frac18+\cdots$.
+     Find the sum of the first 9 terms.
+
+\underline{Solution}: What we are seeking here is 
+$S_8=\frac{\alpha\left(1-r^{8+1}\right)}{1-r}$,
+where $\alpha=1$ and $r=\frac12$.  Thus
+$$S_8=\frac{1\left[1-\left(\frac12\right)^9\right]}{1-\frac12}
+     =\frac{1-\frac1{512}}{\frac12}
+     =\frac{1-\frac1{512}}{\frac12}\cdot\frac{512}{512}
+     =\frac{512-1}{256}=\frac{511}{256}=1.99609375$$
+\eex
+
+The formula (\ref{SnForGeometric}) also works when $r<0$.
+\bex Consider the series $1-\frac12+\frac14-\frac18+\cdots$.
+Find the sum of the first 9 terms.
+
+\underline{Solution}: Again we want $S_8$, but while $\alpha=1$ as before,
+here we have $r=-1/2$.
+
+$$S_8=\frac{1\left[1-\left(\frac{-1}2\right)^9\right]}{1-\left(-\frac12\right)}
+     =\frac{1-\frac{-1}{512}}{\frac32}
+     =\frac{1+\frac1{512}}{\frac32}\cdot\frac{512}{512}
+     =\frac{512+1}{256\cdot3}
+     =\frac{513}{256\cdot3}
+     =\frac{171}{256}=0.66796875.$$
+
+
+
+
+
+\eex
+
+\bex Suppose one deposits into an account (without interest)
+     one penny (\$0.01) on the first
+     day of a month, then deposits two pennies (\$0.02)
+     the next day, four pennies the next, and so on,
+     each day depositing twice what was deposited the
+     day before.  How much money is in the account
+     after the first week (7 payments), 
+     second week, third week, and thirty-first
+     day?
+
+\underline{Solution}: This is the same as asking for
+     partial sums of the series $0.01+0.02+0.04+0.08+\cdots$.
+     This is a geoemtric series (\ref{GeneralGeometricSeries}) with
+     $\alpha=0.01$ and $r=2$.  Here we have to be careful
+     about $N$, since after the first day $N=0$, after the 
+     second $N=1$, etc.  Now we compute the total deposit after
+     \begin{itemize}
+     \item 1 week, i.e., 7 days, we have $N=6$ and
+        $$S_6=\frac{0.01\left[1-2^7\right]}{1-2}
+             =\frac{0.01\left[1-2^7\right]}{-1}
+             =0.01\left(2^7-1\right)=0.01(127)=1.27.$$
+     \item 2 weeks, i.e., 14 days, we have $N=13$ and (continuing the
+           pattern above)
+         $$S_{13}=\frac{0.01\left[1-2^{14}\right]}{1-2}
+                 =0.01\left(2^{14}-1\right)=0.01(16383)=163.83.$$
+     \item 3 weeks, i.e., 21 days, we have $N=20$ and
+         $$S_{20}=\cdots=0.01\left(2^{21}-1\right)=0.01(2,097,151)
+                 =20,971.51$$
+     \item 31 days, so we have $N=30$, and
+         $$S_{30}=\cdots=0.01\left(2^{31}-1\right)
+                 =0.01(2,147,483,647)=21,474,836.47.$$
+      \end{itemize}
+\eex
+This latest example illustrates that, when $r>1$, the
+function $N\mapsto S_N$ is essentially exponential.
+Indeed, {\it as a function of} $N$, 
+$$S_N=\frac{\alpha}{1-r}\left[1-r^{N+1}\right]
+=\frac{\alpha}{1-r}+\frac{-\alpha\cdot r^{N+1}}{1-r}     
+=\frac{\alpha}{1-r}+\left[\frac{\alpha}{r-1}\cdot r\right]
+\cdot r^{N}=A+Br^N,$$
+where $A=\frac{\alpha}{r-1}$ and $B=\frac{\alpha r}{r-1}$.
+Thus as a function of $N$, $S_N$ is basically
+a vertical translation of an 
+exponential growth $Br^N$, assuming again that $r>1$.\footnote{%%%
+%%% FOOTNOTE
+If $r\in(0,1)$ we get a translation
+of exponential decay; if $r\in(-1,0)$ we get a kind of
+``damped  oscillation''; if $r=-1$ we get steady oscillation;
+and if $r<-1$ we get a growing oscillation.  Details are left to
+the reader.
+%%% END FOOTNOTE
+}
+This partially explains why some use the term ``geometric growth''
+when referring to exponential growth.
+
+\subsection{Convergence/Divergence in Geometric Series}
+Now we look at necessary and sufficient conditions for a 
+geometric series to converge.  If a given geometric
+series does converge, we compute its sum.  Our result
+is the following:
+
+\begin{theorem}
+For a geometric series $\ds{\sum_{n=0}^\infty \alpha r^n
+   =\alpha+\alpha r+\alpha r^2+\alpha r^3+\cdots}$, where $\alpha\ne0$,
+\begin{enumerate}
+\item the series {\bf converges} if and only if $|r|<1$, i.e., $r\in(-1,1)$;\\
+      equivalently, the series {\bf diverges} if and only if $|r|\ge 1$, i.e., 
+      $r\in(-\infty,-1]\cup[1,\infty)$.
+\item if $|r|<1$, then the series converges to $\ds{\frac{\alpha}{1-r}}$.
+\end{enumerate}
+\end{theorem}
+Restated, the geometric series converges to $\frac{\alpha}{1-r}$ if $|r|<1$,
+and diverges otherwise.
+
+\begin{proof} The proof requires some care, as the various cases 
+contain their own technicalities.  
+\begin{itemize}
+\item Case $r=1$. In such a case, it is not diffiult to see (we just
+      count the terms!) that
+$$S_N=\sum_{n=0}^N\alpha=(N+1)\alpha\longrightarrow\infty
+       \qquad\text{as }N\to\infty.$$
+Thus $r=1$ gives a divergent series.
+\item Case $r=-1$. In such a case, we have
+$$\sum_{n=0}^\infty\alpha(-1)^n=\alpha-\alpha+\alpha-\alpha+\cdots,$$
+and so 
+$$S_N=\left\{\begin{array}{rl}
+\alpha,&\qquad\text{if }n\text{ is even,}\\
+0,&\qquad\text{if }n\text{ is odd.}\\
+\end{array}\right.$$
+In other words, $\left\{S_N\right\}_{N=0}^\infty=\alpha,0,\alpha,0,\alpha,0,
+   \cdots$, which is clearly a divergent sequence, i.e., 
+   the series itself is divergent (by definition).\footnote{%%%
+%%% FOOTNOTE
+Recall that the convergence of the series is defined by the convergence
+of the (sequence of) partial sums.
+%%% END FOOTNOTE
+}
+\item Case $|r|>1$. Here we can use the formula for the partial sums:
+$$S_N=\frac{\alpha\left(1-r^{N+1}\right)}{1-r}.$$
+Now there is only one term which is not a fixed constant, and so
+the convergence of this expression depends upon only the
+convergence that,  $r^{N+1}$-term.  Clearly if $r>1$, 
+this is an exponential growth, and diverges.  For the general case
+$|r|>1$, we get that\footnote{%%%
+%%% FOOTNOTE
+This follows from
+continuity of the function $x\mapsto|x|$ giving us the ``$\implies$.''
+See Theorem~\ref{ContFunctCarriesSequenceToF(Limit)},
+page~\pageref{ContFunctCarriesSequenceToF(Limit)}.
+%%% END FOOTNOTE
+}
+\begin{equation}
+r^{N+1}\text{ converges }\implies \left|r^{N+1}\right|\text{ converges }
+\iff|r|^{N+1}\text{ converges.}\label{AConvergenceArgument1}\end{equation}
+But for $|r|>1$, we have $|r|^{N+1}$ diverges, so with
+the contrapositive of (\ref{AConvergenceArgument1}) we have
+\begin{align*}
+|r|>1&\implies |r|^{N+1}\text{ diverges }\implies
+r^{N+1}\text{ diverges } \\
+&\implies S_N=\frac{\alpha\left(1-r^{N+1}\right)}{1-r} \text{ diverges }
+\iff \sum_{n=0}^\infty\alpha r^n\text{ diverges.}\end{align*}
+\item Case $|r|<1$.
+Again we look at the variable part of the formula for $S_N$.
+It is enough to show that $|r|<1\implies r^{N+1}$ converges.
+One method is to use the sandwich theorem. In the
+argument below, note that $|r|<1\implies|r|\in(0,1)
+\implies |r|^{N+1}\longrightarrow0$.  The relevant
+sandwich theorem application is then (as $N\to\infty$):\footnote{%
+%%% FOOTNOTE
+Recall that for any $x\in\Re$, we have $-|x|\le x\le |x|$.
+%%% END FOONOTE
+}
+\begin{center}
+\begin{pspicture}(0,2)(8.7,4.5)
+\rput[l](0,4){$\underbrace{-|r|^{N+1}}=-\left|r^{N+1}\right|$}
+  \rput[l](3.8,4){$\le$}
+\rput[l](4.6,4){$r^{N+1}$}
+  \rput[l](6.2,4){$\le$}
+\rput[l](7,4){$\left|r^{N+1}\right|=\underbrace{|r|^{N+1}}$}
+\psline{->}(.63,3.5)(.63,2.3)
+\psline{->}(8.99,3.5)(8.99,2.3)
+ \rput(.63,2){0}
+ \rput(9,2){0}
+\end{pspicture}
+\end{center}
+Thus $|r|<1\implies r^{N+1}\longrightarrow 0$ as $N\to\infty$.
+We can conclude that
+$$|r|<1\implies
+S_N=\frac{\alpha\left(1-r^{N+1}\right)}{1-r}
+   \longrightarrow \frac{\alpha(1-0)}{1-r}=\frac{\alpha}{1-r}
+\text{ (as }N\to\infty).$$
+\end{itemize}
+This completes the proof.
+\end{proof}
+The implication above is worth repeating in a summarized form:
+\begin{equation}
+|r|<1\implies\sum_{n=0}^\infty\alpha r^n=\frac{\alpha}{1-r}.
+\label{|r|<1ImpliesSumOfGeometricSeries}\end{equation}
+\bex Here are some series computations using 
+   the theorem and (\ref{|r|<1ImpliesSumOfGeometricSeries}).
+\begin{itemize}
+\item $\ds{\sum_{n=0}^\infty 2\left(\frac13\right)^n
+   =\frac2{1-\frac13}=\frac2{\frac23}=2\cdot\frac32=3}$.  
+   \qquad($\alpha=2$, $r=\frac13$.)
+\item $\ds{\sum_{n=0}^\infty0.99^n=\frac1{1-0.99}=\frac1{.01}=100}$.
+   \qquad($\alpha=1$, $r=0.99$.)
+\item $\ds{\sum_{n=0}^\infty 1.01^n}$ diverges.\qquad
+   ($\alpha=1$, $r=1.01$ so $|r|>1$, and the series diverges.)
+\item $\ds{\sum_{n=2}^\infty\frac1{3^n}=\frac{\frac19}{1-\frac13}
+    =\frac{\frac19}{\frac23}=\frac19\cdot\frac32=\frac16}$.
+    \qquad(First term is $\alpha=\frac19$, $r=\frac13$.)
+\item $\ds{1-\frac12+\frac14-\frac18+\frac{1}{16}-\cdots
+       =\frac1{1-\left(\frac{-1}2\right)}=\frac1{\frac32}=\frac23}$.
+     \qquad($\alpha=1$, $r=-\frac12$.)
+\item $\ds{\sum_{n=1}^\infty e^{-n}=\frac{e}{1-\frac1e}
+           =\frac{e}{1-\frac1e}\cdot\frac{e}e=\frac{e^2}{e-1}}$.
+     \qquad($\alpha=e$, $r=\frac1e$.)
+\item $\ds{\sum_{n=1}^\infty\frac5{3^{2n}}
+       =\sum_{n=1}^\infty\frac5{9^n}=\frac{5/9}{1-\frac19}
+       =\frac{5/9}{8/9}=\frac58.}$
+       \qquad($\alpha=\frac59$, $r=\frac19.$)
+\end{itemize}
+
+
+
+\eex
+
+
+
+
+
+
+
+\newpage
+\begin{center}
+\underline{\Large{\bf Exercises}}\end{center}
+
+\begin{multicols}{2}
+
+\begin{enumerate}
+\item Show that the following series can be
+      written as a telescoping series, and discuss
+      its convergence: $$\sum_{n=1}^{\infty}\ln\left(\frac{n}{n+1}\right).$$
+\item Give an alternative proof of the formula (\ref{SnForGeometric})
+      for the partial sums of geoemtric series.
+      For this new proof, begin with the formula for $S_N$ as
+      in the original proof (page~\pageref{SnForGeometric}),
+      and then multiply by $(1-r)$, noting how the right-hand side
+      simplifies.  (See also page~\pageref{aN-bN})
+      
+
+
+
+\end{enumerate}
+\vfill
+\end{multicols}
+\eject
+
+
+\section{Elementary Test for Divergence}
+Because it is the exceptional case (e.g., geometric, telescoping)
+that we can actually find a compact
+formula for $S_N$, we have to develop other tests for the convergence
+or divergence of series.  There will be several such tests, and
+which particular test or tests are expeditious and conclusive 
+will vary from series to series.  We explore the first of those
+tests in this section.  We start with a theorem.
+
+\begin{theorem} Given a series $\ds{\sum_{n=k}^\infty a_n}$.
+If the series converges, then $a_n\longrightarrow0$ as $n\to\infty$:
+\begin{equation}
+\left[\sum_{n=k}^\infty a_n\text{ converges }\right]\implies
+\left[\lim_{n\to\infty}a_n=0\right].
+\label{SeriesConvergesImpliesTermsShrinkToZero}
+\end{equation}
+\label{SeriesConvergesImpliesTermsShrinkToZeroTheorem}\end{theorem}
+It should be intuitively clear that, if we are going to ``add up''
+infinitely many terms, and have the sums approach a finite number, 
+then the  
+terms we are adding are going to have to shrink to zero.  
+The proof uses the fact
+that $S_n\to L\implies S_{n-1}\to L$, the latter limit occurring
+``one step behind'' the former, but occurring nonetheless
+since $n\to\infty\implies n-1\to\infty\implies S_{n-1}\to L$.
+Now to the proof.
+
+\begin{proof}
+Suppose $\ds{\sum_{n=k}^\infty a_n}$ converges, i.e.,
+$\ds{\sum_{n=k}^\infty a_n=L}$ for some $L\in\Re$
+(and in particular $L$ is finite).
+Then by definition
+$$S_N\longrightarrow L\text{ as }N\to\infty.$$
+Now recall $S_{n}=a_n+S_{n-1}$, so that $a_n=S_n-S_{n-1}$.
+Taking $n\to\infty$ we get
+$$a_n=S_n-S_{n-1}\longrightarrow L-L=0,\qquad\text{q.e.d.}$$
+\end{proof}
+Note that it was important that $L$ be finite in the limit
+computation above.  For instance, if $S_n\to\infty$, we
+would have $a_n=S_n-S_{n-1}$ giving $\infty-\infty$-form 
+(which is indeterminant) as
+$n\to\infty$.
+
+Again, the intuition behind the theorem is that, in order to
+be able to add infinitely many terms---one at a time in the
+sense that we compute $S_k$, $S_{k+1}$, $S_{k+1}$, etc., 
+and look for a trend towards $L$---the terms that we add,
+i.e., $a_k$, $a_{k+1}$, $a_{k+2}$, etc., have to shrink
+if the partial sums are to approach a finite number $L$.
+In fact, the form of the theorem which we use is the
+contrapositive.  Recall
+the logical equivalence $P\longrightarrow Q
+\iff(\sim Q)\longrightarrow(\sim P)$.\footnote{%%%
+%%% FOOTNOTE
+To be sure, here $P\longrightarrow Q$ is read, 
+``$P$ implies $Q$.''  The symbol ``$\sim$'' is still
+the ``not,'' or logical negation, operator.
+The symbol ``$\iff$'' stands in for logical equivalence.
+%%% END FOOTNOTE
+}
+In this case, $P$ is the statement that the series converges (to 
+a finite number $L$), while $Q$ is the statement that $a_n\to0$.
+The contrapositive for of 
+Theorem~\ref{SeriesConvergesImpliesTermsShrinkToZeroTheorem}
+is our main result in this section, and we dub that result
+{\it Elementary Test for Divergence}, or ETFD:
+\begin{theorem} {\bf (ETFD)}
+If it is {\bf not} the case that $a_n\to0$, then $\ds{\sum_{n=k}^\infty a_n}$
+diverges.
+Put symbolically,
+\begin{equation}
+a_n\not{\!\!\to0}\implies\sum_{n=k}^\infty a_n\text{ diverges.}
+\label{ETFDequation}
+\end{equation}
+\label{ETFD}\end{theorem}
+
+\begin{proof} It is enough to say that this is the contrapositive of 
+Theorem~\ref{SeriesConvergesImpliesTermsShrinkToZeroTheorem},
+and therefore also true.
+One way to write this symbolically is the following.
+$$\underbrace{\sum_{n=k}^\infty a_n\text{ converges }
+\longrightarrow \left(a_n\to 0\right)}_{\text{always true by
+Theorem~\ref{SeriesConvergesImpliesTermsShrinkToZeroTheorem}}}
+\iff
+\underbrace{
+\left[\sim\left(a_n\to 0\right)\right]
+\longrightarrow
+\sum_{n=k}^\infty a_n\text{ diverges}}_{\text{statement of
+Theorem~\ref{ETFD}}}.$$
+The statement on the right must be always true (a tautology),
+since it is equivalent to the statement on the left,
+which---being the statement of  
+Theorem~\ref{SeriesConvergesImpliesTermsShrinkToZeroTheorem}---is
+itself a tautology.  The statement on the right being a 
+tautology means that it stands alone, with ``$[\ ]\implies\sum$''
+replacing ``$[\ ]\longrightarrow\sum$,'' q.e.d.
+\end{proof}
+This theorem is undoubtedly one of 
+the most misunderstood and misapplied results
+in all of Calculus I and II.  It is as important to understand
+what it does not say, as it is to understand what it says.
+The theorem says that if the terms of a series do not 
+shrink to zero, then the series must diverge.  This is 
+``elementary,'' hence the name ``Elementary Test for Divergence.\footnotemark''
+\footnotetext{%%
+%%% FOOTNOTE
+Other texts call this the {\it $n$th term test}, or 
+the {\it $n$th term test for divergence}, for reasons which should be
+clear.  The author is not aware if any other text calls
+it the elementary test for divergence.  However, both names
+are descriptive enough that one is not likely to be misunderstood
+in conversation or written reports if using either name for
+this result.}
+%%% END FOOTNOTE
+
+But it is not as comprehensive as one might think.  Afterall,
+if the terms of a series {\it do} shrink to zero, the 
+theorem is silent!  (Therein lies the unfortunately
+very common mistake made by Calculus Students.)
+To emphasize this we look at the following examples.
+
+\bex Discuss what Theorem~\ref{ETFD} has to say about
+the series \newline
+(a) $\ds{\sum_{n=1}^\infty\frac{n}{n+1}}$;\hfill
+(b) $\ds{\sum_{n=1}^\infty\frac1{n+1}}$\hfill
+(c) $\ds{\sum_{n=1}^\infty\cos\frac1{n}}$;\hfill
+(d) $\ds{\sum_{n=1}^\infty\sin\frac1{n}}$;\hfill
+(e) $\ds{\sum_{n=1}^\infty\sin\frac1{n^2}}$.
+
+\underline{Solution}: 
+\begin{enumerate}[(a)]
+\item $\ds{\frac{n}{n+1}\longrightarrow1\ne0
+        \overset{\text{\rm ETFD}}{\implies}
+           \sum_{n=1}^\infty \frac{n}{n+1}}$ diverges.
+\item $\ds{\frac1{n+1}\longrightarrow}$.  The 
+      ETFD is inconclusive.
+\item $\ds{\cos\frac1n\longrightarrow\cos0=1\ne0
+        \overset{\text{\rm ETFD}}{\implies}
+        \sum_{n=1}^\infty\cos\frac1{n}}$ diverges.
+\item $\ds{\sin\frac1n\longrightarrow\sin0=0}$.
+       The ETFD is inconclusive.
+\item $\ds{\sin\frac1{n^2}\longrightarrow\sin0=0}$.
+       The ETFD is inconclusive. 
+\end{enumerate}
+\eex
+
+Looking closely at the symbolic statement of ETFD given
+in (\ref{ETFDequation}), we see that there is never an 
+implication of convergence.  Indeed, the test either concludes 
+divergence, or is inconclusive.  This is a very quick but incomplete test,
+which can only detect divergence in certain (still common) circumstances,
+namely that $a_n\not{\!\!\to}0$.
+
+Indeed, in (a) and (c) above, ETFD gave us divergence.
+However, it said nothing in (b), (d) and (e), as the
+``if'' part of the theorem was not true.  In fact,
+of these three in which ETFD is silent---(b), (d) and (e)---it
+turns out that $(b)$ and $(d)$ are divergent, while
+$(e)$ is convergent.  The methods to see this are introduced
+in later sections.  An example from the exercises
+in the last section gives a case where we can in fact
+show that it is possible that $a_n\to0$, but the series diverges:
+\bex Consider the series 
+$\ds{\sum_{n=1}^\infty\ln\left(\frac{n}{n+1}\right)}$.
+Determine if it converges or diverges.
+
+\underline{Solution}: First we note ${\ln\left(\frac{n}{n+1}\right)
+\longrightarrow\ln1=0}$ as $n\to\infty$.  Thus ETFD is inconclusive.\footnote{
+%%% FOOTNOTE
+Some textbooks would write that the test ``fails.''
+That seems a bit strong.  It is merely inconclusive, so we need
+to look deeper at the particular series and perhaps employ some other test
+which will be conclusive.}
+%%% END FOOTNOTE
+
+Looking closer at this series, we should eventually notice that
+it is telescoping.  This becomes clear
+if we rewrite it:
+$$\sum_{n=1}^\infty\left[\ln(n)-\ln(n+1)\right]
+  =\left[\ln 1-\ln 2\right]+\left[\ln-\ln3\right] 
+    +\left[\ln 3-\ln 4\right]+\cdots.$$
+It is not difficult to see that $S_N=\ln1-\ln N=-\ln N$,
+and thus
+$$S_N=-\ln N\longrightarrow-\infty\text{ as }N\to\infty.$$
+Since the partial sums diverge, by definition so does the series.
+\eex 
+
+On the other hand, there are series which converge.  However the ETFD
+is not powerful enough to ever prove it.  Rather than risking confusion
+by elaborating this point further, we will end the discussion here.
+
+\newpage\section{The Integral Test for Convergence/Divergence}
+
+
+

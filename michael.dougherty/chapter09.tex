@@ -1,0 +1,272 @@
+%\setcounter{page}{1000}
+\chapter{Improper Integrals and Advanced Limit Techniques
+\label{ImpropIntsChapter}}
+In this chapter we will develop some more advanced techniques for
+computing limits.  In the first section, we will look at many
+nonindeterminate forms.  In the next section we compute many limits 
+of indeterminate forms $0/0$ or $\infty/\infty$ using a very 
+useful---but not universal---technique known as L\^opital's Rule.
+Next we look at other indeterminate forms, revisiting
+$\infty-\infty$ and $0\cdot\infty$, and
+introducing for the first time  $(0^+)^0$,
+$\infty^0$, and $(1^+)^\infty$ using a simple twist on the  
+L\^opital's Rule.\footnote{%%%
+%%% FOOTNOTE
+Other texts are usually not so refined, instead calling these forms
+$0^0$, $\infty^0$ (as we do), and $1^{\infty}$.  With the technique
+we will develop, it will in fact not be necessary to notice the
+form sinc the first steps of the method do not rely upon the
+form at all.
+%%% END FOOTNOTE
+} Finally we apply these and previous methods
+to so-called {\it improper integrals}, meaning those for 
+which we relax the rules that the integrand must be a continuous
+function $f(x)$ on a closed and bounded interval $[a,b]$. 
+Examples of useful integrals which break these rules include
+$$\int_{-2}^2\frac1{x^{2/3}}\,dx,\qquad
+\int_0^1\ln x\,dx,\qquad
+\int_1^\infty\frac1{x^2}\,dx,\qquad
+\int_{-\infty}^\infty\frac1{x^2+1}\,dx,
+$$
+and others.  In all of the above, either the function is not
+continuous in the entire range $[a,b]$ of values
+for $x$, or those ``limits of integration'' $a$ and $b$ are
+not finite.  We will eventually make sense of such integrals by 
+intuitive approaches which will require all of our previous limit
+methods 
+
+\section{Some Asymptotics of Functions}
+
+It will be important to be able to spot the ``forms'' of the limits 
+we will encounter in this chapter and beyond.  This was also the case in
+Chapter~\ref{LimitsAndContinuityChapter}, but we have encountered
+many more functions since then.  
+
+In this section we first take note of the behaviors of functions
+near vertical asymptotes, and as $|x|\to\infty$.  This behavior
+we will collectively call the {\it asymptotics} of a given
+function.  In our first 
+subsection we will look at particular functions.  Then we will
+look at compositions and combinations of these functions, in
+cases where we can read the behavior of these more complicated
+functions as following from the behaviors of the underlying functions.
+
+\begin{figure}
+\begin{center}
+
+\begin{pspicture}(-3.5,-2)(3.5,4.5)
+\psaxes{<->}(0,0)(-3.5,-1)(3.5,4.5)
+\psplot[plotpoints=1000]{-3.5}{1.5}{2.718281828 x exp}
+\rput(0,-1.3){Figure \ref{GrOfFun4AsyBeh}.a: Graph of $y=e^x$}
+\end{pspicture}
+\hfill
+\begin{pspicture}(-3.5,-4.5)(3.5,2)
+\psaxes{<->}(0,0)(-3.5,-3.5)(3.5,2)
+\psplot[plotpoints=1000]{.030197383}{3.5}{x log 0.434294482 div}
+\rput(0,-3.8){Figure \ref{GrOfFun4AsyBeh}.b: Graph of $y=\ln x$}
+\end{pspicture}
+\vfill
+
+
+\begin{pspicture}(-3.5,-3.5)(3.5,3)
+\psset{xunit=1.5cm,yunit=1.5cm}
+\psaxes[Dy=10]{<->}(0,0)(-2,-2)(2,2)
+\parametricplot[plotpoints=1000]{-1.570796327}{1.570796327}%
+{t 3.1415926536 div 180 mul sin t}
+\psline(-.1,1.570796)(.1,1.570796)
+  \rput(-.4,1.570796){$\pi/2$}
+\psline(-.1,-1.570796)(.1,-1.570796)
+  \rput(-.5,-1.570796){$-\pi/2$}
+\pscircle*(-1,-1.570796){.05}
+\pscircle*(1,1.570796){.05}
+
+\rput(0,-2.2){Figure \ref{GrOfFun4AsyBeh}.c: Graph of $y=\sin^{-1}x$}
+\end{pspicture}
+\hfill
+\begin{pspicture}(-3.5,-1)(3.5,5.5)
+\psset{xunit=1.5cm,yunit=1.5cm}
+\psaxes[Dy=10]{<->}(0,0)(-2,-.3334)(2,3.66666666666667)
+\parametricplot[plotpoints=1000]{0}{3.141592654}%
+{t 3.1415926536 div 180 mul cos t}
+\psline(-.1,1.570796)(.1,1.570796)
+  \rput(-.4,1.570796){$\pi/2$}
+\psline(-.1,3.1415926535)(.1,3.1415926535)
+  \rput(-.3,3.1415926535){$\pi$}
+\pscircle*(1,0){.05}
+\pscircle*(-1,3.1415926535){.05}
+
+\rput(0,-.5344)%
+{Figure \ref{GrOfFun4AsyBeh}.d: Graph of $y=\cos^{-1}x$}
+\end{pspicture}
+
+
+\vfill
+
+\begin{pspicture}(-3.5,-3)(3.5,3)
+\psset{xunit=.5cm,yunit=.75}
+\psaxes[Dx=10,Dy=10]{<->}(0,0)(-7,-3)(7,3)
+\parametricplot[plotpoints=1000]{-1.428899272}{1.428899272}%
+{t 3.1415926536 div 180 mul sin %
+t 3.1415926536 div 180 mul cos div t}
+\psline(-.2,1.570796)(.2,1.570796)
+  \rput(3.5,1.8){$y=\pi/2$}
+\psline(-.2,-1.570796)(.2,-1.570796)
+  \rput(-3.5,-2){$y=-\pi/2$}
+
+\rput(0,-3.5){Figure \ref{GrOfFun4AsyBeh}.e: Graph of $y=\tan^{-1}x$}
+
+\psline[linestyle=dashed](-7,-1.570796)(7,-1.570796)
+\psline[linestyle=dashed](-7,1.570796)(7,1.570796)
+
+
+\end{pspicture}
+\hfill
+\begin{pspicture}(-3.5,-1.5)(3.5,4.5)
+\psset{xunit=.5cm,yunit=.75}
+\psaxes[Dx=10,Dy=10]{<->}(0,0)(-7,-1)(7,5)
+\parametricplot[plotpoints=1000]{0}{1.428899272}%
+{1 t 3.1415926536 div 180 mul cos div  t}
+\parametricplot[plotpoints=1000]{1.714143896}{3.1415926535}%
+{1 t 3.1415926536 div 180 mul cos div  t}
+
+
+\psline(-.2,1.570796)(.2,1.570796)
+  \rput(3.5,1.8){$y=\pi/2$}
+
+
+\rput(0,-1.5){Figure \ref{GrOfFun4AsyBeh}.f: Graph of $y=\sec^{-1}x$}
+\psline[linestyle=dashed](-7,1.570796)(7,1.570796)
+
+\psline(-1,-.2)(-1,.2)
+  \rput(-1,-.8){$-1$}
+  \pscircle*(-1,3.1415926535){.05}
+\psline(1,-.2)(1,.2)
+  \rput(1,-.8){$1$}
+  \pscircle*(1,0){.05}
+\psline(-.3,3.1415926353)(.3,3.1415926353)
+   \rput(.5,3.1415926535){$\pi$}
+
+\end{pspicture}
+\end{center}
+\vfill
+
+\caption{Some graphs of important functions, illustrating 
+         asymptotic behaviors.}
+\label{GrOfFun4AsyBeh}\end{figure}
+
+The functions in Figure~\ref{GrOfFun4AsyBeh} have all been 
+encountered earlier in the text.  Taking these functions in turn, we 
+now list  of their asymptotic and other limiting
+behaviors, which we can read off of the
+graphs.  
+\newpage
+\begin{enumerate} 
+\item $e^x$:
+   \begin{enumerate}
+   \item $x\to\infty\implies e^x\to\infty$
+   \item $x\to-\infty\implies e^x\to0^+$
+   \end{enumerate}
+\item $\ln x$ (note the relationship between this and $e^x$, 
+   which is the inverse of $\ln x$):
+   \begin{enumerate}
+   \item $x\to\infty\implies\ln x\to\infty$
+   \item $x\to0^+\implies\ln x\to-\infty$
+   \end{enumerate}
+\item $\sin^{-1}x$:
+   \begin{enumerate}
+   \item $x\to-1^+\implies\sin^{-1}x\to\left(-\frac{\pi}{2}\right)^+$
+   \item $x\to1^-\implies\sin^{-1}x\to\left(\frac{\pi}{2}\right)^-$
+   \end{enumerate}
+\item $\cos^{-1}x$:
+   \begin{enumerate}
+   \item $x\to-1^+\implies\cos^{-1}x\to\pi^-$
+   \item $x\to1^-\implies\cos^{-1}x\to0^+$
+   \end{enumerate}
+\item $\tan^{-1}x$:
+   \begin{enumerate}
+   \item $x\to-\infty\implies\tan^{-1}x\to\left(-\frac{\pi}2\right)^+$
+   \item $x\to\infty\implies\tan^{-1}x\to\left(\frac{\pi}2\right)^-$
+   \end{enumerate}
+\item $\sec^{-1}x$:
+   \begin{enumerate}
+   \item $x\to-\infty\implies\sec^{-1}x\to\left(\frac{\pi}2\right)^+$
+   \item $x\to\infty\implies\sec^{-1}x\to\left(\frac{\pi}2\right)^-$
+   \end{enumerate}
+\end{enumerate}
+%\newpage
+
+%\begin{align}
+%x\to\infty&\implies e^x\to\infty\\
+%x\to-\infty&\implies e^x\to0^+\\
+%\notag\\
+%x\to\infty&\implies\ln x\to\infty\\
+%x\to0^+&\implies\ln x\to-\infty\\
+%\notag\\
+%x\to1^-&\implies\sin^{-1}x\to\left(\frac{\pi}2\right)^-\\
+%x\to-1^+&\implies\sin^{-1}x\to\left(-\frac{\pi}2\right)^+\\
+%\notag\\
+%x\to1^-&\implies\cos^{-1}x\to\pi^-\\
+%x\to-1^+&\implies\cos^{-1}x\to0^+\\
+%\notag\\
+%x\to\infty&\implies\tan^{-1}x\to\left(\frac{\pi}{2}\right)^-\\
+%x\to-\infty&\implies\tan^{-1}x\to\left(-\frac{\pi}2\right)^+\\
+%\notag\\
+%x\to\infty&\implies\sec^{-1}x\to\left(\frac{\pi}2\right)^-\\
+%x\to-\infty&\implies\sec^{-1}x\to\left(\frac{\pi}2\right)^+
+%\end{align}
+
+The above limiting behaviors are all clear from the graphs.
+We can now apply these to more complicated limits where relevant.
+We now consider some examples.
+\begin{align*}
+\lim_{x\to\infty}\tan^{-1}(\ln x)&\overset{\tan^{-1}\infty}{\lllongeq}
+                                  \frac{\pi}2,\\
+\lim_{x\to0^+}\tan^{-1}(\ln x)&\overset{\tan^{-1}(-\infty)}{\lllongeq}
+                                   -\frac{\pi}2.
+\end{align*}
+When looking at these combinations of functions, it is important
+to look ``inside-out'' to see how the ``inner'' and ``component''
+functions behave in the limit.  To emphasize this, we will sometimes
+illustrate computations such as the above in ways such as the
+following:
+\begin{align*}
+\lim_{x\to\infty}\tan^{-1}(\underbrace{\ln x}_{\begin{array}{cc}
+     \downarrow\\ \infty\end{array}})=\frac{\pi}2,\\
+\lim_{x\to0^+}\tan^{-1}(\underbrace{\ln x}_{\begin{array}{cc}
+     \downarrow\\ -\infty\end{array}})=-\frac{\pi}2.
+\end{align*}
+Yet another way to compute these limits is through substitution.
+For instance, in this last limit we can write set 
+$u=\ln x$, so that $x\to0^+\implies u\to-\infty$ properly
+(see Definition~\ref{DefOfX->A=>U->BProperly}, 
+page~\pageref{DefOfX->A=>U->BProperly} and its subsequent discussion) and 
+so 
+$$
+\lim_{x\to0^+}\tan^{-1}(\ln x)=\lim_{u\to-\infty}\tan^{-1}u=\frac{-\pi}{2}.$$
+
+Note that neither $\lim_{x\to-\infty}\tan^{-1}(\ln x)$ nor
+$\lim_{x\to0^-}\tan^{-1}(\ln x)$ exist, since
+the natural logarithm is not defined as $x$ ``travels the
+path'' prescribed by the limit.
+
+Many of the limits which occur naturally in subsequent sections
+are compositions of functions as above.  We will consider a few
+more of these before moving on to limiting behaviors of
+other combinations (products, quotients, etc.) of functions.
+
+\section{L'H\^opital's Rule\label{LHRSection}}
+
+In this section we introduce a very powerful technique for 
+computing limits of the forms $0/0$ and $\infty/\infty$,
+and their variations.\footnote{%%%
+%%% FOOTNOTE
+By variations we mean that, for instance, $0^+/0^-$, $\infty/(-\infty)$,
+etc.
+%%% END FOOTNOTE
+}
+
+ 
+
+
+\section{Other Indeterminant Forms}
+
